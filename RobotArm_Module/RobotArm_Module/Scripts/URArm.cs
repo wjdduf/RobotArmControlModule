@@ -10,6 +10,11 @@ namespace RobotArm_Module
             Debug.Log($"URArm ip - {ip} :: port - {port}");
         }
 
+        public override void DisConnect()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void MoveToPosition(Vector3 position, eJointType type = eJointType.None)
         {
             Debug.Log($"URArm position - {position} :: type - {type}");
