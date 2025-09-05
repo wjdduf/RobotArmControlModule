@@ -53,17 +53,23 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Scripts\Data\Data.cs" />
+    <Compile Include="Scripts\Data\DataContainer.cs" />
     <Compile Include="Scripts\Data\MeasurementTargetData.cs" />
+    <Compile Include="Scripts\Data\URInterface.cs" />
     <Compile Include="Scripts\Interface\IConnect.cs" />
     <Compile Include="Scripts\Interface\IMove.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\Interface\ISafety.cs" />
     <Compile Include="Scripts\RainbowRoboticsArm.cs" />
     <Compile Include="Scripts\RobotArm.cs" />
     <Compile Include="Scripts\RobotArmBuilder.cs" />
     <Compile Include="Scripts\RobotArmController.cs" />
     <Compile Include="Scripts\URArm.cs" />
     <Compile Include="Scripts\Utill\Debug.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

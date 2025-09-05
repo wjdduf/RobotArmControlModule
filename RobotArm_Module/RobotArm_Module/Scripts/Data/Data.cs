@@ -48,6 +48,19 @@ namespace RobotArm_Module
         public string seatID;
     }
 
+    public class RobotArmConfig
+    {
+        public string IP = "192.168.1.40";
+    }
+
+    public class URConfig : RobotArmConfig
+    {
+
+        public int DASHBOARD_PORT = 29999;
+        public int SECONDARY_PORT = 30002;
+        public int INTERPRETER_PORT = 30020;
+    }
+
 
     #endregion
 

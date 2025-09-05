@@ -27,9 +27,14 @@ namespace RobotArm_Module
             IMove = RobotArmBuilder.CurrentRobotArm;
         }
 
-        public void Connect(string ip, string port)
+        public bool Connect(string ip)
         {
-            IConnect.Connect(ip, port);
+            return IConnect.Connect(ip);
+        }
+
+        public bool DisConnect()
+        {
+            return IConnect.DisConnect();
         }
 
         public void MoveToPosition(Vector3 position, eJointType type = eJointType.None)
@@ -41,6 +46,10 @@ namespace RobotArm_Module
         {
             IMove.MoveToRotation(rotation, type);
 
+        }
+        public void MoveToPreset(Vector3 position, Vector3 rotation)
+        {
+            IMove.MoveToPreset(position, rotation);
         }
     }
 }

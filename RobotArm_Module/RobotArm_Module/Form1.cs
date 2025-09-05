@@ -16,8 +16,9 @@ namespace RobotArm_Module
 
         public Form1()
         {
-            InitializeComponent();
             Start();
+
+            InitializeComponent();
         }
 
 
@@ -28,9 +29,48 @@ namespace RobotArm_Module
             RobotArmController.Initialize(eRobotArmType.UR);
 
             //TestCode
-            RobotArmController.Connect("12355", "12355");
-            RobotArmController.MoveToPosition(new Vector3(1, 1, 1));
+            //RobotArmController.Connect("192.168.1.40", 29999);
+            //RobotArmController.MoveToPosition(new Vector3(1, 1, 1));
 
         }
+
+        private void PowerOn_Click(object sender, EventArgs e)
+        {
+            RobotArmController.Connect(DataContainer.Instance.URConfig.IP);
+
+        }
+
+        private void PowerOff_Click(object sender, EventArgs e)
+        {
+            RobotArmController.DisConnect();
+        }
+
+
+        private void MoveToFront_Click(object sender, EventArgs e)
+        {
+            RobotArmController.MoveToPreset(new Vector3(-0.151f, 0.601f, 0.651f), new Vector3(0, 0, 6));
+        }
+
+        
+        private void MoveToBack_Click(object sender, EventArgs e)
+        {
+            RobotArmController.MoveToPreset(new Vector3(-0.151f, 0.301f, 0.651f), new Vector3(0, 0, 6));
+
+
+        }
+
+        private void MoveToFront2_Click(object sender, EventArgs e)
+        {
+            RobotArmController.MoveToPreset(new Vector3(-0.151f, 0.601f, 0.651f), new Vector3(0.4f, -2.3f, -2.3f));
+
+        }
+
+        private void MoveToBack_Click2(object sender, EventArgs e)
+        {
+            RobotArmController.MoveToPreset(new Vector3(-0.151f, 0.301f, 0.651f), new Vector3(0.4f, -2.3f, -2.3f));
+
+        }
+
+
     }
 }

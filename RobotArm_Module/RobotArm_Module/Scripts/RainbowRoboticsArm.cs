@@ -8,13 +8,14 @@ namespace RobotArm_Module
 		{
 		}
 
-        public override void Connect(string ip, string port)
+        public override bool Connect(string ip)
         {
             //연결 관련 코드 구현
-            Debug.Log($"Rainbow ip - {ip} :: port - {port}");
+            Debug.Log($"Rainbow ip - {ip}");
+            return true;
         }
 
-        public override void DisConnect()
+        public override bool DisConnect()
         {
             throw new NotImplementedException();
         }
@@ -25,10 +26,20 @@ namespace RobotArm_Module
 
         }
 
+        public override void MoveToPreset(Vector3 position, Vector3 rotation)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void MoveToRotation(Vector3 rotation, eJointType type = eJointType.None)
         {
             Debug.Log($"Rainbow rotation - {rotation} :: type - {type}");
 
+        }
+
+        public override void ShutDown()
+        {
+            throw new NotImplementedException();
         }
     }
 }
