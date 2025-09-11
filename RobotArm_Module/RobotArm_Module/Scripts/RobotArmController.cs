@@ -8,7 +8,7 @@ namespace RobotArm_Module
 {
     public class RobotArmController
     {
-        private RobotArmBuilder RobotArmBuilder;
+        public RobotArmBuilder RobotArmBuilder;
 
         private IConnect IConnect;
         private IMove IMove;
@@ -37,19 +37,38 @@ namespace RobotArm_Module
             return IConnect.DisConnect();
         }
 
-        public void MoveToPosition(Vector3 position, eJointType type = eJointType.None)
+        public void MoveToPosition(float speed, eDirection direction)
         {
-            IMove.MoveToPosition(position, type);
+            IMove.MoveToPosition(speed, direction);
         }
 
-        public void MoveToRotation(Vector3 rotation, eJointType type = eJointType.None)
+        public void MoveToRotation(float speed, eRotationAxis axis)
         {
-            IMove.MoveToRotation(rotation, type);
-
+            IMove.MoveToRotation(speed, axis);
         }
+
         public void MoveToPreset(Vector3 position, Vector3 rotation)
         {
             IMove.MoveToPreset(position, rotation);
+        }
+
+        public void Move()
+        {
+            IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation);
+        }
+        public void MoveToJoint(float speed, bool isUp, eJointType type)
+        {
+            IMove.MoveToJoint(speed, isUp, type);
+        }
+
+        public void JointRotation(float angle, eJointType type)
+        {
+            IMove.JointRotation(angle, type);
+        }
+
+        public void Stop()
+        {
+            IMove.Stop();
         }
     }
 }

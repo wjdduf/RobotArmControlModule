@@ -10,7 +10,7 @@ namespace RobotArm_Module
     {
         public static void Log(string text)
         {
-            System.Diagnostics.Debug.WriteLine(text);
+            System.Diagnostics.Debug.WriteLine(text + "\n");
         }
     }
 }

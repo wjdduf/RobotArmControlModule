@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace RobotArm_Module
 {
     partial class Form1
@@ -36,67 +38,131 @@ namespace RobotArm_Module
             this.MoveToBack2 = new System.Windows.Forms.Button();
             this.MoveToFront2 = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.button1 = new System.Windows.Forms.Button();
+            this.CurPosX_TextBox = new System.Windows.Forms.TextBox();
+            this.CurrentPosTitle = new System.Windows.Forms.Label();
+            this.CurPosX_Text = new System.Windows.Forms.Label();
+            this.CurPosY_Text = new System.Windows.Forms.Label();
+            this.CurPosY_TextBox = new System.Windows.Forms.TextBox();
+            this.CurPosZ_Text = new System.Windows.Forms.Label();
+            this.CurPosZ_TextBox = new System.Windows.Forms.TextBox();
+            this.CurRotX_Text = new System.Windows.Forms.Label();
+            this.CurRotX_TextBox = new System.Windows.Forms.TextBox();
+            this.CurRotY_Text = new System.Windows.Forms.Label();
+            this.CurRotY_TextBox = new System.Windows.Forms.TextBox();
+            this.CurRotZ_Text = new System.Windows.Forms.Label();
+            this.CurRotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.SetRotZ_Text = new System.Windows.Forms.Label();
+            this.SetRotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.SetRotY_Text = new System.Windows.Forms.Label();
+            this.SetRotY_TextBox = new System.Windows.Forms.TextBox();
+            this.SetRotX_Text = new System.Windows.Forms.Label();
+            this.SetRotX_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPosZ_Text = new System.Windows.Forms.Label();
+            this.SetPosZ_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPosY_Text = new System.Windows.Forms.Label();
+            this.SetPosY_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPosX_Text = new System.Windows.Forms.Label();
+            this.SetPosTitle = new System.Windows.Forms.Label();
+            this.SetPosX_TextBox = new System.Windows.Forms.TextBox();
+            this.button2f = new System.Windows.Forms.Button();
+            this.ZPositive_Button = new System.Windows.Forms.Button();
+            this.ZNegative_Button = new System.Windows.Forms.Button();
+            this.XNegative_Button = new System.Windows.Forms.Button();
+            this.XPositive_Button = new System.Windows.Forms.Button();
+            this.YPositive_Button = new System.Windows.Forms.Button();
+            this.YNegative_Button = new System.Windows.Forms.Button();
+            this.Position_Radio_Button = new System.Windows.Forms.RadioButton();
+            this.Rotation_Radio_Button = new System.Windows.Forms.RadioButton();
+            this.ArrowGroupBox = new System.Windows.Forms.GroupBox();
+            this.Speed_Textbox = new System.Windows.Forms.TextBox();
+            this.SpeedLabel = new System.Windows.Forms.Label();
+            this.Joint_ComboBox = new System.Windows.Forms.ComboBox();
+            this.RotationJoint_Button = new System.Windows.Forms.Button();
+            this.JointAngleDown_Button = new System.Windows.Forms.Button();
+            this.JointAngleUp_Button = new System.Windows.Forms.Button();
+            this.JointAngle_TextBox = new System.Windows.Forms.TextBox();
+            this.Wrist3Joint_Label = new System.Windows.Forms.Label();
+            this.CurWrist3_Textbox = new System.Windows.Forms.TextBox();
+            this.Wrist2Joint_Label = new System.Windows.Forms.Label();
+            this.CurWrist2_Textbox = new System.Windows.Forms.TextBox();
+            this.Wrist1Joint_Label = new System.Windows.Forms.Label();
+            this.CurWrist1_Textbox = new System.Windows.Forms.TextBox();
+            this.ElbowJoint_Label = new System.Windows.Forms.Label();
+            this.CurElbow_Textbox = new System.Windows.Forms.TextBox();
+            this.ShoulderJoint_Label = new System.Windows.Forms.Label();
+            this.CurShoulder_TextBox = new System.Windows.Forms.TextBox();
+            this.BaseJoint_Label = new System.Windows.Forms.Label();
+            this.CurrentJoint_Label = new System.Windows.Forms.Label();
+            this.CurBase_Textbox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            this.ArrowGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // MoveToFront
             // 
-            this.MoveToFront.Location = new System.Drawing.Point(479, 12);
+            this.MoveToFront.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.MoveToFront.Location = new System.Drawing.Point(642, 382);
             this.MoveToFront.Name = "MoveToFront";
-            this.MoveToFront.Size = new System.Drawing.Size(300, 102);
+            this.MoveToFront.Size = new System.Drawing.Size(70, 30);
             this.MoveToFront.TabIndex = 0;
             this.MoveToFront.Text = "앞";
-            this.MoveToFront.UseVisualStyleBackColor = true;
+            this.MoveToFront.UseVisualStyleBackColor = false;
             this.MoveToFront.Click += new System.EventHandler(this.MoveToFront_Click);
             // 
             // MoveToBack
             // 
-            this.MoveToBack.Location = new System.Drawing.Point(479, 120);
+            this.MoveToBack.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.MoveToBack.Location = new System.Drawing.Point(718, 382);
             this.MoveToBack.Name = "MoveToBack";
-            this.MoveToBack.Size = new System.Drawing.Size(300, 92);
+            this.MoveToBack.Size = new System.Drawing.Size(70, 30);
             this.MoveToBack.TabIndex = 1;
             this.MoveToBack.Text = "뒤";
-            this.MoveToBack.UseVisualStyleBackColor = true;
+            this.MoveToBack.UseVisualStyleBackColor = false;
             this.MoveToBack.Click += new System.EventHandler(this.MoveToBack_Click);
             // 
             // PowerOn
             // 
+            this.PowerOn.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.PowerOn.Location = new System.Drawing.Point(28, 12);
             this.PowerOn.Name = "PowerOn";
-            this.PowerOn.Size = new System.Drawing.Size(300, 200);
+            this.PowerOn.Size = new System.Drawing.Size(100, 50);
             this.PowerOn.TabIndex = 2;
             this.PowerOn.Text = "연결";
-            this.PowerOn.UseVisualStyleBackColor = true;
+            this.PowerOn.UseVisualStyleBackColor = false;
             this.PowerOn.Click += new System.EventHandler(this.PowerOn_Click);
             // 
             // PowerOff
             // 
-            this.PowerOff.Location = new System.Drawing.Point(28, 225);
+            this.PowerOff.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PowerOff.Location = new System.Drawing.Point(139, 12);
             this.PowerOff.Name = "PowerOff";
-            this.PowerOff.Size = new System.Drawing.Size(300, 200);
+            this.PowerOff.Size = new System.Drawing.Size(100, 50);
             this.PowerOff.TabIndex = 3;
             this.PowerOff.Text = "종료";
-            this.PowerOff.UseVisualStyleBackColor = true;
+            this.PowerOff.UseVisualStyleBackColor = false;
             this.PowerOff.Click += new System.EventHandler(this.PowerOff_Click);
             // 
             // MoveToBack2
             // 
-            this.MoveToBack2.Location = new System.Drawing.Point(479, 333);
+            this.MoveToBack2.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.MoveToBack2.Location = new System.Drawing.Point(718, 418);
             this.MoveToBack2.Name = "MoveToBack2";
-            this.MoveToBack2.Size = new System.Drawing.Size(300, 92);
+            this.MoveToBack2.Size = new System.Drawing.Size(70, 30);
             this.MoveToBack2.TabIndex = 5;
             this.MoveToBack2.Text = "뒤";
-            this.MoveToBack2.UseVisualStyleBackColor = true;
+            this.MoveToBack2.UseVisualStyleBackColor = false;
             this.MoveToBack2.Click += new System.EventHandler(this.MoveToBack_Click2);
             // 
             // MoveToFront2
             // 
-            this.MoveToFront2.Location = new System.Drawing.Point(479, 225);
+            this.MoveToFront2.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.MoveToFront2.Location = new System.Drawing.Point(642, 418);
             this.MoveToFront2.Name = "MoveToFront2";
-            this.MoveToFront2.Size = new System.Drawing.Size(300, 102);
+            this.MoveToFront2.Size = new System.Drawing.Size(70, 30);
             this.MoveToFront2.TabIndex = 4;
             this.MoveToFront2.Text = "앞";
-            this.MoveToFront2.UseVisualStyleBackColor = true;
+            this.MoveToFront2.UseVisualStyleBackColor = false;
             this.MoveToFront2.Click += new System.EventHandler(this.MoveToFront2_Click);
             // 
             // fileSystemWatcher1
@@ -104,11 +170,601 @@ namespace RobotArm_Module
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.button1.Location = new System.Drawing.Point(561, 425);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // CurPosX_TextBox
+            // 
+            this.CurPosX_TextBox.Location = new System.Drawing.Point(86, 98);
+            this.CurPosX_TextBox.Name = "CurPosX_TextBox";
+            this.CurPosX_TextBox.ReadOnly = true;
+            this.CurPosX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurPosX_TextBox.TabIndex = 7;
+            // 
+            // CurrentPosTitle
+            // 
+            this.CurrentPosTitle.AutoSize = true;
+            this.CurrentPosTitle.Location = new System.Drawing.Point(26, 83);
+            this.CurrentPosTitle.Name = "CurrentPosTitle";
+            this.CurrentPosTitle.Size = new System.Drawing.Size(131, 12);
+            this.CurrentPosTitle.TabIndex = 8;
+            this.CurrentPosTitle.Text = "Current Robot Position";
+            // 
+            // CurPosX_Text
+            // 
+            this.CurPosX_Text.AutoSize = true;
+            this.CurPosX_Text.BackColor = System.Drawing.SystemColors.Window;
+            this.CurPosX_Text.Location = new System.Drawing.Point(25, 106);
+            this.CurPosX_Text.Name = "CurPosX_Text";
+            this.CurPosX_Text.Size = new System.Drawing.Size(39, 12);
+            this.CurPosX_Text.TabIndex = 9;
+            this.CurPosX_Text.Text = "Pos X";
+            // 
+            // CurPosY_Text
+            // 
+            this.CurPosY_Text.AutoSize = true;
+            this.CurPosY_Text.Location = new System.Drawing.Point(25, 133);
+            this.CurPosY_Text.Name = "CurPosY_Text";
+            this.CurPosY_Text.Size = new System.Drawing.Size(39, 12);
+            this.CurPosY_Text.TabIndex = 11;
+            this.CurPosY_Text.Text = "Pos Y";
+            // 
+            // CurPosY_TextBox
+            // 
+            this.CurPosY_TextBox.Location = new System.Drawing.Point(86, 125);
+            this.CurPosY_TextBox.Name = "CurPosY_TextBox";
+            this.CurPosY_TextBox.ReadOnly = true;
+            this.CurPosY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurPosY_TextBox.TabIndex = 10;
+            // 
+            // CurPosZ_Text
+            // 
+            this.CurPosZ_Text.AutoSize = true;
+            this.CurPosZ_Text.Location = new System.Drawing.Point(25, 160);
+            this.CurPosZ_Text.Name = "CurPosZ_Text";
+            this.CurPosZ_Text.Size = new System.Drawing.Size(39, 12);
+            this.CurPosZ_Text.TabIndex = 13;
+            this.CurPosZ_Text.Text = "Pos Z";
+            // 
+            // CurPosZ_TextBox
+            // 
+            this.CurPosZ_TextBox.Location = new System.Drawing.Point(86, 152);
+            this.CurPosZ_TextBox.Name = "CurPosZ_TextBox";
+            this.CurPosZ_TextBox.ReadOnly = true;
+            this.CurPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurPosZ_TextBox.TabIndex = 12;
+            // 
+            // CurRotX_Text
+            // 
+            this.CurRotX_Text.AutoSize = true;
+            this.CurRotX_Text.Location = new System.Drawing.Point(179, 108);
+            this.CurRotX_Text.Name = "CurRotX_Text";
+            this.CurRotX_Text.Size = new System.Drawing.Size(35, 12);
+            this.CurRotX_Text.TabIndex = 15;
+            this.CurRotX_Text.Text = "Rot X";
+            // 
+            // CurRotX_TextBox
+            // 
+            this.CurRotX_TextBox.BackColor = System.Drawing.Color.White;
+            this.CurRotX_TextBox.Location = new System.Drawing.Point(220, 97);
+            this.CurRotX_TextBox.Name = "CurRotX_TextBox";
+            this.CurRotX_TextBox.ReadOnly = true;
+            this.CurRotX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurRotX_TextBox.TabIndex = 14;
+            // 
+            // CurRotY_Text
+            // 
+            this.CurRotY_Text.AutoSize = true;
+            this.CurRotY_Text.Location = new System.Drawing.Point(179, 135);
+            this.CurRotY_Text.Name = "CurRotY_Text";
+            this.CurRotY_Text.Size = new System.Drawing.Size(35, 12);
+            this.CurRotY_Text.TabIndex = 17;
+            this.CurRotY_Text.Text = "Rot Y";
+            // 
+            // CurRotY_TextBox
+            // 
+            this.CurRotY_TextBox.Location = new System.Drawing.Point(220, 124);
+            this.CurRotY_TextBox.Name = "CurRotY_TextBox";
+            this.CurRotY_TextBox.ReadOnly = true;
+            this.CurRotY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurRotY_TextBox.TabIndex = 16;
+            // 
+            // CurRotZ_Text
+            // 
+            this.CurRotZ_Text.AutoSize = true;
+            this.CurRotZ_Text.Location = new System.Drawing.Point(179, 161);
+            this.CurRotZ_Text.Name = "CurRotZ_Text";
+            this.CurRotZ_Text.Size = new System.Drawing.Size(35, 12);
+            this.CurRotZ_Text.TabIndex = 19;
+            this.CurRotZ_Text.Text = "Rot Z";
+            // 
+            // CurRotZ_TextBox
+            // 
+            this.CurRotZ_TextBox.Location = new System.Drawing.Point(220, 150);
+            this.CurRotZ_TextBox.Name = "CurRotZ_TextBox";
+            this.CurRotZ_TextBox.ReadOnly = true;
+            this.CurRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurRotZ_TextBox.TabIndex = 18;
+            // 
+            // SetRotZ_Text
+            // 
+            this.SetRotZ_Text.AutoSize = true;
+            this.SetRotZ_Text.Location = new System.Drawing.Point(179, 382);
+            this.SetRotZ_Text.Name = "SetRotZ_Text";
+            this.SetRotZ_Text.Size = new System.Drawing.Size(35, 12);
+            this.SetRotZ_Text.TabIndex = 32;
+            this.SetRotZ_Text.Text = "Rot Z";
+            // 
+            // SetRotZ_TextBox
+            // 
+            this.SetRotZ_TextBox.Location = new System.Drawing.Point(220, 371);
+            this.SetRotZ_TextBox.Name = "SetRotZ_TextBox";
+            this.SetRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetRotZ_TextBox.TabIndex = 31;
+            // 
+            // SetRotY_Text
+            // 
+            this.SetRotY_Text.AutoSize = true;
+            this.SetRotY_Text.Location = new System.Drawing.Point(179, 356);
+            this.SetRotY_Text.Name = "SetRotY_Text";
+            this.SetRotY_Text.Size = new System.Drawing.Size(35, 12);
+            this.SetRotY_Text.TabIndex = 30;
+            this.SetRotY_Text.Text = "Rot Y";
+            // 
+            // SetRotY_TextBox
+            // 
+            this.SetRotY_TextBox.Location = new System.Drawing.Point(220, 345);
+            this.SetRotY_TextBox.Name = "SetRotY_TextBox";
+            this.SetRotY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetRotY_TextBox.TabIndex = 29;
+            // 
+            // SetRotX_Text
+            // 
+            this.SetRotX_Text.AutoSize = true;
+            this.SetRotX_Text.Location = new System.Drawing.Point(179, 329);
+            this.SetRotX_Text.Name = "SetRotX_Text";
+            this.SetRotX_Text.Size = new System.Drawing.Size(35, 12);
+            this.SetRotX_Text.TabIndex = 28;
+            this.SetRotX_Text.Text = "Rot X";
+            // 
+            // SetRotX_TextBox
+            // 
+            this.SetRotX_TextBox.Location = new System.Drawing.Point(220, 318);
+            this.SetRotX_TextBox.Name = "SetRotX_TextBox";
+            this.SetRotX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetRotX_TextBox.TabIndex = 27;
+            // 
+            // SetPosZ_Text
+            // 
+            this.SetPosZ_Text.AutoSize = true;
+            this.SetPosZ_Text.Location = new System.Drawing.Point(25, 381);
+            this.SetPosZ_Text.Name = "SetPosZ_Text";
+            this.SetPosZ_Text.Size = new System.Drawing.Size(39, 12);
+            this.SetPosZ_Text.TabIndex = 26;
+            this.SetPosZ_Text.Text = "Pos Z";
+            // 
+            // SetPosZ_TextBox
+            // 
+            this.SetPosZ_TextBox.Location = new System.Drawing.Point(85, 374);
+            this.SetPosZ_TextBox.Name = "SetPosZ_TextBox";
+            this.SetPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetPosZ_TextBox.TabIndex = 25;
+            // 
+            // SetPosY_Text
+            // 
+            this.SetPosY_Text.AutoSize = true;
+            this.SetPosY_Text.Location = new System.Drawing.Point(25, 354);
+            this.SetPosY_Text.Name = "SetPosY_Text";
+            this.SetPosY_Text.Size = new System.Drawing.Size(39, 12);
+            this.SetPosY_Text.TabIndex = 24;
+            this.SetPosY_Text.Text = "Pos Y";
+            // 
+            // SetPosY_TextBox
+            // 
+            this.SetPosY_TextBox.Location = new System.Drawing.Point(85, 347);
+            this.SetPosY_TextBox.Name = "SetPosY_TextBox";
+            this.SetPosY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetPosY_TextBox.TabIndex = 23;
+            // 
+            // SetPosX_Text
+            // 
+            this.SetPosX_Text.AutoSize = true;
+            this.SetPosX_Text.Location = new System.Drawing.Point(25, 327);
+            this.SetPosX_Text.Name = "SetPosX_Text";
+            this.SetPosX_Text.Size = new System.Drawing.Size(39, 12);
+            this.SetPosX_Text.TabIndex = 22;
+            this.SetPosX_Text.Text = "Pos X";
+            // 
+            // SetPosTitle
+            // 
+            this.SetPosTitle.AutoSize = true;
+            this.SetPosTitle.Location = new System.Drawing.Point(26, 304);
+            this.SetPosTitle.Name = "SetPosTitle";
+            this.SetPosTitle.Size = new System.Drawing.Size(108, 12);
+            this.SetPosTitle.TabIndex = 21;
+            this.SetPosTitle.Text = "Set Robot Position";
+            // 
+            // SetPosX_TextBox
+            // 
+            this.SetPosX_TextBox.Location = new System.Drawing.Point(85, 320);
+            this.SetPosX_TextBox.Name = "SetPosX_TextBox";
+            this.SetPosX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetPosX_TextBox.TabIndex = 20;
+            // 
+            // button2f
+            // 
+            this.button2f.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.button2f.Location = new System.Drawing.Point(28, 400);
+            this.button2f.Name = "button2f";
+            this.button2f.Size = new System.Drawing.Size(100, 23);
+            this.button2f.TabIndex = 33;
+            this.button2f.Text = "SetPosition";
+            this.button2f.UseVisualStyleBackColor = false;
+            this.button2f.Click += new System.EventHandler(this.SetPositionButton);
+            // 
+            // ZPositive_Button
+            // 
+            this.ZPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ZPositive_Button.Location = new System.Drawing.Point(671, 109);
+            this.ZPositive_Button.Name = "ZPositive_Button";
+            this.ZPositive_Button.Size = new System.Drawing.Size(50, 30);
+            this.ZPositive_Button.TabIndex = 34;
+            this.ZPositive_Button.Text = "▲";
+            this.ZPositive_Button.UseVisualStyleBackColor = false;
+            this.ZPositive_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.ZPositive_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // ZNegative_Button
+            // 
+            this.ZNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ZNegative_Button.Location = new System.Drawing.Point(671, 169);
+            this.ZNegative_Button.Name = "ZNegative_Button";
+            this.ZNegative_Button.Size = new System.Drawing.Size(50, 30);
+            this.ZNegative_Button.TabIndex = 35;
+            this.ZNegative_Button.Text = "▼";
+            this.ZNegative_Button.UseVisualStyleBackColor = false;
+            this.ZNegative_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.ZNegative_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // XNegative_Button
+            // 
+            this.XNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.XNegative_Button.Location = new System.Drawing.Point(615, 135);
+            this.XNegative_Button.Name = "XNegative_Button";
+            this.XNegative_Button.Size = new System.Drawing.Size(50, 30);
+            this.XNegative_Button.TabIndex = 36;
+            this.XNegative_Button.Text = "◀";
+            this.XNegative_Button.UseVisualStyleBackColor = false;
+            this.XNegative_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.XNegative_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // XPositive_Button
+            // 
+            this.XPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.XPositive_Button.Location = new System.Drawing.Point(727, 135);
+            this.XPositive_Button.Name = "XPositive_Button";
+            this.XPositive_Button.Size = new System.Drawing.Size(50, 30);
+            this.XPositive_Button.TabIndex = 37;
+            this.XPositive_Button.Text = "▶";
+            this.XPositive_Button.UseVisualStyleBackColor = false;
+            this.XPositive_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.XPositive_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // YPositive_Button
+            // 
+            this.YPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.YPositive_Button.Location = new System.Drawing.Point(615, 93);
+            this.YPositive_Button.Name = "YPositive_Button";
+            this.YPositive_Button.Size = new System.Drawing.Size(50, 30);
+            this.YPositive_Button.TabIndex = 38;
+            this.YPositive_Button.Text = "▲";
+            this.YPositive_Button.UseVisualStyleBackColor = false;
+            this.YPositive_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.YPositive_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // YNegative_Button
+            // 
+            this.YNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.YNegative_Button.Location = new System.Drawing.Point(727, 93);
+            this.YNegative_Button.Name = "YNegative_Button";
+            this.YNegative_Button.Size = new System.Drawing.Size(50, 30);
+            this.YNegative_Button.TabIndex = 39;
+            this.YNegative_Button.Text = "▼";
+            this.YNegative_Button.UseVisualStyleBackColor = false;
+            this.YNegative_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.YNegative_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // Position_Radio_Button
+            // 
+            this.Position_Radio_Button.AutoSize = true;
+            this.Position_Radio_Button.Checked = true;
+            this.Position_Radio_Button.Location = new System.Drawing.Point(17, 20);
+            this.Position_Radio_Button.Name = "Position_Radio_Button";
+            this.Position_Radio_Button.Size = new System.Drawing.Size(68, 16);
+            this.Position_Radio_Button.TabIndex = 40;
+            this.Position_Radio_Button.TabStop = true;
+            this.Position_Radio_Button.Text = "Position";
+            this.Position_Radio_Button.UseVisualStyleBackColor = true;
+            this.Position_Radio_Button.CheckedChanged += new System.EventHandler(this.Arrow_Radio_Button_CheckedChanged);
+            // 
+            // Rotation_Radio_Button
+            // 
+            this.Rotation_Radio_Button.AutoSize = true;
+            this.Rotation_Radio_Button.Location = new System.Drawing.Point(111, 20);
+            this.Rotation_Radio_Button.Name = "Rotation_Radio_Button";
+            this.Rotation_Radio_Button.Size = new System.Drawing.Size(68, 16);
+            this.Rotation_Radio_Button.TabIndex = 41;
+            this.Rotation_Radio_Button.Text = "Rotation";
+            this.Rotation_Radio_Button.UseVisualStyleBackColor = true;
+            this.Rotation_Radio_Button.CheckedChanged += new System.EventHandler(this.Arrow_Radio_Button_CheckedChanged);
+            // 
+            // ArrowGroupBox
+            // 
+            this.ArrowGroupBox.Controls.Add(this.Position_Radio_Button);
+            this.ArrowGroupBox.Controls.Add(this.Rotation_Radio_Button);
+            this.ArrowGroupBox.Location = new System.Drawing.Point(598, 39);
+            this.ArrowGroupBox.Name = "ArrowGroupBox";
+            this.ArrowGroupBox.Size = new System.Drawing.Size(190, 49);
+            this.ArrowGroupBox.TabIndex = 42;
+            this.ArrowGroupBox.TabStop = false;
+            // 
+            // Speed_Textbox
+            // 
+            this.Speed_Textbox.Location = new System.Drawing.Point(668, 12);
+            this.Speed_Textbox.Name = "Speed_Textbox";
+            this.Speed_Textbox.Size = new System.Drawing.Size(100, 21);
+            this.Speed_Textbox.TabIndex = 43;
+            this.Speed_Textbox.Text = "0.1";
+            this.Speed_Textbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.Speed_Textbox.TextChanged += new System.EventHandler(this.Speed_Textbox_TextChanged);
+            this.Speed_Textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // SpeedLabel
+            // 
+            this.SpeedLabel.AutoSize = true;
+            this.SpeedLabel.Location = new System.Drawing.Point(615, 15);
+            this.SpeedLabel.Name = "SpeedLabel";
+            this.SpeedLabel.Size = new System.Drawing.Size(41, 12);
+            this.SpeedLabel.TabIndex = 44;
+            this.SpeedLabel.Text = "Speed";
+            // 
+            // Joint_ComboBox
+            // 
+            this.Joint_ComboBox.FormattingEnabled = true;
+            this.Joint_ComboBox.Location = new System.Drawing.Point(657, 233);
+            this.Joint_ComboBox.Name = "Joint_ComboBox";
+            this.Joint_ComboBox.Size = new System.Drawing.Size(111, 20);
+            this.Joint_ComboBox.TabIndex = 45;
+            this.Joint_ComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // RotationJoint_Button
+            // 
+            this.RotationJoint_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.RotationJoint_Button.Location = new System.Drawing.Point(625, 304);
+            this.RotationJoint_Button.Name = "RotationJoint_Button";
+            this.RotationJoint_Button.Size = new System.Drawing.Size(75, 23);
+            this.RotationJoint_Button.TabIndex = 46;
+            this.RotationJoint_Button.Text = "button2";
+            this.RotationJoint_Button.UseVisualStyleBackColor = false;
+            this.RotationJoint_Button.Click += new System.EventHandler(this.RotationJoint_Button_Click);
+            // 
+            // JointAngleDown_Button
+            // 
+            this.JointAngleDown_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.JointAngleDown_Button.Location = new System.Drawing.Point(718, 300);
+            this.JointAngleDown_Button.Name = "JointAngleDown_Button";
+            this.JointAngleDown_Button.Size = new System.Drawing.Size(50, 30);
+            this.JointAngleDown_Button.TabIndex = 48;
+            this.JointAngleDown_Button.Text = "▼";
+            this.JointAngleDown_Button.UseVisualStyleBackColor = false;
+            this.JointAngleDown_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.JointAngle_Button_Down);
+            this.JointAngleDown_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.JointAngle_Button_Up);
+            // 
+            // JointAngleUp_Button
+            // 
+            this.JointAngleUp_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.JointAngleUp_Button.Location = new System.Drawing.Point(718, 261);
+            this.JointAngleUp_Button.Name = "JointAngleUp_Button";
+            this.JointAngleUp_Button.Size = new System.Drawing.Size(50, 30);
+            this.JointAngleUp_Button.TabIndex = 47;
+            this.JointAngleUp_Button.Text = "▲";
+            this.JointAngleUp_Button.UseVisualStyleBackColor = false;
+            this.JointAngleUp_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.JointAngle_Button_Down);
+            this.JointAngleUp_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.JointAngle_Button_Up);
+            // 
+            // JointAngle_TextBox
+            // 
+            this.JointAngle_TextBox.Location = new System.Drawing.Point(625, 267);
+            this.JointAngle_TextBox.Name = "JointAngle_TextBox";
+            this.JointAngle_TextBox.Size = new System.Drawing.Size(75, 21);
+            this.JointAngle_TextBox.TabIndex = 49;
+            this.JointAngle_TextBox.Text = "0.1";
+            this.JointAngle_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.JointAngle_TextBox.TextChanged += new System.EventHandler(this.JointAngle_TextBox_TextChanged);
+            this.JointAngle_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // Wrist3Joint_Label
+            // 
+            this.Wrist3Joint_Label.AutoSize = true;
+            this.Wrist3Joint_Label.Location = new System.Drawing.Point(178, 265);
+            this.Wrist3Joint_Label.Name = "Wrist3Joint_Label";
+            this.Wrist3Joint_Label.Size = new System.Drawing.Size(38, 12);
+            this.Wrist3Joint_Label.TabIndex = 62;
+            this.Wrist3Joint_Label.Text = "Wrist3";
+            // 
+            // CurWrist3_Textbox
+            // 
+            this.CurWrist3_Textbox.Location = new System.Drawing.Point(219, 254);
+            this.CurWrist3_Textbox.Name = "CurWrist3_Textbox";
+            this.CurWrist3_Textbox.ReadOnly = true;
+            this.CurWrist3_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurWrist3_Textbox.TabIndex = 61;
+            // 
+            // Wrist2Joint_Label
+            // 
+            this.Wrist2Joint_Label.AutoSize = true;
+            this.Wrist2Joint_Label.Location = new System.Drawing.Point(178, 239);
+            this.Wrist2Joint_Label.Name = "Wrist2Joint_Label";
+            this.Wrist2Joint_Label.Size = new System.Drawing.Size(38, 12);
+            this.Wrist2Joint_Label.TabIndex = 60;
+            this.Wrist2Joint_Label.Text = "Wrist2";
+            // 
+            // CurWrist2_Textbox
+            // 
+            this.CurWrist2_Textbox.Location = new System.Drawing.Point(219, 228);
+            this.CurWrist2_Textbox.Name = "CurWrist2_Textbox";
+            this.CurWrist2_Textbox.ReadOnly = true;
+            this.CurWrist2_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurWrist2_Textbox.TabIndex = 59;
+            // 
+            // Wrist1Joint_Label
+            // 
+            this.Wrist1Joint_Label.AutoSize = true;
+            this.Wrist1Joint_Label.Location = new System.Drawing.Point(178, 212);
+            this.Wrist1Joint_Label.Name = "Wrist1Joint_Label";
+            this.Wrist1Joint_Label.Size = new System.Drawing.Size(38, 12);
+            this.Wrist1Joint_Label.TabIndex = 58;
+            this.Wrist1Joint_Label.Text = "Wrist1";
+            // 
+            // CurWrist1_Textbox
+            // 
+            this.CurWrist1_Textbox.BackColor = System.Drawing.Color.White;
+            this.CurWrist1_Textbox.Location = new System.Drawing.Point(219, 201);
+            this.CurWrist1_Textbox.Name = "CurWrist1_Textbox";
+            this.CurWrist1_Textbox.ReadOnly = true;
+            this.CurWrist1_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurWrist1_Textbox.TabIndex = 57;
+            // 
+            // ElbowJoint_Label
+            // 
+            this.ElbowJoint_Label.AutoSize = true;
+            this.ElbowJoint_Label.Location = new System.Drawing.Point(24, 264);
+            this.ElbowJoint_Label.Name = "ElbowJoint_Label";
+            this.ElbowJoint_Label.Size = new System.Drawing.Size(40, 12);
+            this.ElbowJoint_Label.TabIndex = 56;
+            this.ElbowJoint_Label.Text = "Elbow";
+            // 
+            // CurElbow_Textbox
+            // 
+            this.CurElbow_Textbox.Location = new System.Drawing.Point(85, 256);
+            this.CurElbow_Textbox.Name = "CurElbow_Textbox";
+            this.CurElbow_Textbox.ReadOnly = true;
+            this.CurElbow_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurElbow_Textbox.TabIndex = 55;
+            // 
+            // ShoulderJoint_Label
+            // 
+            this.ShoulderJoint_Label.AutoSize = true;
+            this.ShoulderJoint_Label.Location = new System.Drawing.Point(24, 237);
+            this.ShoulderJoint_Label.Name = "ShoulderJoint_Label";
+            this.ShoulderJoint_Label.Size = new System.Drawing.Size(55, 12);
+            this.ShoulderJoint_Label.TabIndex = 54;
+            this.ShoulderJoint_Label.Text = "Shoulder";
+            // 
+            // CurShoulder_TextBox
+            // 
+            this.CurShoulder_TextBox.Location = new System.Drawing.Point(85, 229);
+            this.CurShoulder_TextBox.Name = "CurShoulder_TextBox";
+            this.CurShoulder_TextBox.ReadOnly = true;
+            this.CurShoulder_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurShoulder_TextBox.TabIndex = 53;
+            // 
+            // BaseJoint_Label
+            // 
+            this.BaseJoint_Label.AutoSize = true;
+            this.BaseJoint_Label.BackColor = System.Drawing.SystemColors.Window;
+            this.BaseJoint_Label.Location = new System.Drawing.Point(24, 210);
+            this.BaseJoint_Label.Name = "BaseJoint_Label";
+            this.BaseJoint_Label.Size = new System.Drawing.Size(34, 12);
+            this.BaseJoint_Label.TabIndex = 52;
+            this.BaseJoint_Label.Text = "Base";
+            // 
+            // CurrentJoint_Label
+            // 
+            this.CurrentJoint_Label.AutoSize = true;
+            this.CurrentJoint_Label.Location = new System.Drawing.Point(25, 187);
+            this.CurrentJoint_Label.Name = "CurrentJoint_Label";
+            this.CurrentJoint_Label.Size = new System.Drawing.Size(120, 12);
+            this.CurrentJoint_Label.TabIndex = 51;
+            this.CurrentJoint_Label.Text = "Current Joint Degree";
+            // 
+            // CurBase_Textbox
+            // 
+            this.CurBase_Textbox.Location = new System.Drawing.Point(85, 202);
+            this.CurBase_Textbox.Name = "CurBase_Textbox";
+            this.CurBase_Textbox.ReadOnly = true;
+            this.CurBase_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurBase_Textbox.TabIndex = 50;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Wrist3Joint_Label);
+            this.Controls.Add(this.CurWrist3_Textbox);
+            this.Controls.Add(this.Wrist2Joint_Label);
+            this.Controls.Add(this.CurWrist2_Textbox);
+            this.Controls.Add(this.Wrist1Joint_Label);
+            this.Controls.Add(this.CurWrist1_Textbox);
+            this.Controls.Add(this.ElbowJoint_Label);
+            this.Controls.Add(this.CurElbow_Textbox);
+            this.Controls.Add(this.ShoulderJoint_Label);
+            this.Controls.Add(this.CurShoulder_TextBox);
+            this.Controls.Add(this.BaseJoint_Label);
+            this.Controls.Add(this.CurrentJoint_Label);
+            this.Controls.Add(this.CurBase_Textbox);
+            this.Controls.Add(this.JointAngle_TextBox);
+            this.Controls.Add(this.JointAngleDown_Button);
+            this.Controls.Add(this.JointAngleUp_Button);
+            this.Controls.Add(this.RotationJoint_Button);
+            this.Controls.Add(this.Joint_ComboBox);
+            this.Controls.Add(this.SpeedLabel);
+            this.Controls.Add(this.Speed_Textbox);
+            this.Controls.Add(this.ArrowGroupBox);
+            this.Controls.Add(this.YNegative_Button);
+            this.Controls.Add(this.YPositive_Button);
+            this.Controls.Add(this.XPositive_Button);
+            this.Controls.Add(this.XNegative_Button);
+            this.Controls.Add(this.ZNegative_Button);
+            this.Controls.Add(this.ZPositive_Button);
+            this.Controls.Add(this.button2f);
+            this.Controls.Add(this.SetRotZ_Text);
+            this.Controls.Add(this.SetRotZ_TextBox);
+            this.Controls.Add(this.SetRotY_Text);
+            this.Controls.Add(this.SetRotY_TextBox);
+            this.Controls.Add(this.SetRotX_Text);
+            this.Controls.Add(this.SetRotX_TextBox);
+            this.Controls.Add(this.SetPosZ_Text);
+            this.Controls.Add(this.SetPosZ_TextBox);
+            this.Controls.Add(this.SetPosY_Text);
+            this.Controls.Add(this.SetPosY_TextBox);
+            this.Controls.Add(this.SetPosX_Text);
+            this.Controls.Add(this.SetPosTitle);
+            this.Controls.Add(this.SetPosX_TextBox);
+            this.Controls.Add(this.CurRotZ_Text);
+            this.Controls.Add(this.CurRotZ_TextBox);
+            this.Controls.Add(this.CurRotY_Text);
+            this.Controls.Add(this.CurRotY_TextBox);
+            this.Controls.Add(this.CurRotX_Text);
+            this.Controls.Add(this.CurRotX_TextBox);
+            this.Controls.Add(this.CurPosZ_Text);
+            this.Controls.Add(this.CurPosZ_TextBox);
+            this.Controls.Add(this.CurPosY_Text);
+            this.Controls.Add(this.CurPosY_TextBox);
+            this.Controls.Add(this.CurPosX_Text);
+            this.Controls.Add(this.CurrentPosTitle);
+            this.Controls.Add(this.CurPosX_TextBox);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.MoveToBack2);
             this.Controls.Add(this.MoveToFront2);
             this.Controls.Add(this.PowerOff);
@@ -117,10 +773,16 @@ namespace RobotArm_Module
             this.Controls.Add(this.MoveToFront);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            this.ArrowGroupBox.ResumeLayout(false);
+            this.ArrowGroupBox.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
+
+        
 
         #endregion
 
@@ -131,6 +793,63 @@ namespace RobotArm_Module
         private System.Windows.Forms.Button MoveToBack2;
         private System.Windows.Forms.Button MoveToFront2;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label CurPosX_Text;
+        private System.Windows.Forms.Label CurrentPosTitle;
+        private System.Windows.Forms.TextBox CurPosX_TextBox;
+        private System.Windows.Forms.Label CurRotZ_Text;
+        private System.Windows.Forms.TextBox CurRotZ_TextBox;
+        private System.Windows.Forms.Label CurRotY_Text;
+        private System.Windows.Forms.TextBox CurRotY_TextBox;
+        private System.Windows.Forms.Label CurRotX_Text;
+        private System.Windows.Forms.TextBox CurRotX_TextBox;
+        private System.Windows.Forms.Label CurPosZ_Text;
+        private System.Windows.Forms.TextBox CurPosZ_TextBox;
+        private System.Windows.Forms.Label CurPosY_Text;
+        private System.Windows.Forms.TextBox CurPosY_TextBox;
+        private System.Windows.Forms.Label SetRotZ_Text;
+        private System.Windows.Forms.TextBox SetRotZ_TextBox;
+        private System.Windows.Forms.Label SetRotY_Text;
+        private System.Windows.Forms.TextBox SetRotY_TextBox;
+        private System.Windows.Forms.Label SetRotX_Text;
+        private System.Windows.Forms.TextBox SetRotX_TextBox;
+        private System.Windows.Forms.Label SetPosZ_Text;
+        private System.Windows.Forms.TextBox SetPosZ_TextBox;
+        private System.Windows.Forms.Label SetPosY_Text;
+        private System.Windows.Forms.TextBox SetPosY_TextBox;
+        private System.Windows.Forms.Label SetPosX_Text;
+        private System.Windows.Forms.Label SetPosTitle;
+        private System.Windows.Forms.TextBox SetPosX_TextBox;
+        private System.Windows.Forms.Button button2f;
+        private System.Windows.Forms.Button YNegative_Button;
+        private System.Windows.Forms.Button YPositive_Button;
+        private System.Windows.Forms.Button XPositive_Button;
+        private System.Windows.Forms.Button XNegative_Button;
+        private System.Windows.Forms.Button ZNegative_Button;
+        private System.Windows.Forms.Button ZPositive_Button;
+        private System.Windows.Forms.RadioButton Rotation_Radio_Button;
+        private System.Windows.Forms.RadioButton Position_Radio_Button;
+        private System.Windows.Forms.GroupBox ArrowGroupBox;
+        private System.Windows.Forms.Label SpeedLabel;
+        private System.Windows.Forms.TextBox Speed_Textbox;
+        private System.Windows.Forms.ComboBox Joint_ComboBox;
+        private System.Windows.Forms.Button JointAngleDown_Button;
+        private System.Windows.Forms.Button JointAngleUp_Button;
+        private System.Windows.Forms.Button RotationJoint_Button;
+        private System.Windows.Forms.TextBox JointAngle_TextBox;
+        private System.Windows.Forms.Label Wrist3Joint_Label;
+        private System.Windows.Forms.TextBox CurWrist3_Textbox;
+        private System.Windows.Forms.Label Wrist2Joint_Label;
+        private System.Windows.Forms.TextBox CurWrist2_Textbox;
+        private System.Windows.Forms.Label Wrist1Joint_Label;
+        private System.Windows.Forms.TextBox CurWrist1_Textbox;
+        private System.Windows.Forms.Label ElbowJoint_Label;
+        private System.Windows.Forms.TextBox CurElbow_Textbox;
+        private System.Windows.Forms.Label ShoulderJoint_Label;
+        private System.Windows.Forms.TextBox CurShoulder_TextBox;
+        private System.Windows.Forms.Label BaseJoint_Label;
+        private System.Windows.Forms.Label CurrentJoint_Label;
+        private System.Windows.Forms.TextBox CurBase_Textbox;
     }
 }
 

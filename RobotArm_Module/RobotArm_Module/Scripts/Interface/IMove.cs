@@ -4,9 +4,11 @@ namespace RobotArm_Module
 {
     public interface IMove
     {
-        void MoveToPosition(Vector3 position, eJointType type = eJointType.None);
-        void MoveToRotation(Vector3 rotation, eJointType type = eJointType.None);
-
+        void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
+        void JointRotation(float angle, eJointType type = eJointType.None);
         void MoveToPreset(Vector3 position, Vector3 rotation);
+        void MoveToPosition(float speed, eDirection direction);
+        void MoveToRotation(float speed, eRotationAxis axis);
+        void Stop();
     }
 }

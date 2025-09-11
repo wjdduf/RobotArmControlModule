@@ -2,6 +2,9 @@
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
 
 namespace RobotArm_Module
 {
@@ -12,12 +15,15 @@ namespace RobotArm_Module
         protected TcpClient client = null;
         protected NetworkStream stream = null;
 
-        public abstract bool Connect(string ip);
+        public Vector3 currentPosition = new Vector3();
+        public Vector3 currentRotation = new Vector3();
+
+        public abstract bool Connect(string ip, Action onComplete = null);
         public abstract bool DisConnect();
-        public abstract void MoveToPosition(Vector3 position, eJointType type = eJointType.None);
         public abstract void MoveToPreset(Vector3 position, Vector3 rotation);
-        public abstract void MoveToRotation(Vector3 rotation, eJointType type = eJointType.None);
         public abstract void ShutDown();
+
+        public abstract void TestCode();
 
         protected string Receive()
         {
@@ -25,8 +31,8 @@ namespace RobotArm_Module
             responseBuffer = new byte[1024];
 
             int bytesRead = stream.Read(responseBuffer, 0, responseBuffer.Length);
-            responseMessage = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead);
-            Debug.Log($"서버로부터 받은 응답: '{responseMessage}'");
+            responseMessage = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead).Trim();
+            Debug.Log($"서버로부터 받은 응답: '{responseMessage}'\n");
 
             return responseMessage;
         }
@@ -50,6 +56,8 @@ namespace RobotArm_Module
             {
                 // 1. 패킷 전송
                 byte[] commandBytes = Encoding.UTF8.GetBytes(send + "\n");
+
+                stream = client.GetStream();
                 stream.Write(commandBytes, 0, commandBytes.Length);
                 Debug.Log($"전송: '{send.Trim()}'");
 
@@ -62,5 +70,22 @@ namespace RobotArm_Module
                 System.Threading.Thread.Sleep(100);
             }
         }
+
+        
+
+        public double RadiansToDegrees(double radians)
+        {
+            return radians * (180.0 / Math.PI);
+        }
+        public double DegreesToRadians(double degrees)
+        {
+            return degrees * (Math.PI / 180.0);
+        }
+
+        public abstract void Stop();
+        public abstract void MoveToPosition(float speed, eDirection direction);
+        public abstract void MoveToRotation(float speed, eRotationAxis axis);
+        public abstract void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
+        public abstract void JointRotation(float angle, eJointType type = eJointType.None);
     }
 }

@@ -8,7 +8,7 @@ namespace RobotArm_Module
 		{
 		}
 
-        public override bool Connect(string ip)
+        public override bool Connect(string ip, Action onComplete = null)
         {
             //연결 관련 코드 구현
             Debug.Log($"Rainbow ip - {ip}");
@@ -20,10 +20,19 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void MoveToPosition(Vector3 position, eJointType type = eJointType.None)
+        public override void JointRotation(float angle, eJointType type = eJointType.None)
         {
-            Debug.Log($"Rainbow position - {position} :: type - {type}");
+            throw new NotImplementedException();
+        }
 
+        public override void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void MoveToPosition(float speed, eDirection direction)
+        {
+            throw new NotImplementedException();
         }
 
         public override void MoveToPreset(Vector3 position, Vector3 rotation)
@@ -31,13 +40,22 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void MoveToRotation(Vector3 rotation, eJointType type = eJointType.None)
+        public override void MoveToRotation(float speed, eRotationAxis axis)
         {
-            Debug.Log($"Rainbow rotation - {rotation} :: type - {type}");
-
+            throw new NotImplementedException();
         }
 
         public override void ShutDown()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Stop()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void TestCode()
         {
             throw new NotImplementedException();
         }

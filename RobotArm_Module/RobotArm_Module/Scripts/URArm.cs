@@ -1,6 +1,11 @@
 ﻿using System;
-using System.Net.Sockets;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using UnderAutomation.UniversalRobots;
+using UnderAutomation.UniversalRobots.Common;
+using UnderAutomation.UniversalRobots.Rtde;
 
 namespace RobotArm_Module
 {
@@ -17,213 +22,384 @@ namespace RobotArm_Module
         RUNNING,
     }
 
-    public class URArm : RobotArm
+    public enum eMoveType
     {
-        public override bool Connect(string ip)
+        NONE,
+        C,
+        L,
+        J,
+        P,
+    }
+    class URArm : RobotArm
+    {
+        private UR UR;
+        private ConnectParameters connectParameters;
+        public bool UseInterPreterMode
         {
-            int port = DataContainer.Instance.URConfig.DASHBOARD_PORT;
-            DataContainer.Instance.currentIP = ip;
-            //연결 관련 코드 구현
-            Debug.Log($"Connect URArm ip - {ip} :: port - {port}");
+            get { return connectParameters.InterpreterMode.Enable; }
+            set { connectParameters.InterpreterMode.Enable = value; }
+        }
 
-            bool isSucces = false;
+        public URArm()
+        {
+            UR = new UR();
 
-            try
-            {
-                // 2. 서버에 연결하기
-                Debug.Log($"서버에 연결 중... ({ip}:{port})");
-                client = new TcpClient(ip, port);
-                Debug.Log("서버에 연결되었습니다.");
+        }
 
-                SendPacket(URInterface.PowerOn);
-                Receive();
+        ~URArm()
+        {
+            UR.Rtde.OutputDataReceived -= Rtde_OutputDataReceived;
+            UR.PrimaryInterface.JointDataReceived -= TTTEST;
+        }
 
-                SendPacketWait(URInterface.RobotMode, eRobotMode.IDLE.ToString());
+        public override bool Connect(string ip, Action onComplete = null)
+        {
+            bool isSucces = true;
 
-                SendPacket(URInterface.BrakeRelease);
-                Receive();
+            Debug.Log($"서버에 연결 중... ({ip})");
+            ConnectParamSet(ip);
+            UR.Connect(connectParameters);
+            //UR.Rtde.Connect();
+            Debug.Log("서버에 연결되었습니다.");
+            UR.Rtde.OutputDataReceived += Rtde_OutputDataReceived;
+            UR.PrimaryInterface.JointDataReceived += TTTEST;
 
-                SendPacketWait(URInterface.RobotMode, eRobotMode.RUNNING.ToString());
+            UR.Dashboard.PowerOn();
 
-                isSucces = true;
-            }
-            catch (SocketException e)
-            {
-                Debug.Log($"소켓 예외 발생: {e.Message}");
-            }
-            catch (Exception e)
-            {
-                Debug.Log($"일반 예외 발생: {e.Message}");
-            }
-            finally
-            {
-                // 5. 연결 끊기
-                // NetworkStream과 TcpClient 객체를 닫아 리소스를 해제합니다.
-                if (stream != null)
-                {
-                    stream.Close();
-                    Debug.Log("네트워크 스트림을 닫았습니다.");
-                }
-                if (client != null)
-                {
-                    client.Close();
-                    Debug.Log("클라이언트 연결을 끊었습니다.");
-                }
+            UR.Dashboard.ReleaseBrake();
 
-                
-            }
+            WaitStatus(eRobotMode.RUNNING.ToString(), onComplete);
+
             return isSucces;
         }
 
         public override bool DisConnect()
         {
-            int port = DataContainer.Instance.URConfig.DASHBOARD_PORT;
-            string ip = DataContainer.Instance.currentIP;
-            //연결 관련 코드 구현
-            Debug.Log($"DisConnect URArm ip - {ip} :: port - {port}");
-
             bool isSucces = false;
 
-            try
-            {
-                // 2. 서버에 연결하기
-                Debug.Log($"서버에 연결 중... ({ip}:{port})");
-                client = new TcpClient(ip, port);
-                Debug.Log("서버에 연결되었습니다.");
-
-                SendPacket(URInterface.PowerOff);
-                Receive();
-
-                SendPacketWait(URInterface.RobotMode, eRobotMode.POWER_OFF.ToString());
-
-                isSucces = true;
-            }
-            catch (SocketException e)
-            {
-                Debug.Log($"소켓 예외 발생: {e.Message}");
-            }
-            catch (Exception e)
-            {
-                Debug.Log($"일반 예외 발생: {e.Message}");
-            }
-            finally
-            {
-                // 5. 연결 끊기
-                // NetworkStream과 TcpClient 객체를 닫아 리소스를 해제합니다.
-                if (stream != null)
-                {
-                    stream.Close();
-                    Debug.Log("네트워크 스트림을 닫았습니다.");
-                }
-                if (client != null)
-                {
-                    client.Close();
-                    Debug.Log("클라이언트 연결을 끊었습니다.");
-                }
+            isSucces = UR.Dashboard.PowerOff().Succeed;
 
 
-            }
-            return isSucces;
+            UR.InterpreterMode.Disconnect();
+
+            UR.Rtde.Disconnect();
+            UR.Disconnect();
+
+            Debug.Log($"RTDE :: {UR.Rtde.Connected}");
+            Debug.Log($"InterpreterMode :: {UR.InterpreterMode.Connected}");
+            Debug.Log($"UR :: {UR.SocketCommunication.Enabled}");
+
+
+
+            return true;
         }
 
-        public override void MoveToPosition(Vector3 position, eJointType type = eJointType.None)
+
+
+        public override void ShutDown()
         {
-            Debug.Log($"URArm position - {position} :: type - {type}");
+            throw new NotImplementedException();
+        }
+
+        public override void TestCode()
+        {
+            double temp = (RadiansToDegrees(UR.PrimaryInterface.JointData.Base.Position));
+
+            Debug.Log($"Test :: {UR.PrimaryInterface.JointData.Base.Position} - {(temp)}");
+            Debug.Log($"Test :: {temp + 30} - {DegreesToRadians(temp + 30)}");
+
+            Debug.Log($"Test :: {UR.PrimaryInterface.JointData.Base.Position} + {DegreesToRadians(30)}");
+            Debug.Log($"Test :: {RadiansToDegrees(UR.PrimaryInterface.JointData.Base.Position + DegreesToRadians(30))}");
 
 
-            TcpClient client = null;
-            try
+
+
+
+            return;
+
+            StringBuilder st = new StringBuilder();
+            st.Append("movej([");
+            st.Append(DegreesToRadians(RadiansToDegrees(UR.PrimaryInterface.JointData.Base.Position) + 30f).ToString("F3") +  ",");
+            st.Append(UR.PrimaryInterface.JointData.Shoulder.Position.ToString("F3") + ",");
+            st.Append(UR.PrimaryInterface.JointData.Elbow.Position.ToString("F3") + ",");
+            st.Append(UR.PrimaryInterface.JointData.Wrist1.Position.ToString("F3") + ",");
+            st.Append(UR.PrimaryInterface.JointData.Wrist2.Position.ToString("F3") + ",");
+            st.Append(UR.PrimaryInterface.JointData.Wrist3.Position.ToString("F3"));
+
+
+            st.Append("])");
+
+            Debug.Log($"Test :: {st.ToString()} ");
+
+            UR.PrimaryInterface.Script.Send(st.ToString());
+            var test = UR.PrimaryInterface.JointData.Base.Position;
+
+            Debug.Log($"Test :: {test} - {RadiansToDegrees(test)}");
+
+        }
+
+        private void ConnectParamSet(string ip)
+        {
+            connectParameters = new ConnectParameters(ip);
+
+            // Enable RTDE
+            connectParameters.Rtde.Enable = true;
+
+            connectParameters.InterpreterMode.Enable = true;
+
+            // Exchange data at 500Hz
+            //connectParameters.Rtde.Frequency = 500;
+
+            // Select data you want to write in robot controller
+            connectParameters.Rtde.InputSetup.Add(RtdeInputData.StandardAnalogOutput0);
+            connectParameters.Rtde.InputSetup.Add(RtdeInputData.InputIntRegisters, 0);
+
+            // Select data you want the robot to send
+            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.ActualTcpPose);
+            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.JointControlOutput);
+            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.ToolOutputVoltage);
+            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.OutputDoubleRegisters, 10);
+
+
+        }
+
+        private void Rtde_OutputDataReceived(object sender, RtdeDataPackageEventArgs e)
+        {
+            // Get frequency of received message (OutputSetup contains Timestamp by default)
+            var realMessageFrequency = e.MeasuredFrequency;
+
+            // Get the value of the data you have selected in the setup 
+            SetCurrentRobotTransform(e.OutputDataValues.ActualTcpPose);
+            var ActualCurrent = e.OutputDataValues.TargetTcpPose;
+            double outputDoubleRegisters10 = e.OutputDataValues.OutputDoubleRegisters.X10;
+
+            //Debug.Log($"ActualCurrent ::: {ActualCurrent}");
+        }
+
+        private void SetCurrentRobotTransform(Pose pos)
+        {
+
+            DataContainer.Instance.RobotArmCurrentData.currentPosition.X = (float)pos.X;
+            DataContainer.Instance.RobotArmCurrentData.currentPosition.Y = (float)pos.Y;
+            DataContainer.Instance.RobotArmCurrentData.currentPosition.Z = (float)pos.Z;
+
+            DataContainer.Instance.RobotArmCurrentData.currentRotation.X = (float)pos.Rx;
+            DataContainer.Instance.RobotArmCurrentData.currentRotation.Y = (float)pos.Ry;
+            DataContainer.Instance.RobotArmCurrentData.currentRotation.Z = (float)pos.Rz;
+
+        }
+
+        private async void WaitStatus( string waitText, Action onComplete = null)
+        {
+            while (!UR.Dashboard.GetRobotMode().Value.ToString().ToLower().Contains(waitText.ToLower()))
             {
-                // 1. TcpClient 객체를 생성하고 로봇에 연결합니다.
-                client = new TcpClient(DataContainer.Instance.currentIP, DataContainer.Instance.URConfig.SECONDARY_PORT);
+                Debug.Log($"Wait Status :: Current - {UR.Dashboard.GetRobotMode().Value.ToString()} : wait - {waitText}");
+                await Task.Delay(100);
+            }
+            onComplete?.Invoke();
+        }
 
-                // 2. 명령어를 바이트 배열로 변환하고 줄바꿈 문자를 추가합니다.
-                string fullCommand = "movel(p[-0.600, 0.250, 0.00, 3.140, 0, 0])" + "\n";
-                byte[] commandBytes = Encoding.UTF8.GetBytes(fullCommand);
+        public override void Stop()
+        {
+            UR.PrimaryInterface.Script.Send("speedl([0,0,0,0,0,0],0.5)");
+            UR.PrimaryInterface.Script.Send("speedj([0,0,0,0,0,0],0.5)");
 
-                // 3. 네트워크 스트림을 얻어 명령어를 전송합니다.
-                NetworkStream stream = client.GetStream();
-                stream.Write(commandBytes, 0, commandBytes.Length);
-
-                Console.WriteLine($"Sent command: {fullCommand.Trim()}");
-            }
-            catch (SocketException e)
-            {
-                Console.WriteLine($"An error occurred: {e.Message}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"An unexpected error occurred: {e.Message}");
-            }
-            finally
-            {
-                // 4. 연결을 안전하게 종료합니다.
-                if (client != null)
-                {
-                    client.Close();
-                }
-            }
         }
 
         public override void MoveToPreset(Vector3 position, Vector3 rotation)
         {
             Debug.Log($"URArm MoveToPreset - {position} ::  {rotation}");
 
+            StringBuilder st = new StringBuilder();
+            st.Append("movel(p[");
+            //st.Append("movel(p[");
 
-            TcpClient client = null;
-            try
-            {
-                // 1. TcpClient 객체를 생성하고 로봇에 연결합니다.
-                client = new TcpClient(DataContainer.Instance.currentIP, DataContainer.Instance.URConfig.SECONDARY_PORT);
-
-                StringBuilder st = new StringBuilder();
-                st.Append("movel(p[");
-                st.Append(position.X + ",");
-                st.Append(position.Y + ",");
-                st.Append(position.Z + ",");
-                st.Append(rotation.X + ",");
-                st.Append(rotation.Y + ",");
-                st.Append(rotation.Z);
-                st.Append("],0.05,0.1,0)");
-
-
-                // 2. 명령어를 바이트 배열로 변환하고 줄바꿈 문자를 추가합니다.
-                string fullCommand = st + "\n";
-                byte[] commandBytes = Encoding.UTF8.GetBytes(fullCommand);
-
-                // 3. 네트워크 스트림을 얻어 명령어를 전송합니다.
-                NetworkStream stream = client.GetStream();
-                stream.Write(commandBytes, 0, commandBytes.Length);
-
-                Console.WriteLine($"Sent command: {fullCommand.Trim()}");
-            }
-            catch (SocketException e)
-            {
-                Console.WriteLine($"An error occurred: {e.Message}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"An unexpected error occurred: {e.Message}");
-            }
-            finally
-            {
-                // 4. 연결을 안전하게 종료합니다.
-                if (client != null)
-                {
-                    client.Close();
-                }
-            }
+            st.Append(position.X.ToString("F3") + ",");
+            st.Append(position.Y.ToString("F3") + ",");
+            st.Append(position.Z.ToString("F3") + ",");
+            st.Append(rotation.X.ToString("F3") + ",");
+            st.Append(rotation.Y.ToString("F3") + ",");
+            st.Append(rotation.Z.ToString("F3"));
+            //st.Append("])");
+            st.Append("],0.05,0.1)");
+            UR.PrimaryInterface.Script.Send(st.ToString());
         }
 
-        public override void MoveToRotation(Vector3 rotation, eJointType type = eJointType.None)
-        {
-            Debug.Log($"URArm rotation - {rotation} :: type - {type}");
 
+        public override void MoveToPosition(float speed, eDirection direction)
+        {
+            Debug.Log($"MoveToPosition :: speed - {speed} :: direction - {direction.ToString()}");
+
+            Vector3 position = new Vector3();
+            Vector3 rotation = new Vector3();
+
+            switch(direction)
+            {
+                case eDirection.X_Negative:
+                    position.X = -speed;
+                    break;
+                case eDirection.X_Positive:
+                    position.X = speed;
+                    break;
+                case eDirection.Y_Negative:
+                    position.Y = -speed;
+                    break;
+                case eDirection.Y_Positive:
+                    position.Y = speed;
+                    break;
+                case eDirection.Z_Negative:
+                    position.Z = -speed;
+                    break;
+                case eDirection.Z_Positive:
+                    position.Z = speed;
+                    break;
+            }
+
+
+            StringBuilder st = new StringBuilder();
+            st.Append("speedl([");
+            //st.Append("movel(p[");
+
+            st.Append(position.X.ToString("F3") + ",");
+            st.Append(position.Y.ToString("F3") + ",");
+            st.Append(position.Z.ToString("F3") + ",");
+            st.Append(rotation.X.ToString("F3") + ",");
+            st.Append(rotation.Y.ToString("F3") + ",");
+            st.Append(rotation.Z.ToString("F3"));
+            //st.Append("])");
+            st.Append("], 0.2,0.5)");
+            UR.PrimaryInterface.Script.Send(st.ToString());
         }
 
-        public override void ShutDown()
+        public override void MoveToRotation(float speed, eRotationAxis axis)
         {
-            throw new NotImplementedException();
+            Vector3 position = new Vector3();
+            Vector3 rotation = new Vector3();
+
+            Debug.Log($"Move To Rotation :: speed - {speed} :: axis - {axis.ToString()}");
+
+            switch (axis)
+            {
+                case eRotationAxis.X_Axis_Negative:
+                    rotation.X = -speed;
+                    break;
+                case eRotationAxis.X_Axis_Positive:
+                    rotation.X = speed;
+                    break;
+                case eRotationAxis.Y_Axis_Negative:
+                    rotation.Y = -speed;
+                    break;
+                case eRotationAxis.Y_Axis_Positive:
+                    rotation.Y = speed;
+                    break;
+                case eRotationAxis.Z_Axis_Negative:
+                    rotation.Z = -speed;
+                    break;
+                case eRotationAxis.Z_Axis_Positive:
+                    rotation.Z = speed;
+                    break;
+            }
+
+
+            StringBuilder st = new StringBuilder();
+            st.Append("speedl([");
+            //st.Append("movel(p[");
+
+            st.Append(position.X.ToString("F3") + ",");
+            st.Append(position.Y.ToString("F3") + ",");
+            st.Append(position.Z.ToString("F3") + ",");
+            st.Append(rotation.X.ToString("F3") + ",");
+            st.Append(rotation.Y.ToString("F3") + ",");
+            st.Append(rotation.Z.ToString("F3"));
+            //st.Append("])");
+            st.Append("], 0.2,0.5)");
+            UR.PrimaryInterface.Script.Send(st.ToString());
+        }
+
+        public override void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
+        {
+            Vector3 position = new Vector3();
+            Vector3 rotation = new Vector3();
+
+            if (!isUp)
+                speed *= -1f;
+
+            switch (type)
+            {
+                case eJointType.BASE:
+                    position.X = speed;
+                    break;
+                case eJointType.SHOULDER:
+                    position.Y = speed;
+                    break;
+                case eJointType.ELBOW:
+                    position.Z = speed;
+                    break;
+                case eJointType.WRIST1:
+                    rotation.X = speed;
+                    break;
+                case eJointType.WRIST2:
+                    rotation.Y = speed;
+                    break;
+                case eJointType.WRIST3:
+                    rotation.Z = speed;
+                    break;
+            }
+
+            StringBuilder st = new StringBuilder();
+            st.Append("speedj([");
+            //st.Append("movel(p[");
+
+            st.Append(position.X.ToString("F3") + ",");
+            st.Append(position.Y.ToString("F3") + ",");
+            st.Append(position.Z.ToString("F3") + ",");
+            st.Append(rotation.X.ToString("F3") + ",");
+            st.Append(rotation.Y.ToString("F3") + ",");
+            st.Append(rotation.Z.ToString("F3"));
+            //st.Append("])");
+            st.Append("], 0.2,0.5)");
+            UR.PrimaryInterface.Script.Send(st.ToString());
+        }
+
+        public override void JointRotation(float angle, eJointType type = eJointType.None)
+        {
+            JointData joint = new JointData();
+
+            joint.GetJoint(eJointType.BASE).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.BASE).Angle;
+            joint.GetJoint(eJointType.SHOULDER).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.SHOULDER).Angle;
+            joint.GetJoint(eJointType.ELBOW).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.ELBOW).Angle;
+            joint.GetJoint(eJointType.WRIST1).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST1).Angle;
+            joint.GetJoint(eJointType.WRIST2).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST2).Angle;
+            joint.GetJoint(eJointType.WRIST3).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST3).Angle;
+
+            joint.GetJoint(type).Angle = angle;
+
+            StringBuilder st = new StringBuilder();
+            st.Append("movej([");
+            //st.Append("movel(p[");
+
+            st.Append(DegreesToRadians(joint.GetJoint(eJointType.BASE).Angle).ToString("F3") + ",");
+            st.Append(DegreesToRadians(joint.GetJoint(eJointType.SHOULDER).Angle).ToString("F3") + ",");
+            st.Append(DegreesToRadians(joint.GetJoint(eJointType.ELBOW).Angle).ToString("F3") + ",");
+            st.Append(DegreesToRadians(joint.GetJoint(eJointType.WRIST1).Angle).ToString("F3") + ",");
+            st.Append(DegreesToRadians(joint.GetJoint(eJointType.WRIST2).Angle).ToString("F3") + ",");
+            st.Append(DegreesToRadians(joint.GetJoint(eJointType.WRIST3).Angle).ToString("F3"));
+            //st.Append("])");
+            st.Append("], 0.2,0.5)");
+            UR.PrimaryInterface.Script.Send(st.ToString());
+        }
+
+        private void TTTEST(object sender, UnderAutomation.UniversalRobots.PrimaryInterface.JointDataPackageEventArgs e)
+        {
+            Debug.Log($"TTTESTTTTTT {e.Base.Position}");
+
+            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.BASE).Angle = RadiansToDegrees(e.Base.Position);
+            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.SHOULDER).Angle = RadiansToDegrees(e.Shoulder.Position);
+            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.ELBOW).Angle = RadiansToDegrees(e.Elbow.Position);
+            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST1).Angle = RadiansToDegrees(e.Wrist1.Position);
+            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST2).Angle = RadiansToDegrees(e.Wrist2.Position);
+            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST3).Angle = RadiansToDegrees(e.Wrist3.Position);
+
         }
     }
 }
