@@ -95,6 +95,21 @@ namespace RobotArm_Module
             this.BaseJoint_Label = new System.Windows.Forms.Label();
             this.CurrentJoint_Label = new System.Windows.Forms.Label();
             this.CurBase_Textbox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.SetPivot_Button = new System.Windows.Forms.Button();
+            this.SetPivotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPivotY_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPivotX_TextBox = new System.Windows.Forms.TextBox();
+            this.PivotReset_Button = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.WorkQue_ListBox = new System.Windows.Forms.ListBox();
+            this.ListPlay_Button = new System.Windows.Forms.Button();
+            this.ListAdd_Button = new System.Windows.Forms.Button();
+            this.ListStop_Button = new System.Windows.Forms.Button();
+            this.ListDelete_Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.ArrowGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -253,7 +268,7 @@ namespace RobotArm_Module
             // 
             // CurRotX_TextBox
             // 
-            this.CurRotX_TextBox.BackColor = System.Drawing.Color.White;
+            this.CurRotX_TextBox.BackColor = System.Drawing.SystemColors.Control;
             this.CurRotX_TextBox.Location = new System.Drawing.Point(220, 97);
             this.CurRotX_TextBox.Name = "CurRotX_TextBox";
             this.CurRotX_TextBox.ReadOnly = true;
@@ -538,10 +553,11 @@ namespace RobotArm_Module
             // 
             // Joint_ComboBox
             // 
+            this.Joint_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Joint_ComboBox.FormattingEnabled = true;
-            this.Joint_ComboBox.Location = new System.Drawing.Point(657, 233);
+            this.Joint_ComboBox.Location = new System.Drawing.Point(626, 231);
             this.Joint_ComboBox.Name = "Joint_ComboBox";
-            this.Joint_ComboBox.Size = new System.Drawing.Size(111, 20);
+            this.Joint_ComboBox.Size = new System.Drawing.Size(142, 20);
             this.Joint_ComboBox.TabIndex = 45;
             this.Joint_ComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -552,7 +568,7 @@ namespace RobotArm_Module
             this.RotationJoint_Button.Name = "RotationJoint_Button";
             this.RotationJoint_Button.Size = new System.Drawing.Size(75, 23);
             this.RotationJoint_Button.TabIndex = 46;
-            this.RotationJoint_Button.Text = "button2";
+            this.RotationJoint_Button.Text = "SetAngle";
             this.RotationJoint_Button.UseVisualStyleBackColor = false;
             this.RotationJoint_Button.Click += new System.EventHandler(this.RotationJoint_Button_Click);
             // 
@@ -586,9 +602,7 @@ namespace RobotArm_Module
             this.JointAngle_TextBox.Name = "JointAngle_TextBox";
             this.JointAngle_TextBox.Size = new System.Drawing.Size(75, 21);
             this.JointAngle_TextBox.TabIndex = 49;
-            this.JointAngle_TextBox.Text = "0.1";
             this.JointAngle_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.JointAngle_TextBox.TextChanged += new System.EventHandler(this.JointAngle_TextBox_TextChanged);
             this.JointAngle_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
             // 
             // Wrist3Joint_Label
@@ -636,7 +650,7 @@ namespace RobotArm_Module
             // 
             // CurWrist1_Textbox
             // 
-            this.CurWrist1_Textbox.BackColor = System.Drawing.Color.White;
+            this.CurWrist1_Textbox.BackColor = System.Drawing.SystemColors.Control;
             this.CurWrist1_Textbox.Location = new System.Drawing.Point(219, 201);
             this.CurWrist1_Textbox.Name = "CurWrist1_Textbox";
             this.CurWrist1_Textbox.ReadOnly = true;
@@ -704,12 +718,177 @@ namespace RobotArm_Module
             this.CurBase_Textbox.Size = new System.Drawing.Size(80, 21);
             this.CurBase_Textbox.TabIndex = 50;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(578, 237);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(31, 12);
+            this.label1.TabIndex = 63;
+            this.label1.Text = "Joint";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(578, 270);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 12);
+            this.label2.TabIndex = 64;
+            this.label2.Text = "Angle";
+            // 
+            // SetPivot_Button
+            // 
+            this.SetPivot_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.SetPivot_Button.Location = new System.Drawing.Point(465, 418);
+            this.SetPivot_Button.Name = "SetPivot_Button";
+            this.SetPivot_Button.Size = new System.Drawing.Size(84, 23);
+            this.SetPivot_Button.TabIndex = 65;
+            this.SetPivot_Button.Text = "Set Pivot";
+            this.SetPivot_Button.UseVisualStyleBackColor = false;
+            this.SetPivot_Button.Click += new System.EventHandler(this.SetPivot_Button_Click);
+            // 
+            // SetPivotZ_TextBox
+            // 
+            this.SetPivotZ_TextBox.Location = new System.Drawing.Point(381, 418);
+            this.SetPivotZ_TextBox.Name = "SetPivotZ_TextBox";
+            this.SetPivotZ_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetPivotZ_TextBox.TabIndex = 66;
+            this.SetPivotZ_TextBox.Text = "0.000";
+            this.SetPivotZ_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // SetPivotY_TextBox
+            // 
+            this.SetPivotY_TextBox.Location = new System.Drawing.Point(381, 389);
+            this.SetPivotY_TextBox.Name = "SetPivotY_TextBox";
+            this.SetPivotY_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetPivotY_TextBox.TabIndex = 67;
+            this.SetPivotY_TextBox.Text = "0.000";
+            this.SetPivotY_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // SetPivotX_TextBox
+            // 
+            this.SetPivotX_TextBox.Location = new System.Drawing.Point(381, 357);
+            this.SetPivotX_TextBox.Name = "SetPivotX_TextBox";
+            this.SetPivotX_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetPivotX_TextBox.TabIndex = 68;
+            this.SetPivotX_TextBox.Text = "0.000";
+            this.SetPivotX_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // PivotReset_Button
+            // 
+            this.PivotReset_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PivotReset_Button.Location = new System.Drawing.Point(465, 387);
+            this.PivotReset_Button.Name = "PivotReset_Button";
+            this.PivotReset_Button.Size = new System.Drawing.Size(84, 23);
+            this.PivotReset_Button.TabIndex = 69;
+            this.PivotReset_Button.Text = "Pivot Reset";
+            this.PivotReset_Button.UseVisualStyleBackColor = false;
+            this.PivotReset_Button.Click += new System.EventHandler(this.PivotReset_Button_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(362, 360);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(13, 12);
+            this.label3.TabIndex = 70;
+            this.label3.Text = "X";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(362, 392);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 12);
+            this.label4.TabIndex = 71;
+            this.label4.Text = "Y";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(362, 421);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 12);
+            this.label5.TabIndex = 72;
+            this.label5.Text = "Z";
+            // 
+            // WorkQue_ListBox
+            // 
+            this.WorkQue_ListBox.FormattingEnabled = true;
+            this.WorkQue_ListBox.ItemHeight = 12;
+            this.WorkQue_ListBox.Items.AddRange(new object[] {
+            "test",
+            "test1",
+            "test2"});
+            this.WorkQue_ListBox.Location = new System.Drawing.Point(339, 39);
+            this.WorkQue_ListBox.Name = "WorkQue_ListBox";
+            this.WorkQue_ListBox.Size = new System.Drawing.Size(223, 160);
+            this.WorkQue_ListBox.TabIndex = 73;
+            // 
+            // ListPlay_Button
+            // 
+            this.ListPlay_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ListPlay_Button.Location = new System.Drawing.Point(339, 205);
+            this.ListPlay_Button.Name = "ListPlay_Button";
+            this.ListPlay_Button.Size = new System.Drawing.Size(60, 25);
+            this.ListPlay_Button.TabIndex = 74;
+            this.ListPlay_Button.Text = "Play";
+            this.ListPlay_Button.UseVisualStyleBackColor = false;
+            this.ListPlay_Button.Click += new System.EventHandler(this.ListPlay_Button_Click);
+            // 
+            // ListAdd_Button
+            // 
+            this.ListAdd_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ListAdd_Button.Location = new System.Drawing.Point(141, 400);
+            this.ListAdd_Button.Name = "ListAdd_Button";
+            this.ListAdd_Button.Size = new System.Drawing.Size(75, 23);
+            this.ListAdd_Button.TabIndex = 75;
+            this.ListAdd_Button.Text = "Add";
+            this.ListAdd_Button.UseVisualStyleBackColor = false;
+            // 
+            // ListStop_Button
+            // 
+            this.ListStop_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ListStop_Button.Location = new System.Drawing.Point(420, 205);
+            this.ListStop_Button.Name = "ListStop_Button";
+            this.ListStop_Button.Size = new System.Drawing.Size(60, 25);
+            this.ListStop_Button.TabIndex = 76;
+            this.ListStop_Button.Text = "Stop";
+            this.ListStop_Button.UseVisualStyleBackColor = false;
+            this.ListStop_Button.Click += new System.EventHandler(this.ListStop_Button_Click);
+            // 
+            // ListDelete_Button
+            // 
+            this.ListDelete_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ListDelete_Button.Location = new System.Drawing.Point(501, 205);
+            this.ListDelete_Button.Name = "ListDelete_Button";
+            this.ListDelete_Button.Size = new System.Drawing.Size(60, 25);
+            this.ListDelete_Button.TabIndex = 77;
+            this.ListDelete_Button.Text = "Delete";
+            this.ListDelete_Button.UseVisualStyleBackColor = false;
+            this.ListDelete_Button.Click += new System.EventHandler(this.ListDelete_Button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ListDelete_Button);
+            this.Controls.Add(this.ListStop_Button);
+            this.Controls.Add(this.ListAdd_Button);
+            this.Controls.Add(this.ListPlay_Button);
+            this.Controls.Add(this.WorkQue_ListBox);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.PivotReset_Button);
+            this.Controls.Add(this.SetPivotX_TextBox);
+            this.Controls.Add(this.SetPivotY_TextBox);
+            this.Controls.Add(this.SetPivotZ_TextBox);
+            this.Controls.Add(this.SetPivot_Button);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Wrist3Joint_Label);
             this.Controls.Add(this.CurWrist3_Textbox);
             this.Controls.Add(this.Wrist2Joint_Label);
@@ -850,6 +1029,21 @@ namespace RobotArm_Module
         private System.Windows.Forms.Label BaseJoint_Label;
         private System.Windows.Forms.Label CurrentJoint_Label;
         private System.Windows.Forms.TextBox CurBase_Textbox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button SetPivot_Button;
+        private System.Windows.Forms.Button PivotReset_Button;
+        private System.Windows.Forms.TextBox SetPivotX_TextBox;
+        private System.Windows.Forms.TextBox SetPivotY_TextBox;
+        private System.Windows.Forms.TextBox SetPivotZ_TextBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListBox WorkQue_ListBox;
+        private System.Windows.Forms.Button ListDelete_Button;
+        private System.Windows.Forms.Button ListStop_Button;
+        private System.Windows.Forms.Button ListAdd_Button;
+        private System.Windows.Forms.Button ListPlay_Button;
     }
 }
 

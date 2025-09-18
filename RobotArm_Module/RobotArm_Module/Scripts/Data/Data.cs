@@ -52,7 +52,7 @@ namespace RobotArm_Module
 
     #region RobotArm 관련 데이터
 
-    public class RobotArmCurrentData : INotifyPropertyChanged
+    public class RobotArmCurrentData
     {
         public string ip;
         public string port;
@@ -71,7 +71,6 @@ namespace RobotArm_Module
         public int moveSpeed;
         public int power;
 
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 
     public class PresetData
@@ -81,8 +80,11 @@ namespace RobotArm_Module
         public string presetName;
         public string presetID;
 
-        public string carID;
-        public string seatID;
+        public PresetData(Vector3 vector3, List<Vector3> rotation)
+        {
+            this.position = vector3;
+            this.rotation = rotation;
+        }
     }
 
     public class RobotArmConfig

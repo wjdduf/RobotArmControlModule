@@ -66,9 +66,18 @@ namespace RobotArm_Module
             IMove.JointRotation(angle, type);
         }
 
+        public void SetPivot(Vector3 pivot)
+        {
+            IMove.SetPivot(pivot);
+        }
         public void Stop()
         {
             IMove.Stop();
+        }
+
+        public void ListPlay()
+        {
+            IMove.PlayPreset();
         }
     }
 }

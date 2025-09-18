@@ -9,6 +9,10 @@ namespace RobotArm_Module
         void MoveToPreset(Vector3 position, Vector3 rotation);
         void MoveToPosition(float speed, eDirection direction);
         void MoveToRotation(float speed, eRotationAxis axis);
+
+        void PlayPreset(Action onComplete = null);
+
+        void SetPivot(Vector3 pivot);
         void Stop();
     }
 }

@@ -236,7 +236,7 @@ namespace RobotArm_Module
 
         private void MoveToFront2_Click(object sender, EventArgs e)
         {
-            RobotArmController.MoveToPreset(new Vector3(-0.150f, 0.600f, 0.650f), new Vector3(0.4f, -2.3f, -2.3f));
+            RobotArmController.MoveToPreset(new Vector3(-0.133f, 0.524f, 0.650f), new Vector3(0.003f, -2.218f, -2.220f));
 
         }
 
@@ -258,7 +258,11 @@ namespace RobotArm_Module
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RobotArmController.RobotArmBuilder.CurrentRobotArm.TestCode();
+            //TestCode
+
+            //RobotArmController.MoveToPreset(new Vector3(-0.150f, 0.600f, 0.650f), new Vector3(0, 0, 6));
+
+            RobotArmController.RobotArmBuilder.CurrentRobotArm.TestCode("set_tcp(p[0.1, 0, 0, 0, 0, 0])");
         }
 
         private void button1_MouseDown(object sender, MouseEventArgs e)
@@ -485,7 +489,33 @@ namespace RobotArm_Module
             RobotArmController.JointRotation(angle,selectJoint);
         }
 
-        private void JointAngle_TextBox_TextChanged(object sender, EventArgs e)
+        private void SetPivot_Button_Click(object sender, EventArgs e)
+        {
+            Vector3 pivot = new Vector3();
+            pivot.X = float.Parse( SetPivotX_TextBox.Text);
+            pivot.Y = float.Parse(SetPivotY_TextBox.Text);
+            pivot.Z = float.Parse(SetPivotZ_TextBox.Text);
+
+            RobotArmController.SetPivot(pivot);
+
+        }
+
+        private void PivotReset_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.SetPivot(Vector3.Zero());
+        }
+
+        private void ListStop_Button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListDelete_Button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListPlay_Button_Click(object sender, EventArgs e)
         {
 
         }

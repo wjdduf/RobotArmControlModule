@@ -45,6 +45,16 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
+        public override void PlayPreset(Action onComplete)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SetPivot(Vector3 pivot)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void ShutDown()
         {
             throw new NotImplementedException();
@@ -55,7 +65,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void TestCode()
+        public override void TestCode(string script)
         {
             throw new NotImplementedException();
         }

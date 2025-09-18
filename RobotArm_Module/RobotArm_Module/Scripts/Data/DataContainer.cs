@@ -28,5 +28,28 @@ namespace RobotArm_Module
 
         public RobotArmCurrentData RobotArmCurrentData = new RobotArmCurrentData();
 
+
+        public WorkPreset WorkPreset = new WorkPreset();
+    }
+
+    public class WorkPreset
+    {
+        public Queue<PresetData> WorkQueue = new Queue<PresetData>();
+
+        public void Add(PresetData data)
+        {
+            if(data != null)
+            {
+                WorkQueue.Enqueue(data);
+            }
+        }
+
+        public void Deueue()
+        {
+            if(WorkQueue.Count != 0)
+            {
+                WorkQueue.Dequeue();
+            }
+        }
     }
 }

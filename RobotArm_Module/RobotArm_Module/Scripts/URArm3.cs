@@ -241,6 +241,16 @@ namespace RobotArm_Module.Scripts
             throw new NotImplementedException();
         }
 
+        public override void PlayPreset(Action onComplete)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SetPivot(Vector3 pivot)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void ShutDown()
         {
             throw new NotImplementedException();
@@ -251,7 +261,7 @@ namespace RobotArm_Module.Scripts
             throw new NotImplementedException();
         }
 
-        public override void TestCode()
+        public override void TestCode(string script)
         {
             Debug.Log($"URArm TestCode -");
 
@@ -291,5 +301,6 @@ namespace RobotArm_Module.Scripts
                 }
             }
         }
+
     }
 }

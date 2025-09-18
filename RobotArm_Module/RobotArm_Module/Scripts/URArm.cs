@@ -30,6 +30,7 @@ namespace RobotArm_Module
         J,
         P,
     }
+
     class URArm : RobotArm
     {
         private UR UR;
@@ -43,13 +44,12 @@ namespace RobotArm_Module
         public URArm()
         {
             UR = new UR();
-
         }
 
         ~URArm()
         {
             UR.Rtde.OutputDataReceived -= Rtde_OutputDataReceived;
-            UR.PrimaryInterface.JointDataReceived -= TTTEST;
+            UR.PrimaryInterface.JointDataReceived -= SetCurrentJoinData;
         }
 
         public override bool Connect(string ip, Action onComplete = null)
@@ -62,7 +62,7 @@ namespace RobotArm_Module
             //UR.Rtde.Connect();
             Debug.Log("서버에 연결되었습니다.");
             UR.Rtde.OutputDataReceived += Rtde_OutputDataReceived;
-            UR.PrimaryInterface.JointDataReceived += TTTEST;
+            UR.PrimaryInterface.JointDataReceived += SetCurrentJoinData;
 
             UR.Dashboard.PowerOn();
 
@@ -79,7 +79,6 @@ namespace RobotArm_Module
 
             isSucces = UR.Dashboard.PowerOff().Succeed;
 
-
             UR.InterpreterMode.Disconnect();
 
             UR.Rtde.Disconnect();
@@ -89,53 +88,12 @@ namespace RobotArm_Module
             Debug.Log($"InterpreterMode :: {UR.InterpreterMode.Connected}");
             Debug.Log($"UR :: {UR.SocketCommunication.Enabled}");
 
-
-
             return true;
         }
-
-
 
         public override void ShutDown()
         {
             throw new NotImplementedException();
-        }
-
-        public override void TestCode()
-        {
-            double temp = (RadiansToDegrees(UR.PrimaryInterface.JointData.Base.Position));
-
-            Debug.Log($"Test :: {UR.PrimaryInterface.JointData.Base.Position} - {(temp)}");
-            Debug.Log($"Test :: {temp + 30} - {DegreesToRadians(temp + 30)}");
-
-            Debug.Log($"Test :: {UR.PrimaryInterface.JointData.Base.Position} + {DegreesToRadians(30)}");
-            Debug.Log($"Test :: {RadiansToDegrees(UR.PrimaryInterface.JointData.Base.Position + DegreesToRadians(30))}");
-
-
-
-
-
-            return;
-
-            StringBuilder st = new StringBuilder();
-            st.Append("movej([");
-            st.Append(DegreesToRadians(RadiansToDegrees(UR.PrimaryInterface.JointData.Base.Position) + 30f).ToString("F3") +  ",");
-            st.Append(UR.PrimaryInterface.JointData.Shoulder.Position.ToString("F3") + ",");
-            st.Append(UR.PrimaryInterface.JointData.Elbow.Position.ToString("F3") + ",");
-            st.Append(UR.PrimaryInterface.JointData.Wrist1.Position.ToString("F3") + ",");
-            st.Append(UR.PrimaryInterface.JointData.Wrist2.Position.ToString("F3") + ",");
-            st.Append(UR.PrimaryInterface.JointData.Wrist3.Position.ToString("F3"));
-
-
-            st.Append("])");
-
-            Debug.Log($"Test :: {st.ToString()} ");
-
-            UR.PrimaryInterface.Script.Send(st.ToString());
-            var test = UR.PrimaryInterface.JointData.Base.Position;
-
-            Debug.Log($"Test :: {test} - {RadiansToDegrees(test)}");
-
         }
 
         private void ConnectParamSet(string ip)
@@ -145,7 +103,7 @@ namespace RobotArm_Module
             // Enable RTDE
             connectParameters.Rtde.Enable = true;
 
-            connectParameters.InterpreterMode.Enable = true;
+            //connectParameters.InterpreterMode.Enable = true;
 
             // Exchange data at 500Hz
             //connectParameters.Rtde.Frequency = 500;
@@ -156,11 +114,10 @@ namespace RobotArm_Module
 
             // Select data you want the robot to send
             connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.ActualTcpPose);
+            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.ActualTcpSpeed);
             connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.JointControlOutput);
             connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.ToolOutputVoltage);
             connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.OutputDoubleRegisters, 10);
-
-
         }
 
         private void Rtde_OutputDataReceived(object sender, RtdeDataPackageEventArgs e)
@@ -168,8 +125,9 @@ namespace RobotArm_Module
             // Get frequency of received message (OutputSetup contains Timestamp by default)
             var realMessageFrequency = e.MeasuredFrequency;
 
-            // Get the value of the data you have selected in the setup 
+            // Get the value of the data you have selected in the setup
             SetCurrentRobotTransform(e.OutputDataValues.ActualTcpPose);
+            MoveCheck(e.OutputDataValues.ActualTcpSpeed.Values);
             var ActualCurrent = e.OutputDataValues.TargetTcpPose;
             double outputDoubleRegisters10 = e.OutputDataValues.OutputDoubleRegisters.X10;
 
@@ -178,7 +136,6 @@ namespace RobotArm_Module
 
         private void SetCurrentRobotTransform(Pose pos)
         {
-
             DataContainer.Instance.RobotArmCurrentData.currentPosition.X = (float)pos.X;
             DataContainer.Instance.RobotArmCurrentData.currentPosition.Y = (float)pos.Y;
             DataContainer.Instance.RobotArmCurrentData.currentPosition.Z = (float)pos.Z;
@@ -186,14 +143,31 @@ namespace RobotArm_Module
             DataContainer.Instance.RobotArmCurrentData.currentRotation.X = (float)pos.Rx;
             DataContainer.Instance.RobotArmCurrentData.currentRotation.Y = (float)pos.Ry;
             DataContainer.Instance.RobotArmCurrentData.currentRotation.Z = (float)pos.Rz;
-
         }
 
-        private async void WaitStatus( string waitText, Action onComplete = null)
+        private void MoveCheck(double[] qd)
         {
-            while (!UR.Dashboard.GetRobotMode().Value.ToString().ToLower().Contains(waitText.ToLower()))
+            bool isMove = false;
+            for (int i = 0; i < qd.Length; i++)
             {
-                Debug.Log($"Wait Status :: Current - {UR.Dashboard.GetRobotMode().Value.ToString()} : wait - {waitText}");
+                if (Math.Abs(qd[i]) >= 0.001f)
+                {
+                    isMove = true;
+                    break;
+                }
+            }
+            this.isMove = isMove;
+        }
+
+        private async void WaitStatus(string waitText, Action onComplete = null)
+        {
+            while (
+                !UR.Dashboard.GetRobotMode().Value.ToString().ToLower().Contains(waitText.ToLower())
+            )
+            {
+                Debug.Log(
+                    $"Wait Status :: Current - {UR.Dashboard.GetRobotMode().Value.ToString()} : wait - {waitText}"
+                );
                 await Task.Delay(100);
             }
             onComplete?.Invoke();
@@ -203,7 +177,6 @@ namespace RobotArm_Module
         {
             UR.PrimaryInterface.Script.Send("speedl([0,0,0,0,0,0],0.5)");
             UR.PrimaryInterface.Script.Send("speedj([0,0,0,0,0,0],0.5)");
-
         }
 
         public override void MoveToPreset(Vector3 position, Vector3 rotation)
@@ -225,7 +198,6 @@ namespace RobotArm_Module
             UR.PrimaryInterface.Script.Send(st.ToString());
         }
 
-
         public override void MoveToPosition(float speed, eDirection direction)
         {
             Debug.Log($"MoveToPosition :: speed - {speed} :: direction - {direction.ToString()}");
@@ -233,7 +205,7 @@ namespace RobotArm_Module
             Vector3 position = new Vector3();
             Vector3 rotation = new Vector3();
 
-            switch(direction)
+            switch (direction)
             {
                 case eDirection.X_Negative:
                     position.X = -speed;
@@ -254,7 +226,6 @@ namespace RobotArm_Module
                     position.Z = speed;
                     break;
             }
-
 
             StringBuilder st = new StringBuilder();
             st.Append("speedl([");
@@ -299,7 +270,6 @@ namespace RobotArm_Module
                     rotation.Z = speed;
                     break;
             }
-
 
             StringBuilder st = new StringBuilder();
             st.Append("speedl([");
@@ -365,41 +335,134 @@ namespace RobotArm_Module
         {
             JointData joint = new JointData();
 
-            joint.GetJoint(eJointType.BASE).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.BASE).Angle;
-            joint.GetJoint(eJointType.SHOULDER).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.SHOULDER).Angle;
-            joint.GetJoint(eJointType.ELBOW).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.ELBOW).Angle;
-            joint.GetJoint(eJointType.WRIST1).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST1).Angle;
-            joint.GetJoint(eJointType.WRIST2).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST2).Angle;
-            joint.GetJoint(eJointType.WRIST3).Angle = DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST3).Angle;
+            joint.GetJoint(eJointType.BASE).Angle = DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.BASE)
+                .Angle;
+            joint.GetJoint(eJointType.SHOULDER).Angle = DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.SHOULDER)
+                .Angle;
+            joint.GetJoint(eJointType.ELBOW).Angle = DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.ELBOW)
+                .Angle;
+            joint.GetJoint(eJointType.WRIST1).Angle = DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST1)
+                .Angle;
+            joint.GetJoint(eJointType.WRIST2).Angle = DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST2)
+                .Angle;
+            joint.GetJoint(eJointType.WRIST3).Angle = DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST3)
+                .Angle;
 
             joint.GetJoint(type).Angle = angle;
 
             StringBuilder st = new StringBuilder();
             st.Append("movej([");
-            //st.Append("movel(p[");
+            //st.Append("mov el(p[");
 
             st.Append(DegreesToRadians(joint.GetJoint(eJointType.BASE).Angle).ToString("F3") + ",");
-            st.Append(DegreesToRadians(joint.GetJoint(eJointType.SHOULDER).Angle).ToString("F3") + ",");
-            st.Append(DegreesToRadians(joint.GetJoint(eJointType.ELBOW).Angle).ToString("F3") + ",");
-            st.Append(DegreesToRadians(joint.GetJoint(eJointType.WRIST1).Angle).ToString("F3") + ",");
-            st.Append(DegreesToRadians(joint.GetJoint(eJointType.WRIST2).Angle).ToString("F3") + ",");
+            st.Append(
+                DegreesToRadians(joint.GetJoint(eJointType.SHOULDER).Angle).ToString("F3") + ","
+            );
+            st.Append(
+                DegreesToRadians(joint.GetJoint(eJointType.ELBOW).Angle).ToString("F3") + ","
+            );
+            st.Append(
+                DegreesToRadians(joint.GetJoint(eJointType.WRIST1).Angle).ToString("F3") + ","
+            );
+            st.Append(
+                DegreesToRadians(joint.GetJoint(eJointType.WRIST2).Angle).ToString("F3") + ","
+            );
             st.Append(DegreesToRadians(joint.GetJoint(eJointType.WRIST3).Angle).ToString("F3"));
             //st.Append("])");
             st.Append("], 0.2,0.5)");
             UR.PrimaryInterface.Script.Send(st.ToString());
         }
 
-        private void TTTEST(object sender, UnderAutomation.UniversalRobots.PrimaryInterface.JointDataPackageEventArgs e)
+        private void SetCurrentJoinData(
+            object sender,
+            UnderAutomation.UniversalRobots.PrimaryInterface.JointDataPackageEventArgs e
+        )
         {
-            Debug.Log($"TTTESTTTTTT {e.Base.Position}");
+            DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.BASE)
+                .Angle = RadiansToDegrees(e.Base.Position);
+            DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.SHOULDER)
+                .Angle = RadiansToDegrees(e.Shoulder.Position);
+            DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.ELBOW)
+                .Angle = RadiansToDegrees(e.Elbow.Position);
+            DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST1)
+                .Angle = RadiansToDegrees(e.Wrist1.Position);
+            DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST2)
+                .Angle = RadiansToDegrees(e.Wrist2.Position);
+            DataContainer
+                .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST3)
+                .Angle = RadiansToDegrees(e.Wrist3.Position);
+        }
 
-            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.BASE).Angle = RadiansToDegrees(e.Base.Position);
-            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.SHOULDER).Angle = RadiansToDegrees(e.Shoulder.Position);
-            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.ELBOW).Angle = RadiansToDegrees(e.Elbow.Position);
-            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST1).Angle = RadiansToDegrees(e.Wrist1.Position);
-            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST2).Angle = RadiansToDegrees(e.Wrist2.Position);
-            DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST3).Angle = RadiansToDegrees(e.Wrist3.Position);
+        public override void SetPivot(Vector3 pivot)
+        {
+            StringBuilder st = new StringBuilder();
+            st.Append("set_tcp(p[");
+            st.Append(pivot.X.ToString("F3") + ",");
+            st.Append(pivot.Y.ToString("F3") + ",");
+            st.Append(pivot.Z.ToString("F3") + ",");
+            st.Append("0, 0, 0])");
 
+            Debug.Log($"SetPivot :: {st.ToString()}");
+
+            UR.PrimaryInterface.Script.Send(st.ToString());
+        }
+
+        public override void TestCode(string script)
+        {
+            //UR.InterpreterMode.ClearInterpreter();
+            //UseInterPreterMode = true;
+            Debug.Log($"TestCode :: {UR.InterpreterMode.Connected}");
+            //UR.PrimaryInterface.Script.Send(script);
+            //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.600,0.650,0,0,6])");
+            //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.300,0.650,0,0,6])");
+
+            DataContainer.Instance.WorkPreset.Add(
+                new PresetData(
+                    new Vector3(-0.15f, 0.6f, 0.65f),
+                    new List<Vector3> { new Vector3(0, 0, 6) }
+                )
+            );
+            DataContainer.Instance.WorkPreset.Add(
+                new PresetData(
+                    new Vector3(-0.15f, 0.3f, 0.65f),
+                    new List<Vector3> { new Vector3(0, 0, 6) }
+                )
+            );
+            DataContainer.Instance.WorkPreset.Add(
+                new PresetData(
+                    new Vector3(-0.133f, 0.524f, 0.65f),
+                    new List<Vector3> { new Vector3(0, -2.218f, -2.220f) }
+                )
+            );
+            DataContainer.Instance.WorkPreset.Add(
+                new PresetData(
+                    new Vector3(-0.15f, 0.3f, 0.65f),
+                    new List<Vector3> { new Vector3(0.4f, -2.3f, -2.3f) }
+                )
+            );
+            PlayPreset();
+            //UR.InterpreterMode.EndInterpreter();
+
+            return;
+        }
+
+        public override void PlayPreset(Action onComplete = null)
+        {
+            Debug.Log($"TestCode :: PlayPreset");
+
+            isUsingPreset = true;
+            onPresetComplete = onComplete;
         }
     }
 }

@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-
 namespace RobotArm_Module
 {
-    public abstract class RobotArm : IMove, IConnect, ISafety
+    public abstract class RobotArm : IMove, IConnect, ISafety, IData
     {
         protected byte[] responseBuffer;
 
@@ -23,7 +22,72 @@ namespace RobotArm_Module
         public abstract void MoveToPreset(Vector3 position, Vector3 rotation);
         public abstract void ShutDown();
 
-        public abstract void TestCode();
+        public abstract void TestCode(string script);
+
+        protected bool isUsingPreset = false;
+
+        protected Action onPresetComplete = null;
+
+        protected bool isMove = false;
+
+        public RobotArm()
+        {
+            WorkThread();
+        }
+
+        private async void WorkThread()
+        {
+            while (true)
+            {
+                await Task.Delay(100);
+
+                if (isUsingPreset)
+                {
+                    PlayMoveQueue();
+                }
+            }
+        }
+
+        PresetData currentTargetQueue = null;
+
+        private void PlayMoveQueue()
+        {
+            if (DataContainer.Instance.WorkPreset.WorkQueue.Count == 0)
+            {
+                if (isUsingPreset)
+                {
+                    Debug.Log($"TestCode :: Complete WorkQueue = 0");
+                    isUsingPreset = false;
+                    onPresetComplete?.Invoke();
+                }
+                return;
+            }
+            else
+            {
+                if (currentTargetQueue == null)
+                {
+                    Debug.Log($"TestCode :: start WorkQueue Dequeue");
+
+                    currentTargetQueue = DataContainer.Instance.WorkPreset.WorkQueue.Dequeue();
+
+                    MoveToPreset(currentTargetQueue.position, currentTargetQueue.rotation[0]);
+
+                    Thread.Sleep(500);
+
+                }
+                else
+                {
+                    Debug.Log($"TestCode :: check WorkQueue Dequeue");
+
+                    if (!isMove)
+                    {
+                        Debug.Log($"TestCode :: check WorkQueue complete");
+
+                        currentTargetQueue = null;
+                    }
+                }
+            }
+        }
 
         protected string Receive()
         {
@@ -51,7 +115,6 @@ namespace RobotArm_Module
             string responseMessage = string.Empty;
             responseBuffer = new byte[1024];
 
-
             while (!responseMessage.Contains(waitText))
             {
                 // 1. 패킷 전송
@@ -71,12 +134,11 @@ namespace RobotArm_Module
             }
         }
 
-        
-
         public double RadiansToDegrees(double radians)
         {
             return radians * (180.0 / Math.PI);
         }
+
         public double DegreesToRadians(double degrees)
         {
             return degrees * (Math.PI / 180.0);
@@ -87,5 +149,7 @@ namespace RobotArm_Module
         public abstract void MoveToRotation(float speed, eRotationAxis axis);
         public abstract void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
         public abstract void JointRotation(float angle, eJointType type = eJointType.None);
+        public abstract void SetPivot(Vector3 pivot);
+        public abstract void PlayPreset(Action onComplete = null);
     }
 }

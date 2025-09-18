@@ -61,6 +61,7 @@
     <Compile Include="Scripts\Data\URInterface.cs" />
     <Compile Include="Scripts\Interface\IConnect.cs" />
     <Compile Include="Scripts\Interface\IMove.cs" />
+    <Compile Include="Scripts\Interface\IData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Interface\ISafety.cs" />
