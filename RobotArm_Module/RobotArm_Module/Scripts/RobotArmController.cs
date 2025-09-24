@@ -12,6 +12,8 @@ namespace RobotArm_Module
 
         private IConnect IConnect;
         private IMove IMove;
+        private IData IData;
+        private ISafety ISafety;
 
         public void Initialize(eRobotArmType type)
         {
@@ -25,6 +27,8 @@ namespace RobotArm_Module
         {
             IConnect = RobotArmBuilder.CurrentRobotArm;
             IMove = RobotArmBuilder.CurrentRobotArm;
+            IData = RobotArmBuilder.CurrentRobotArm;
+            ISafety = RobotArmBuilder.CurrentRobotArm;
         }
 
         public bool Connect(string ip)
@@ -78,6 +82,26 @@ namespace RobotArm_Module
         public void ListPlay()
         {
             IMove.PlayPreset();
+        }
+
+        public void AddPlayList(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position)
+        {
+            IData.AddWorkQueue(pos, rot, moveType);
+        }
+
+        public void SetHoming()
+        {
+            ISafety.Homming();
+        }
+
+        public void SetSpeed(float speed)
+        {
+            RobotArmBuilder.CurrentRobotArm.Speed = speed;
+        }
+
+        public void SetAcceleration(float accel)
+        {
+            RobotArmBuilder.CurrentRobotArm.Acceleration = accel;
         }
     }
 }

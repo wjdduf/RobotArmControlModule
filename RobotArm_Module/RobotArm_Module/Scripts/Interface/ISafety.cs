@@ -8,5 +8,7 @@ namespace RobotArm_Module
 {
     public interface ISafety
     {
+        void EmergencyStop();
+        void Homming();
     }
 }

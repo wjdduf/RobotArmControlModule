@@ -14,6 +14,8 @@ namespace RobotArm_Module
     {
         public RobotArmController RobotArmController;
 
+        public CreateProcess CreateProcess;
+
         private bool isPush = false;
         private bool isJointPush = false;
         private bool isJointUp = true;
@@ -25,6 +27,7 @@ namespace RobotArm_Module
         private bool isPosition = true;
 
         private float speed = 0.1f;
+        private float acceleration = 1.2f;
 
         public Form1()
         {
@@ -223,26 +226,26 @@ namespace RobotArm_Module
 
         private void MoveToFront_Click(object sender, EventArgs e)
         {
-            RobotArmController.MoveToPreset(new Vector3(-0.150f, 0.600f, 0.650f), new Vector3(0, 0, 6));
+            RobotArmController.MoveToPreset(new Vector3(0.150f, 0.600f, 0.650f), new Vector3(0, 0, 6));
         }
 
         
         private void MoveToBack_Click(object sender, EventArgs e)
         {
-            RobotArmController.MoveToPreset(new Vector3(-0.150f, 0.300f, 0.650f), new Vector3(0, 0, 6));
+            RobotArmController.MoveToPreset(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(0, 0, 6));
 
 
         }
 
         private void MoveToFront2_Click(object sender, EventArgs e)
         {
-            RobotArmController.MoveToPreset(new Vector3(-0.133f, 0.524f, 0.650f), new Vector3(0.003f, -2.218f, -2.220f));
+            RobotArmController.MoveToPreset(new Vector3(0.133f, 0.524f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
 
         }
 
         private void MoveToBack_Click2(object sender, EventArgs e)
         {
-            RobotArmController.MoveToPreset(new Vector3(-0.150f, 0.300f, 0.650f), new Vector3(0.4f, -2.3f, -2.3f));
+            RobotArmController.MoveToPreset(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
 
         }
 
@@ -409,10 +412,20 @@ namespace RobotArm_Module
             if (float.TryParse(Speed_Textbox.Text.ToString(), out temp))
             {
                 this.speed = temp;
+                RobotArmController.SetSpeed(speed);
             }
+        }
 
+        private void Acceleration_TextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            float temp;
 
-
+            if (float.TryParse(Acceleration_TextBox.Text.ToString(), out temp))
+            {
+                this.acceleration = temp;
+                RobotArmController.SetAcceleration(acceleration);
+            }
         }
 
         private void myTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -459,6 +472,18 @@ namespace RobotArm_Module
                 }
 
             }
+
+
+            //Unity 생성
+            CreateProcess = new CreateProcess();
+            CreateProcess.CreateUnity(UnityPanel, "Winform_MergeTest.exe");
+
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Debug.Log("Form1_FormClosing");
+            CreateProcess.ProcessClose();
         }
 
         private void JointAngle_Button_Down(object sender, MouseEventArgs e)
@@ -480,6 +505,8 @@ namespace RobotArm_Module
         private void JointAngle_Button_Up(object sender, MouseEventArgs e)
         {
             isJointPush = false;
+            RobotArmController.Stop();
+
         }
 
         private void RotationJoint_Button_Click(object sender, EventArgs e)
@@ -507,17 +534,78 @@ namespace RobotArm_Module
 
         private void ListStop_Button_Click(object sender, EventArgs e)
         {
-
+            RobotArmController.Stop();
         }
 
         private void ListDelete_Button_Click(object sender, EventArgs e)
         {
+            if(WorkQue_ListBox.SelectedIndex != -1)
+            {
+                string id = RemoveAfterCharacter(WorkQue_ListBox.Items[WorkQue_ListBox.SelectedIndex].ToString(), ':');
+                
+                DataContainer.Instance.WorkPreset.Delete(id);
 
+                WorkQue_ListBox.Items.RemoveAt(WorkQue_ListBox.SelectedIndex);
+
+                foreach(var item in DataContainer.Instance.WorkPreset.WorkList)
+                {
+                    Debug.Log($"Key: {item.presetID}, Value: {item.presetName}");
+                }
+            }
         }
 
         private void ListPlay_Button_Click(object sender, EventArgs e)
         {
-
+            RobotArmController.ListPlay();
         }
+
+        private void ListAdd_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.AddPlayList(new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text)), new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text)));
+            ListUpdate();
+        }
+
+        private void ListUpdate()
+        {
+            WorkQue_ListBox.Items.Clear();
+
+            foreach (var item in DataContainer.Instance.WorkPreset.WorkList)
+            {
+                Debug.Log($"Key: {item.presetID}, Value: {item.presetName}");
+                WorkQue_ListBox.Items.Add(item.presetName);
+                
+            }
+        }
+
+        public static string RemoveAfterCharacter(string input, char separator)
+        {
+            // 1. 기준 문자의 위치를 찾습니다.
+            int index = input.IndexOf(separator);
+
+            // 2. 기준 문자가 문자열에 존재하는지 확인합니다.
+            if (index != -1)
+            {
+                // 3. 기준 문자가 있는 경우, 그 위치까지의 문자열을 잘라냅니다.
+                return input.Substring(0, index);
+            }
+            else
+            {
+                // 4. 기준 문자가 없는 경우, 원본 문자열을 그대로 반환합니다.
+                return input;
+            }
+        }
+
+        private void Homming_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.SetHoming();
+        }
+
+        private void JointListAdd_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.AddPlayList(new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text)), new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text)), eMoveType.Joint);
+            ListUpdate();
+        }
+
+        
     }
 }

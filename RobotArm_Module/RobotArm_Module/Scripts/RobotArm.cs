@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace RobotArm_Module
 {
+    public enum eMoveType   
+    {
+        Position,
+        Joint
+    }
+
+
     public abstract class RobotArm : IMove, IConnect, ISafety, IData
     {
         protected byte[] responseBuffer;
@@ -19,10 +26,13 @@ namespace RobotArm_Module
 
         public abstract bool Connect(string ip, Action onComplete = null);
         public abstract bool DisConnect();
-        public abstract void MoveToPreset(Vector3 position, Vector3 rotation);
+        public abstract void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position);
         public abstract void ShutDown();
 
         public abstract void TestCode(string script);
+
+        public float Speed = 0.1f;
+        public float Acceleration = 1.2f;
 
         protected bool isUsingPreset = false;
 
@@ -50,14 +60,17 @@ namespace RobotArm_Module
 
         PresetData currentTargetQueue = null;
 
+        int currentQueueCount = 0;
+
         private void PlayMoveQueue()
         {
-            if (DataContainer.Instance.WorkPreset.WorkQueue.Count == 0)
+            if (DataContainer.Instance.WorkPreset.WorkList.Count <= currentQueueCount)
             {
                 if (isUsingPreset)
                 {
                     Debug.Log($"TestCode :: Complete WorkQueue = 0");
                     isUsingPreset = false;
+                    currentQueueCount = 0;
                     onPresetComplete?.Invoke();
                 }
                 return;
@@ -66,11 +79,13 @@ namespace RobotArm_Module
             {
                 if (currentTargetQueue == null)
                 {
-                    Debug.Log($"TestCode :: start WorkQueue Dequeue");
+                    //Debug.Log($"TestCode :: start WorkQueue Dequeue");
 
-                    currentTargetQueue = DataContainer.Instance.WorkPreset.WorkQueue.Dequeue();
+                    // Get and remove the first item from the dictionary
+                    currentTargetQueue = DataContainer.Instance.WorkPreset.WorkList[currentQueueCount];
+                    currentQueueCount++;
 
-                    MoveToPreset(currentTargetQueue.position, currentTargetQueue.rotation[0]);
+                    MoveToPreset(currentTargetQueue?.position, currentTargetQueue?.rotation, currentTargetQueue.moveType);
 
                     Thread.Sleep(500);
 
@@ -151,5 +166,11 @@ namespace RobotArm_Module
         public abstract void JointRotation(float angle, eJointType type = eJointType.None);
         public abstract void SetPivot(Vector3 pivot);
         public abstract void PlayPreset(Action onComplete = null);
+        public abstract void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position);
+        public abstract void AddWorkQueue(PresetData[] preset);
+
+        public abstract void EmergencyStop();
+
+        public abstract void Homming();
     }
 }

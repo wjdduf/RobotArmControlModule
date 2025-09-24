@@ -8,6 +8,16 @@ namespace RobotArm_Module
 		{
 		}
 
+        public override void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddWorkQueue(PresetData[] preset)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool Connect(string ip, Action onComplete = null)
         {
             //연결 관련 코드 구현
@@ -16,6 +26,16 @@ namespace RobotArm_Module
         }
 
         public override bool DisConnect()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void EmergencyStop()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Homming()
         {
             throw new NotImplementedException();
         }
@@ -35,7 +55,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void MoveToPreset(Vector3 position, Vector3 rotation)
+        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position)
         {
             throw new NotImplementedException();
         }

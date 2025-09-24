@@ -27,29 +27,38 @@ namespace RobotArm_Module
         public URConfig URConfig = new URConfig();
 
         public RobotArmCurrentData RobotArmCurrentData = new RobotArmCurrentData();
-
-
         public WorkPreset WorkPreset = new WorkPreset();
+
+        public int IDCount = 0;
     }
 
     public class WorkPreset
     {
-        public Queue<PresetData> WorkQueue = new Queue<PresetData>();
+        public List<PresetData> WorkList = new List<PresetData>();
 
         public void Add(PresetData data)
         {
-            if(data != null)
+            if (data != null)
             {
-                WorkQueue.Enqueue(data);
+                WorkList.Add(data);
+                DataContainer.Instance.IDCount++;
             }
         }
 
-        public void Deueue()
+        public bool Delete(string id)
         {
-            if(WorkQueue.Count != 0)
+            bool isSuccess = false;
+            for (int i = 0; i < WorkList.Count; i++)
             {
-                WorkQueue.Dequeue();
+                if (WorkList[i].presetID.Equals(id))
+                {
+                    WorkList.RemoveAt(i);
+                    isSuccess = true;
+                    break;
+                }
             }
+            return isSuccess;
         }
+
     }
 }

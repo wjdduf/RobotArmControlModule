@@ -18,17 +18,18 @@ namespace RobotArm_Module.Scripts
         RUNNING,
     }
 
-    public enum eMoveType
-    {
-        NONE,
-        C,
-        L,
-        J,
-        P,
-    }
-
     public class URArm : RobotArm
     {
+        public override void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddWorkQueue(PresetData[] preset)
+        {
+            throw new NotImplementedException();
+        }
+
         public override bool Connect(string ip, Action onComplete = null)
         {
             int port = DataContainer.Instance.URConfig.DASHBOARD_PORT;
@@ -136,6 +137,16 @@ namespace RobotArm_Module.Scripts
             return isSucces;
         }
 
+        public override void EmergencyStop()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Homming()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void JointRotation(float angle, eJointType type = eJointType.None)
         {
             throw new NotImplementedException();
@@ -190,7 +201,7 @@ namespace RobotArm_Module.Scripts
             throw new NotImplementedException();
         }
 
-        public override void MoveToPreset(Vector3 position, Vector3 rotation)
+        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position)
         {
             Debug.Log($"URArm MoveToPreset - {position} ::  {rotation}");
 
@@ -234,7 +245,6 @@ namespace RobotArm_Module.Scripts
                 }
             }
         }
-
 
         public override void MoveToRotation(float speed, eRotationAxis axis)
         {

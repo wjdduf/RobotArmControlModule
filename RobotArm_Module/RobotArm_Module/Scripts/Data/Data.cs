@@ -76,14 +76,21 @@ namespace RobotArm_Module
     public class PresetData
     {
         public Vector3 position;
-        public List<Vector3> rotation;
+        public Vector3 rotation;
+        public List<Vector3> rotations;
         public string presetName;
         public string presetID;
+        public eMoveType moveType = eMoveType.Position;
 
-        public PresetData(Vector3 vector3, List<Vector3> rotation)
+        public PresetData(Vector3 vector3, Vector3 rotation)
         {
             this.position = vector3;
             this.rotation = rotation;
+        }
+        public PresetData(Vector3 vector3, List<Vector3> rotation)
+        {
+            this.position = vector3;
+            this.rotations = rotation;
         }
     }
 

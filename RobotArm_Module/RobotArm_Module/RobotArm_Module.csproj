@@ -71,6 +71,7 @@
     <Compile Include="Scripts\RobotArmController.cs" />
     <Compile Include="Scripts\URArm.cs" />
     <Compile Include="Scripts\URArm3.cs" />
+    <Compile Include="Scripts\Utill\CreateProcess.cs" />
     <Compile Include="Scripts\Utill\Debug.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

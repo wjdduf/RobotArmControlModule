@@ -22,14 +22,6 @@ namespace RobotArm_Module
         RUNNING,
     }
 
-    public enum eMoveType
-    {
-        NONE,
-        C,
-        L,
-        J,
-        P,
-    }
 
     class URArm : RobotArm
     {
@@ -175,26 +167,58 @@ namespace RobotArm_Module
 
         public override void Stop()
         {
-            UR.PrimaryInterface.Script.Send("speedl([0,0,0,0,0,0],0.5)");
-            UR.PrimaryInterface.Script.Send("speedj([0,0,0,0,0,0],0.5)");
+            //UR.PrimaryInterface.Script.Send("speedl([0,0,0,0,0,0],0.5)");
+            //UR.PrimaryInterface.Script.Send("speedj([0,0,0,0,0,0],0.5)");
+
+
+            UR.PrimaryInterface.Script.Send("stopl(0.5)");
+            UR.PrimaryInterface.Script.Send("stopj(1)");
+            isMove = false;
+            isUsingPreset = false;
+
         }
 
-        public override void MoveToPreset(Vector3 position, Vector3 rotation)
+        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position)
         {
             Debug.Log($"URArm MoveToPreset - {position} ::  {rotation}");
+            
+            string mType = "movel";
+            if (moveType == eMoveType.Joint)
+                mType = "movej([";
+            else
+                mType = "movel(p[";
+
+            if (position == null || rotation == null)
+            {
+                Debug.Log($"MoveToPreset :: position or rotation is null");
+                return;
+            }
 
             StringBuilder st = new StringBuilder();
-            st.Append("movel(p[");
+            st.Append($"{mType}");
             //st.Append("movel(p[");
 
-            st.Append(position.X.ToString("F3") + ",");
-            st.Append(position.Y.ToString("F3") + ",");
-            st.Append(position.Z.ToString("F3") + ",");
-            st.Append(rotation.X.ToString("F3") + ",");
-            st.Append(rotation.Y.ToString("F3") + ",");
-            st.Append(rotation.Z.ToString("F3"));
+            if (moveType == eMoveType.Position)
+            {
+                st.Append(position.X.ToString("F3") + ",");
+                st.Append(position.Y.ToString("F3") + ",");
+                st.Append(position.Z.ToString("F3") + ",");
+                st.Append(rotation.X.ToString("F3") + ",");
+                st.Append(rotation.Y.ToString("F3") + ",");
+                st.Append(rotation.Z.ToString("F3"));
+            }
+            else if (moveType == eMoveType.Joint)
+            {
+                st.Append(DegreesToRadians(position.X).ToString("F3") + ",");
+                st.Append(DegreesToRadians(position.Y).ToString("F3") + ",");
+                st.Append(DegreesToRadians(position.Z).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.X).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.Y).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.Z).ToString("F3"));
+            }
+            
             //st.Append("])");
-            st.Append("],0.05,0.1)");
+            st.Append($"],{Acceleration},{Speed})");
             UR.PrimaryInterface.Script.Send(st.ToString());
         }
 
@@ -375,7 +399,7 @@ namespace RobotArm_Module
             );
             st.Append(DegreesToRadians(joint.GetJoint(eJointType.WRIST3).Angle).ToString("F3"));
             //st.Append("])");
-            st.Append("], 0.2,0.5)");
+            st.Append($"], {Acceleration},{Speed})");
             UR.PrimaryInterface.Script.Send(st.ToString());
         }
 
@@ -427,30 +451,43 @@ namespace RobotArm_Module
             //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.600,0.650,0,0,6])");
             //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.300,0.650,0,0,6])");
 
-            DataContainer.Instance.WorkPreset.Add(
-                new PresetData(
-                    new Vector3(-0.15f, 0.6f, 0.65f),
-                    new List<Vector3> { new Vector3(0, 0, 6) }
-                )
-            );
-            DataContainer.Instance.WorkPreset.Add(
-                new PresetData(
-                    new Vector3(-0.15f, 0.3f, 0.65f),
-                    new List<Vector3> { new Vector3(0, 0, 6) }
-                )
-            );
-            DataContainer.Instance.WorkPreset.Add(
-                new PresetData(
-                    new Vector3(-0.133f, 0.524f, 0.65f),
-                    new List<Vector3> { new Vector3(0, -2.218f, -2.220f) }
-                )
-            );
-            DataContainer.Instance.WorkPreset.Add(
-                new PresetData(
-                    new Vector3(-0.15f, 0.3f, 0.65f),
-                    new List<Vector3> { new Vector3(0.4f, -2.3f, -2.3f) }
-                )
-            );
+            PresetData temp = new PresetData(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
+            temp.presetID = "0";
+            DataContainer.Instance.WorkPreset.Add(temp);
+
+
+            temp = new PresetData(new Vector3(0.133f, 0.524f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
+            temp.presetID = "1";
+            DataContainer.Instance.WorkPreset.Add(temp);
+
+
+
+            temp = new PresetData(new Vector3(-0.300f, 0.100f, 0.650f), new Vector3(2.088f, 2.453f, -2.580f));
+            temp.presetID = "2";
+            DataContainer.Instance.WorkPreset.Add(temp);
+
+
+
+            temp = new PresetData(new Vector3(-0.600f, 0.100f, 0.650f), new Vector3(2.088f, 2.453f, -2.580f));
+            temp.presetID = "3";
+            DataContainer.Instance.WorkPreset.Add(temp);
+
+
+            temp = new PresetData(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
+            temp.presetID = "4";
+            DataContainer.Instance.WorkPreset.Add(temp);
+
+
+
+            temp = new PresetData(new Vector3(0.300f, -0.100f, 0.650f), new Vector3(2.088f, -2.453f, 2.580f));
+            temp.presetID = "5";
+            DataContainer.Instance.WorkPreset.Add(temp);
+
+
+            temp = new PresetData(new Vector3(0.600f, -0.100f, 0.650f), new Vector3(2.088f, -2.453f, 2.580f));
+            temp.presetID = "6";
+            DataContainer.Instance.WorkPreset.Add(temp);
+
             PlayPreset();
             //UR.InterpreterMode.EndInterpreter();
 
@@ -463,6 +500,41 @@ namespace RobotArm_Module
 
             isUsingPreset = true;
             onPresetComplete = onComplete;
+        }
+
+        public override void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position)
+        {
+            PresetData data = new PresetData(pos, rot);
+
+            StringBuilder st = new StringBuilder();
+            st.Append($"{pos.X.ToString("F3")},");
+            st.Append($"{pos.Y.ToString("F3")},");
+            st.Append($"{pos.Z.ToString("F3")},");
+            st.Append($"{rot.X.ToString("F3")},");
+            st.Append($"{rot.Y.ToString("F3")},");
+            st.Append($"{rot.Z.ToString("F3")}");
+
+            data.presetName = DataContainer.Instance.IDCount + ":" + st.ToString();
+            data.presetID = DataContainer.Instance.IDCount.ToString();
+            data.moveType = moveType;
+
+            DataContainer.Instance.WorkPreset.Add(data);
+
+        }
+
+        public override void AddWorkQueue(PresetData[] preset)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void EmergencyStop()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Homming()
+        {
+            MoveToPreset(new Vector3(90,-170,135), new Vector3(-150,90,0),eMoveType.Joint);
         }
     }
 }
