@@ -10,5 +10,9 @@ namespace RobotArm_Module
     {
         void EmergencyStop();
         void Homming();
+
+        bool GetSafetyMode();
+        void UnlockProtectiveStop();
+
     }
 }

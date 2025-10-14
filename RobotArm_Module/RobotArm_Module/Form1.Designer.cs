@@ -115,6 +115,7 @@ namespace RobotArm_Module
             this.label6 = new System.Windows.Forms.Label();
             this.Acceleration_TextBox = new System.Windows.Forms.TextBox();
             this.UnityPanel = new System.Windows.Forms.Panel();
+            this.IPCTest_Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.ArrowGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -914,10 +915,22 @@ namespace RobotArm_Module
             // 
             // UnityPanel
             // 
+            this.UnityPanel.BackColor = System.Drawing.SystemColors.Desktop;
             this.UnityPanel.Location = new System.Drawing.Point(865, 15);
             this.UnityPanel.Name = "UnityPanel";
             this.UnityPanel.Size = new System.Drawing.Size(960, 540);
             this.UnityPanel.TabIndex = 82;
+            // 
+            // IPCTest_Button
+            // 
+            this.IPCTest_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.IPCTest_Button.Location = new System.Drawing.Point(905, 578);
+            this.IPCTest_Button.Name = "IPCTest_Button";
+            this.IPCTest_Button.Size = new System.Drawing.Size(75, 23);
+            this.IPCTest_Button.TabIndex = 83;
+            this.IPCTest_Button.Text = "ICP Test";
+            this.IPCTest_Button.UseVisualStyleBackColor = false;
+            this.IPCTest_Button.Click += new System.EventHandler(this.IPCTest_Button_Click);
             // 
             // Form1
             // 
@@ -925,6 +938,7 @@ namespace RobotArm_Module
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.IPCTest_Button);
             this.Controls.Add(this.UnityPanel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.Acceleration_TextBox);
@@ -1008,8 +1022,8 @@ namespace RobotArm_Module
             this.Controls.Add(this.MoveToFront);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ArrowGroupBox.ResumeLayout(false);
             this.ArrowGroupBox.PerformLayout();
@@ -1106,6 +1120,7 @@ namespace RobotArm_Module
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox Acceleration_TextBox;
         private System.Windows.Forms.Panel UnityPanel;
+        private System.Windows.Forms.Button IPCTest_Button;
     }
 }
 

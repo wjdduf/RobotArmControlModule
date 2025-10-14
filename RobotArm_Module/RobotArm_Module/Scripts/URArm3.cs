@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
-using UnderAutomation.UniversalRobots;
 
 namespace RobotArm_Module.Scripts
 {
@@ -46,15 +45,15 @@ namespace RobotArm_Module.Scripts
                 client = new TcpClient(ip, port);
                 Debug.Log("서버에 연결되었습니다.");
 
-                SendPacket(URInterface.PowerOn);
-                Receive();
-
-                SendPacketWait(URInterface.RobotMode, eRobotMode.IDLE.ToString());
-
-                SendPacket(URInterface.BrakeRelease);
-                Receive();
-
-                SendPacketWait(URInterface.RobotMode, eRobotMode.RUNNING.ToString());
+                //SendPacket(URInterface.PowerOn);
+                //Receive();
+                //
+                //SendPacketWait(URInterface.RobotMode, eRobotMode.IDLE.ToString());
+                //
+                //SendPacket(URInterface.BrakeRelease);
+                //Receive();
+                //
+                //SendPacketWait(URInterface.RobotMode, eRobotMode.RUNNING.ToString());
 
                 isSucces = true;
             }
@@ -102,10 +101,10 @@ namespace RobotArm_Module.Scripts
                 client = new TcpClient(ip, port);
                 Debug.Log("서버에 연결되었습니다.");
 
-                SendPacket(URInterface.PowerOff);
-                Receive();
-
-                SendPacketWait(URInterface.RobotMode, eRobotMode.POWER_OFF.ToString());
+                //SendPacket(URInterface.PowerOff);
+                //Receive();
+                //
+                //SendPacketWait(URInterface.RobotMode, eRobotMode.POWER_OFF.ToString());
 
                 isSucces = true;
             }
@@ -138,6 +137,11 @@ namespace RobotArm_Module.Scripts
         }
 
         public override void EmergencyStop()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool GetSafetyMode()
         {
             throw new NotImplementedException();
         }
@@ -223,9 +227,9 @@ namespace RobotArm_Module.Scripts
                 // 1. TcpClient 객체를 생성하고 로봇에 연결합니다.
                 client = new TcpClient(DataContainer.Instance.currentIP, DataContainer.Instance.URConfig.REALTIMEINTERFACE_PORT);
 
-                SendPacket(st.ToString());
-                Receive();
-
+                //SendPacket(st.ToString());
+                //Receive();
+                //
                 Console.WriteLine($"\nSent command: {st.ToString().Trim()}");
             }
             catch (SocketException e)
@@ -287,10 +291,10 @@ namespace RobotArm_Module.Scripts
                 // 1. TcpClient 객체를 생성하고 로봇에 연결합니다.
                 client = new TcpClient(DataContainer.Instance.currentIP, DataContainer.Instance.URConfig.RTDE);
 
-                SendPacket(st.ToString());
-                //SendPacketWait(st.ToString(),"test");
-
-                Receive();
+                //SendPacket(st.ToString());
+                ////SendPacketWait(st.ToString(),"test");
+                //
+                //Receive();
 
                 //Console.WriteLine($"Sent command: {st.ToString().Trim()}");
             }
@@ -312,5 +316,9 @@ namespace RobotArm_Module.Scripts
             }
         }
 
+        public override void UnlockProtectiveStop()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

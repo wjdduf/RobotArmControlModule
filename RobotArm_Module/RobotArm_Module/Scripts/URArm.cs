@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using UnderAutomation.UniversalRobots;
-using UnderAutomation.UniversalRobots.Common;
-using UnderAutomation.UniversalRobots.Rtde;
 
 namespace RobotArm_Module
 {
@@ -25,116 +23,153 @@ namespace RobotArm_Module
 
     class URArm : RobotArm
     {
-        private UR UR;
-        private ConnectParameters connectParameters;
-        public bool UseInterPreterMode
-        {
-            get { return connectParameters.InterpreterMode.Enable; }
-            set { connectParameters.InterpreterMode.Enable = value; }
-        }
-
-        public URArm()
-        {
-            UR = new UR();
-        }
-
-        ~URArm()
-        {
-            UR.Rtde.OutputDataReceived -= Rtde_OutputDataReceived;
-            UR.PrimaryInterface.JointDataReceived -= SetCurrentJoinData;
-        }
-
+        //private UR UR;
+        private URTCPClient TCPClient;
+        
         public override bool Connect(string ip, Action onComplete = null)
         {
-            bool isSucces = true;
+            int port = DataContainer.Instance.URConfig.DASHBOARD_PORT;
+            DataContainer.Instance.currentIP = ip;
+            //연결 관련 코드 구현
+            Debug.Log($"Connect URArm ip - {ip} :: port - {port}");
 
-            Debug.Log($"서버에 연결 중... ({ip})");
-            ConnectParamSet(ip);
-            UR.Connect(connectParameters);
-            //UR.Rtde.Connect();
-            Debug.Log("서버에 연결되었습니다.");
-            UR.Rtde.OutputDataReceived += Rtde_OutputDataReceived;
-            UR.PrimaryInterface.JointDataReceived += SetCurrentJoinData;
+            bool isSucces = false;
 
-            UR.Dashboard.PowerOn();
+            try
+            {
+                
 
-            UR.Dashboard.ReleaseBrake();
+                // 2. 서버에 연결하기
+                Debug.Log($"서버에 연결 중... ({ip}:{port})");
+                TCPClient = new URTCPClient(ip);
+                Debug.Log("서버에 연결되었습니다.");
 
-            WaitStatus(eRobotMode.RUNNING.ToString(), onComplete);
+                TCPClient.SendPacket(URInterface.RobotMode, ePortType.Dashboard);
 
+                if(TCPClient.Receive(ePortType.Dashboard).Contains(eRobotMode.RUNNING.ToString()))
+                {
+                    Debug.Log("이미 연결 중입니다.");
+                    return true;
+                }
+
+                TCPClient.OnRTDEDataReceive -= Rtde_OutputDataReceived;
+                TCPClient.OnRTDEDataReceive += Rtde_OutputDataReceived;
+
+
+                TCPClient.SendPacket(URInterface.PowerOn, ePortType.Dashboard);
+                TCPClient.Receive(ePortType.Dashboard);
+
+                TCPClient.SendPacketWait(URInterface.RobotMode, eRobotMode.IDLE.ToString());
+
+                TCPClient.SendPacket(URInterface.BrakeRelease, ePortType.Dashboard);
+                TCPClient.Receive(ePortType.Dashboard);
+
+                TCPClient.SendPacketWait(URInterface.RobotMode, eRobotMode.RUNNING.ToString());
+
+                isSucces = true;
+            }
+            catch (SocketException e)
+            {
+                Debug.Log($"소켓 예외 발생: {e.Message}");
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"일반 예외 발생: {e.Message}");
+            }
+            finally
+            {
+                // 5. 연결 끊기
+                // NetworkStream과 TcpClient 객체를 닫아 리소스를 해제합니다.
+                if (stream != null)
+                {
+                    stream.Close();
+                    Debug.Log("네트워크 스트림을 닫았습니다.");
+                }
+                if (client != null)
+                {
+                    client.Close();
+                    Debug.Log("클라이언트 연결을 끊었습니다.");
+                }
+
+
+            }
             return isSucces;
         }
 
         public override bool DisConnect()
         {
+            int port = DataContainer.Instance.URConfig.DASHBOARD_PORT;
+            string ip = DataContainer.Instance.currentIP;
+
+            //연결 관련 코드 구현
+            Debug.Log($"DisConnect URArm ip - {ip} :: port - {port}");
+
             bool isSucces = false;
+            if (TCPClient == null)
+            {
+                TCPClient = new URTCPClient(ip);
+            }
 
-            isSucces = UR.Dashboard.PowerOff().Succeed;
+            try
+            {
+                TCPClient.SendPacket(URInterface.PowerOff, ePortType.Dashboard);
+                TCPClient.Receive(ePortType.Dashboard);
 
-            UR.InterpreterMode.Disconnect();
+                TCPClient.SendPacketWait(URInterface.RobotMode, eRobotMode.POWER_OFF.ToString());
 
-            UR.Rtde.Disconnect();
-            UR.Disconnect();
-
-            Debug.Log($"RTDE :: {UR.Rtde.Connected}");
-            Debug.Log($"InterpreterMode :: {UR.InterpreterMode.Connected}");
-            Debug.Log($"UR :: {UR.SocketCommunication.Enabled}");
-
-            return true;
+                isSucces = true;
+            }
+            catch (SocketException e)
+            {
+                Debug.Log($"소켓 예외 발생: {e.Message}");
+            }
+            catch (Exception e)
+            {
+                Debug.Log($"일반 예외 발생: {e.Message}");
+            }
+            finally
+            {
+                // 5. 연결 끊기
+                // NetworkStream과 TcpClient 객체를 닫아 리소스를 해제합니다.
+                //if(TCPClient!= null)
+                //    TCPClient.DisConnect();
+            }
+            return isSucces;
         }
 
         public override void ShutDown()
         {
-            throw new NotImplementedException();
+            //UR.Dashboard.Shutdown();
+            TCPClient.SendPacket(URInterface.ShutDown, ePortType.Dashboard);
         }
 
-        private void ConnectParamSet(string ip)
+
+        private void Rtde_OutputDataReceived(object sender, EventArgs e)
         {
-            connectParameters = new ConnectParameters(ip);
-
-            // Enable RTDE
-            connectParameters.Rtde.Enable = true;
-
-            //connectParameters.InterpreterMode.Enable = true;
-
-            // Exchange data at 500Hz
-            //connectParameters.Rtde.Frequency = 500;
-
-            // Select data you want to write in robot controller
-            connectParameters.Rtde.InputSetup.Add(RtdeInputData.StandardAnalogOutput0);
-            connectParameters.Rtde.InputSetup.Add(RtdeInputData.InputIntRegisters, 0);
-
-            // Select data you want the robot to send
-            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.ActualTcpPose);
-            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.ActualTcpSpeed);
-            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.JointControlOutput);
-            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.ToolOutputVoltage);
-            connectParameters.Rtde.OutputSetup.Add(RtdeOutputData.OutputDoubleRegisters, 10);
-        }
-
-        private void Rtde_OutputDataReceived(object sender, RtdeDataPackageEventArgs e)
-        {
-            // Get frequency of received message (OutputSetup contains Timestamp by default)
-            var realMessageFrequency = e.MeasuredFrequency;
 
             // Get the value of the data you have selected in the setup
-            SetCurrentRobotTransform(e.OutputDataValues.ActualTcpPose);
-            MoveCheck(e.OutputDataValues.ActualTcpSpeed.Values);
-            var ActualCurrent = e.OutputDataValues.TargetTcpPose;
-            double outputDoubleRegisters10 = e.OutputDataValues.OutputDoubleRegisters.X10;
+            SetCurrentRobotTransform(TCPClient.UrOutputs.actual_TCP_pose);
+            
+            //수정필요
+            MoveCheck(TCPClient.UrOutputs.actual_TCP_speed);
 
-            //Debug.Log($"ActualCurrent ::: {ActualCurrent}");
+            SetCurrentJoinData(TCPClient.UrOutputs.actual_q);
+
+
+            //Debug.Log($"ActualCurrent ::: {TCPClient.UrOutputs.actual_TCP_speed[0]}");
+            //Debug.Log($"ActualCurrent2222 ::: {TCPClient.UrOutputs.actual_current[0]}");
+
         }
 
-        private void SetCurrentRobotTransform(Pose pos)
+        private void SetCurrentRobotTransform(double[] pos)
         {
-            DataContainer.Instance.RobotArmCurrentData.currentPosition.X = (float)pos.X;
-            DataContainer.Instance.RobotArmCurrentData.currentPosition.Y = (float)pos.Y;
-            DataContainer.Instance.RobotArmCurrentData.currentPosition.Z = (float)pos.Z;
+            DataContainer.Instance.RobotArmCurrentData.currentPosition.X = (float)pos[0];
+            DataContainer.Instance.RobotArmCurrentData.currentPosition.Y = (float)pos[1];
+            DataContainer.Instance.RobotArmCurrentData.currentPosition.Z = (float)pos[2];
 
-            DataContainer.Instance.RobotArmCurrentData.currentRotation.X = (float)pos.Rx;
-            DataContainer.Instance.RobotArmCurrentData.currentRotation.Y = (float)pos.Ry;
-            DataContainer.Instance.RobotArmCurrentData.currentRotation.Z = (float)pos.Rz;
+            DataContainer.Instance.RobotArmCurrentData.currentRotation.X = (float)pos[3];
+            DataContainer.Instance.RobotArmCurrentData.currentRotation.Y = (float)pos[4];
+            DataContainer.Instance.RobotArmCurrentData.currentRotation.Z = (float)pos[5];
         }
 
         private void MoveCheck(double[] qd)
@@ -142,6 +177,7 @@ namespace RobotArm_Module
             bool isMove = false;
             for (int i = 0; i < qd.Length; i++)
             {
+                //Move
                 if (Math.Abs(qd[i]) >= 0.001f)
                 {
                     isMove = true;
@@ -151,28 +187,18 @@ namespace RobotArm_Module
             this.isMove = isMove;
         }
 
-        private async void WaitStatus(string waitText, Action onComplete = null)
-        {
-            while (
-                !UR.Dashboard.GetRobotMode().Value.ToString().ToLower().Contains(waitText.ToLower())
-            )
-            {
-                Debug.Log(
-                    $"Wait Status :: Current - {UR.Dashboard.GetRobotMode().Value.ToString()} : wait - {waitText}"
-                );
-                await Task.Delay(100);
-            }
-            onComplete?.Invoke();
-        }
-
         public override void Stop()
         {
             //UR.PrimaryInterface.Script.Send("speedl([0,0,0,0,0,0],0.5)");
             //UR.PrimaryInterface.Script.Send("speedj([0,0,0,0,0,0],0.5)");
 
 
-            UR.PrimaryInterface.Script.Send("stopl(0.5)");
-            UR.PrimaryInterface.Script.Send("stopj(1)");
+            //UR.PrimaryInterface.Script.Send("stopl(0.5)");
+            TCPClient.SendPacket("stopl(0.5)");
+
+            //UR.PrimaryInterface.Script.Send("stopj(1)");
+            TCPClient.SendPacket("stopj(1)");
+
             isMove = false;
             isUsingPreset = false;
 
@@ -181,7 +207,7 @@ namespace RobotArm_Module
         public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position)
         {
             Debug.Log($"URArm MoveToPreset - {position} ::  {rotation}");
-            
+
             string mType = "movel";
             if (moveType == eMoveType.Joint)
                 mType = "movej([";
@@ -216,10 +242,12 @@ namespace RobotArm_Module
                 st.Append(DegreesToRadians(rotation.Y).ToString("F3") + ",");
                 st.Append(DegreesToRadians(rotation.Z).ToString("F3"));
             }
-            
+
             //st.Append("])");
             st.Append($"],{Acceleration},{Speed})");
-            UR.PrimaryInterface.Script.Send(st.ToString());
+            //UR.PrimaryInterface.Script.Send(st.ToString());
+            TCPClient.SendPacket(st.ToString());
+            
         }
 
         public override void MoveToPosition(float speed, eDirection direction)
@@ -263,7 +291,9 @@ namespace RobotArm_Module
             st.Append(rotation.Z.ToString("F3"));
             //st.Append("])");
             st.Append("], 0.2,0.5)");
-            UR.PrimaryInterface.Script.Send(st.ToString());
+            //UR.PrimaryInterface.Script.Send(st.ToString());
+            TCPClient.SendPacket(st.ToString());
+
         }
 
         public override void MoveToRotation(float speed, eRotationAxis axis)
@@ -307,7 +337,9 @@ namespace RobotArm_Module
             st.Append(rotation.Z.ToString("F3"));
             //st.Append("])");
             st.Append("], 0.2,0.5)");
-            UR.PrimaryInterface.Script.Send(st.ToString());
+            //UR.PrimaryInterface.Script.Send(st.ToString());
+            TCPClient.SendPacket(st.ToString());
+
         }
 
         public override void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
@@ -352,7 +384,9 @@ namespace RobotArm_Module
             st.Append(rotation.Z.ToString("F3"));
             //st.Append("])");
             st.Append("], 0.2,0.5)");
-            UR.PrimaryInterface.Script.Send(st.ToString());
+            //UR.PrimaryInterface.Script.Send(st.ToString());
+            TCPClient.SendPacket(st.ToString());
+
         }
 
         public override void JointRotation(float angle, eJointType type = eJointType.None)
@@ -400,32 +434,33 @@ namespace RobotArm_Module
             st.Append(DegreesToRadians(joint.GetJoint(eJointType.WRIST3).Angle).ToString("F3"));
             //st.Append("])");
             st.Append($"], {Acceleration},{Speed})");
-            UR.PrimaryInterface.Script.Send(st.ToString());
+            //UR.PrimaryInterface.Script.Send(st.ToString());
+            TCPClient.SendPacket(st.ToString());
+
         }
 
-        private void SetCurrentJoinData(
-            object sender,
-            UnderAutomation.UniversalRobots.PrimaryInterface.JointDataPackageEventArgs e
-        )
+        private void SetCurrentJoinData(double[] angle)
         {
+            
             DataContainer
                 .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.BASE)
-                .Angle = RadiansToDegrees(e.Base.Position);
+                .Angle = RadiansToDegrees(angle[0]);
             DataContainer
                 .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.SHOULDER)
-                .Angle = RadiansToDegrees(e.Shoulder.Position);
+                .Angle = RadiansToDegrees(angle[1]);
             DataContainer
                 .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.ELBOW)
-                .Angle = RadiansToDegrees(e.Elbow.Position);
+                .Angle = RadiansToDegrees(angle[2]);
             DataContainer
                 .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST1)
-                .Angle = RadiansToDegrees(e.Wrist1.Position);
+                .Angle = RadiansToDegrees(angle[3]);
             DataContainer
                 .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST2)
-                .Angle = RadiansToDegrees(e.Wrist2.Position);
+                .Angle = RadiansToDegrees(angle[4]);
             DataContainer
                 .Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST3)
-                .Angle = RadiansToDegrees(e.Wrist3.Position);
+                .Angle = RadiansToDegrees(angle[5]);
+                
         }
 
         public override void SetPivot(Vector3 pivot)
@@ -439,17 +474,33 @@ namespace RobotArm_Module
 
             Debug.Log($"SetPivot :: {st.ToString()}");
 
-            UR.PrimaryInterface.Script.Send(st.ToString());
+            //UR.PrimaryInterface.Script.Send(st.ToString());
+            TCPClient.SendPacket(st.ToString());
         }
 
         public override void TestCode(string script)
         {
             //UR.InterpreterMode.ClearInterpreter();
             //UseInterPreterMode = true;
-            Debug.Log($"TestCode :: {UR.InterpreterMode.Connected}");
+            //Debug.Log($"TestCode :: {UR.InterpreterMode.Connected}");
             //UR.PrimaryInterface.Script.Send(script);
-            //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.600,0.650,0,0,6])");
-            //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.300,0.650,0,0,6])");
+            //UR.PrimaryInterface.Script.Send("movel(p[-0.150,0.600,0.650,0,0,6],1.2,0.2,0,0.1)");
+            //UR.PrimaryInterface.Script.Send("movel(p[-0.150,0.300,0.650,0,0,6],1.2,0.2,0,0.1)");
+
+            //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.600,0.650,0,0,6],1.2,0.2,0,0.1)");
+            //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.300,0.650,0,0,6],1.2,0.2,0,0.1)");
+               
+            if(TCPClient == null)
+            {
+                TCPClient = new URTCPClient(DataContainer.Instance.URConfig.IP);
+            }
+            GetSafetyMode();
+
+
+            return;
+
+
+
 
             PresetData temp = new PresetData(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
             temp.presetID = "0";
@@ -488,6 +539,7 @@ namespace RobotArm_Module
             temp.presetID = "6";
             DataContainer.Instance.WorkPreset.Add(temp);
 
+            //MoveP();
             PlayPreset();
             //UR.InterpreterMode.EndInterpreter();
 
@@ -500,6 +552,32 @@ namespace RobotArm_Module
 
             isUsingPreset = true;
             onPresetComplete = onComplete;
+        }
+
+        public void MoveP()
+        {
+            StringBuilder st = new StringBuilder();
+            st.Append("servol(");
+            for (int i = 0; i < DataContainer.Instance.WorkPreset.WorkList.Count; i++)
+            {
+                var item = DataContainer.Instance.WorkPreset.WorkList[i];
+                st.Append("p[");
+
+                st.Append($"{item.position.X.ToString("F3")},");
+                st.Append($"{item.position.Y.ToString("F3")},");
+                st.Append($"{item.position.Z.ToString("F3")},");
+                st.Append($"{item.rotation.X.ToString("F3")},");
+                st.Append($"{item.rotation.Y.ToString("F3")},");
+                st.Append($"{item.rotation.Z.ToString("F3")}");
+                st.Append("],");
+            }
+            st.Append($"{Acceleration},{Speed})");
+            Debug.Log($"MoveP TestCode :: {st.ToString()}");
+            DataContainer.Instance.WorkPreset.WorkList.Clear();
+
+            //UR.PrimaryInterface.Script.Send(st.ToString());
+            
+            TCPClient.SendPacket(st.ToString());
         }
 
         public override void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position)
@@ -535,6 +613,33 @@ namespace RobotArm_Module
         public override void Homming()
         {
             MoveToPreset(new Vector3(90,-170,135), new Vector3(-150,90,0),eMoveType.Joint);
+        }
+
+        public override bool GetSafetyMode()
+        {
+            bool isSafety = false;
+
+            TCPClient.SendPacket(URInterface.GetSafetyStatus,ePortType.Dashboard);
+
+
+            var data = TCPClient.Receive(ePortType.Dashboard);
+            if(data.Contains("NORMAL"))
+            {
+                isSafety = true;
+            }
+            
+
+            return isSafety;
+        }
+
+        public override void UnlockProtectiveStop()
+        {
+            TCPClient.SendPacket(URInterface.ClosePopup, ePortType.Dashboard);
+            TCPClient.Receive(ePortType.Dashboard);
+
+            TCPClient.SendPacket(URInterface.UnlockProtectiveStop, ePortType.Dashboard);
+            TCPClient.Receive(ePortType.Dashboard);
+
         }
     }
 }

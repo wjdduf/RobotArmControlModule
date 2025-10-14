@@ -202,5 +202,12 @@ namespace RobotArm_Module
         }
     }
 
+    [Serializable]
+    public class PipeData
+    {
+        public string Command;
+        public string Value;
+    }
+
     #endregion
 }

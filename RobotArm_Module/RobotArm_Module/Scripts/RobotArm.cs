@@ -18,6 +18,9 @@ namespace RobotArm_Module
     {
         protected byte[] responseBuffer;
 
+        protected TcpClient dashBoardClient = null;
+        protected NetworkStream dashBoardCstream = null;
+
         protected TcpClient client = null;
         protected NetworkStream stream = null;
 
@@ -39,6 +42,8 @@ namespace RobotArm_Module
         protected Action onPresetComplete = null;
 
         protected bool isMove = false;
+
+        private bool isFistTime = true;
 
         public RobotArm()
         {
@@ -87,7 +92,12 @@ namespace RobotArm_Module
 
                     MoveToPreset(currentTargetQueue?.position, currentTargetQueue?.rotation, currentTargetQueue.moveType);
 
-                    Thread.Sleep(500);
+                    if(isFistTime)
+                    {
+                        Debug.Log("IntoSleep");
+                        Thread.Sleep(500);
+                        isFistTime = false;
+                    }
 
                 }
                 else
@@ -99,56 +109,11 @@ namespace RobotArm_Module
                         Debug.Log($"TestCode :: check WorkQueue complete");
 
                         currentTargetQueue = null;
+                        isFistTime = true;
                     }
                 }
             }
         }
-
-        protected string Receive()
-        {
-            string responseMessage = string.Empty;
-            responseBuffer = new byte[1024];
-
-            int bytesRead = stream.Read(responseBuffer, 0, responseBuffer.Length);
-            responseMessage = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead).Trim();
-            Debug.Log($"서버로부터 받은 응답: '{responseMessage}'\n");
-
-            return responseMessage;
-        }
-
-        protected void SendPacket(string text)
-        {
-            byte[] data = Encoding.UTF8.GetBytes(text + "\n");
-
-            stream = client.GetStream(); // 데이터 전송을 위한 네트워크 스트림 얻기
-            stream.Write(data, 0, data.Length); // 데이터 쓰기
-            Debug.Log($"패킷 전송 완료: '{text}'");
-        }
-
-        protected void SendPacketWait(string send, string waitText)
-        {
-            string responseMessage = string.Empty;
-            responseBuffer = new byte[1024];
-
-            while (!responseMessage.Contains(waitText))
-            {
-                // 1. 패킷 전송
-                byte[] commandBytes = Encoding.UTF8.GetBytes(send + "\n");
-
-                stream = client.GetStream();
-                stream.Write(commandBytes, 0, commandBytes.Length);
-                Debug.Log($"전송: '{send.Trim()}'");
-
-                // 2. 서버로부터 응답 받기
-                int bytesRead = stream.Read(responseBuffer, 0, responseBuffer.Length);
-                responseMessage = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead);
-                Debug.Log($"수신: '{responseMessage.Trim()}'");
-
-                // 응답을 즉시 받지 못할 경우를 대비하여 잠시 대기
-                System.Threading.Thread.Sleep(100);
-            }
-        }
-
         public double RadiansToDegrees(double radians)
         {
             return radians * (180.0 / Math.PI);
@@ -172,5 +137,7 @@ namespace RobotArm_Module
         public abstract void EmergencyStop();
 
         public abstract void Homming();
+        public abstract bool GetSafetyMode();
+        public abstract void UnlockProtectiveStop();
     }
 }

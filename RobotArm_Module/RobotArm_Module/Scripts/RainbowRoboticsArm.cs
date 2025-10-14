@@ -35,6 +35,11 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
+        public override bool GetSafetyMode()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Homming()
         {
             throw new NotImplementedException();
@@ -86,6 +91,11 @@ namespace RobotArm_Module
         }
 
         public override void TestCode(string script)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void UnlockProtectiveStop()
         {
             throw new NotImplementedException();
         }

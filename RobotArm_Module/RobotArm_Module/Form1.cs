@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,8 @@ namespace RobotArm_Module
         public RobotArmController RobotArmController;
 
         public CreateProcess CreateProcess;
+
+        public PipeServer PipeServer;
 
         private bool isPush = false;
         private bool isJointPush = false;
@@ -477,12 +480,14 @@ namespace RobotArm_Module
             //Unity 생성
             CreateProcess = new CreateProcess();
             CreateProcess.CreateUnity(UnityPanel, "Winform_MergeTest.exe");
-
+            PipeServer = new PipeServer();
+            
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Debug.Log("Form1_FormClosing");
+            PipeServer.DisconnectPipe();
             CreateProcess.ProcessClose();
         }
 
@@ -606,6 +611,16 @@ namespace RobotArm_Module
             ListUpdate();
         }
 
-        
+        private void IPCTest_Button_Click(object sender, EventArgs e)
+        {
+            float angle;
+            float.TryParse(JointAngle_TextBox.Text, out angle);
+
+            PipeData data = new PipeData();
+            data.Command = selectJoint.ToString();
+            data.Value = angle.ToString();
+            string temp = JsonConvert.SerializeObject(data);
+            PipeServer.Send(temp);
+        }
     }
 }

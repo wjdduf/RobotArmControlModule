@@ -103,5 +103,15 @@ namespace RobotArm_Module
         {
             RobotArmBuilder.CurrentRobotArm.Acceleration = accel;
         }
+            
+        public bool GetSafetyMode()
+        {
+            return ISafety.GetSafetyMode();
+        }
+
+        public void UnlockProtectiveStop()
+        {
+            ISafety.UnlockProtectiveStop();
+        }
     }
 }

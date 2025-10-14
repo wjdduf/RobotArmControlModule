@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace RobotArm_Module
 {
+    public enum eDangerType
+    {
+        REDUCED, PROTECTIVE_STOP, RECOVERY, SAFEGUARD_STOP, 
+        SYSTEM_EMERGENCY_STOP, ROBOT_EMERGENCY_STOP, VIOLATION, FAULT,
+        AUTOMATIC_MODE_SAFEGUARD_STOP, SYSTEM_THREE_POSITION_ENABLING_STOP
+    }
+
     public static class URInterface
     {
 
@@ -35,6 +42,12 @@ namespace RobotArm_Module
         public const string version = "version";
 
         public const string EndInterpreter = "end_interpreter()";
+
+        public const string GetSafetyStatus = "safetystatus";
+
+        public const string ClosePopup = "close popup";
+
+        public const string UnlockProtectiveStop = "Unlock Protective Stop";
 
         #endregion
     }
