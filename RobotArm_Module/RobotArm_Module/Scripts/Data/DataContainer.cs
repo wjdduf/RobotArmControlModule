@@ -32,6 +32,7 @@ namespace RobotArm_Module
         public int IDCount = 0;
     }
 
+    [Serializable]
     public class WorkPreset
     {
         public List<PresetData> WorkList = new List<PresetData>();

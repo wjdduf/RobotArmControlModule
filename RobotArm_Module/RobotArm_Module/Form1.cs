@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿//#define UNITY
+
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,9 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace RobotArm_Module
 {
-    public partial class Form1 : Form
+    public partial class WarningReset_Button : Form
     {
         public RobotArmController RobotArmController;
 
@@ -32,7 +35,7 @@ namespace RobotArm_Module
         private float speed = 0.1f;
         private float acceleration = 1.2f;
 
-        public Form1()
+        public WarningReset_Button()
         {
             Start();
 
@@ -319,7 +322,7 @@ namespace RobotArm_Module
             try
             {
                 DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse( SetPosX_TextBox.Text), float.Parse( SetPosY_TextBox.Text), float.Parse( SetPosZ_TextBox.Text));
-                DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse( SetRotX_TextBox.Text), float.Parse( SetRotX_TextBox.Text), float.Parse( SetRotX_TextBox.Text));
+                DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse( SetRotX_TextBox.Text), float.Parse( SetRotY_TextBox.Text), float.Parse( SetRotZ_TextBox.Text));
 
 
 
@@ -479,7 +482,9 @@ namespace RobotArm_Module
 
             //Unity 생성
             CreateProcess = new CreateProcess();
+#if UNITY
             CreateProcess.CreateUnity(UnityPanel, "Winform_MergeTest.exe");
+#endif
             PipeServer = new PipeServer();
             
         }
@@ -621,6 +626,30 @@ namespace RobotArm_Module
             data.Value = angle.ToString();
             string temp = JsonConvert.SerializeObject(data);
             PipeServer.Send(temp);
+        }
+
+        private void Export_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.ExportJson(JsonName_textBox.Text);
+        }
+
+        private void Import_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.ImportJson(JsonName_textBox.Text);
+            ListUpdate();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(!RobotArmController.GetSafetyMode())
+            {
+                RobotArmController.UnlockProtectiveStop();
+            }
+        }
+
+        private void CSVButton_Click(object sender, EventArgs e)
+        {
+            RobotArmController.LoadCSV(AppDomain.CurrentDomain.BaseDirectory);
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -112,6 +114,27 @@ namespace RobotArm_Module
         public void UnlockProtectiveStop()
         {
             ISafety.UnlockProtectiveStop();
+        }
+
+        public List<CSVData> LoadCSV(string path)
+        {
+            CSVManager manager = new CSVManager();
+
+            List<CSVData> data = manager.LoadDataFromCsv("VDIS_GYRO_Radian_100ms", path);
+
+            RobotArmBuilder.CurrentRobotArm.PlayCSV(data);
+
+            return data;
+        }
+
+        public void ExportJson(string name)
+        {
+            JsonManager.ExportToJsonFile<WorkPreset>(DataContainer.Instance.WorkPreset, name, AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        public void ImportJson(string name)
+        {
+            DataContainer.Instance.WorkPreset = JsonManager.ImportFromJsonFile<WorkPreset>(name, AppDomain.CurrentDomain.BaseDirectory);
         }
     }
 }

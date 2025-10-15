@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -73,6 +74,7 @@ namespace RobotArm_Module
 
     }
 
+    [Serializable]
     public class PresetData
     {
         public Vector3 position;
@@ -81,6 +83,11 @@ namespace RobotArm_Module
         public string presetName;
         public string presetID;
         public eMoveType moveType = eMoveType.Position;
+
+        public PresetData()
+        {
+
+        }
 
         public PresetData(Vector3 vector3, Vector3 rotation)
         {
@@ -117,6 +124,7 @@ namespace RobotArm_Module
 
     #region Utill Data Class
 
+    [Serializable]
     public class Vector3
     {
         private float x;
@@ -207,6 +215,28 @@ namespace RobotArm_Module
     {
         public string Command;
         public string Value;
+    }
+
+    #endregion
+
+
+    #region 기타 데이터
+
+    public class CSVData
+    {
+        public static readonly int ExpectedFieldCount;
+
+        static CSVData()
+        {
+            ExpectedFieldCount = typeof(CSVData)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Count(p => p.GetSetMethod() != null);
+        }
+
+        public double radianX;
+        public double radianY;
+        public double radianZ;
+        public int timeStamp;
     }
 
     #endregion

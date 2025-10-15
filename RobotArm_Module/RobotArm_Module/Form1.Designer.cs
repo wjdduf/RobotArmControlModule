@@ -3,7 +3,7 @@ using System;
 
 namespace RobotArm_Module
 {
-    partial class Form1
+    partial class WarningReset_Button
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -116,6 +116,11 @@ namespace RobotArm_Module
             this.Acceleration_TextBox = new System.Windows.Forms.TextBox();
             this.UnityPanel = new System.Windows.Forms.Panel();
             this.IPCTest_Button = new System.Windows.Forms.Button();
+            this.Export_Button = new System.Windows.Forms.Button();
+            this.Import_Button = new System.Windows.Forms.Button();
+            this.JsonName_textBox = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.CSVButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.ArrowGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -932,12 +937,68 @@ namespace RobotArm_Module
             this.IPCTest_Button.UseVisualStyleBackColor = false;
             this.IPCTest_Button.Click += new System.EventHandler(this.IPCTest_Button_Click);
             // 
-            // Form1
+            // Export_Button
+            // 
+            this.Export_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Export_Button.Location = new System.Drawing.Point(139, 477);
+            this.Export_Button.Name = "Export_Button";
+            this.Export_Button.Size = new System.Drawing.Size(75, 23);
+            this.Export_Button.TabIndex = 84;
+            this.Export_Button.Text = "Export";
+            this.Export_Button.UseVisualStyleBackColor = false;
+            this.Export_Button.Click += new System.EventHandler(this.Export_Button_Click);
+            // 
+            // Import_Button
+            // 
+            this.Import_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Import_Button.Location = new System.Drawing.Point(139, 506);
+            this.Import_Button.Name = "Import_Button";
+            this.Import_Button.Size = new System.Drawing.Size(75, 23);
+            this.Import_Button.TabIndex = 85;
+            this.Import_Button.Text = "Import";
+            this.Import_Button.UseVisualStyleBackColor = false;
+            this.Import_Button.Click += new System.EventHandler(this.Import_Button_Click);
+            // 
+            // JsonName_textBox
+            // 
+            this.JsonName_textBox.Location = new System.Drawing.Point(26, 477);
+            this.JsonName_textBox.Name = "JsonName_textBox";
+            this.JsonName_textBox.Size = new System.Drawing.Size(80, 21);
+            this.JsonName_textBox.TabIndex = 86;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.button2.Location = new System.Drawing.Point(26, 578);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(97, 52);
+            this.button2.TabIndex = 87;
+            this.button2.Text = "WarningReset";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // CSVButton
+            // 
+            this.CSVButton.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.CSVButton.Location = new System.Drawing.Point(139, 535);
+            this.CSVButton.Name = "CSVButton";
+            this.CSVButton.Size = new System.Drawing.Size(75, 23);
+            this.CSVButton.TabIndex = 88;
+            this.CSVButton.Text = "CSV";
+            this.CSVButton.UseVisualStyleBackColor = false;
+            this.CSVButton.Click += new System.EventHandler(this.CSVButton_Click);
+            // 
+            // WarningReset_Button
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.CSVButton);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.JsonName_textBox);
+            this.Controls.Add(this.Import_Button);
+            this.Controls.Add(this.Export_Button);
             this.Controls.Add(this.IPCTest_Button);
             this.Controls.Add(this.UnityPanel);
             this.Controls.Add(this.label6);
@@ -1020,7 +1081,7 @@ namespace RobotArm_Module
             this.Controls.Add(this.PowerOn);
             this.Controls.Add(this.MoveToBack);
             this.Controls.Add(this.MoveToFront);
-            this.Name = "Form1";
+            this.Name = "WarningReset_Button";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1121,6 +1182,11 @@ namespace RobotArm_Module
         private System.Windows.Forms.TextBox Acceleration_TextBox;
         private System.Windows.Forms.Panel UnityPanel;
         private System.Windows.Forms.Button IPCTest_Button;
+        private System.Windows.Forms.Button Import_Button;
+        private System.Windows.Forms.Button Export_Button;
+        private System.Windows.Forms.TextBox JsonName_textBox;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button CSVButton;
     }
 }
 

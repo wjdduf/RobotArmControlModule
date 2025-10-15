@@ -73,7 +73,9 @@
     <Compile Include="Scripts\URArm.cs" />
     <Compile Include="Scripts\URArm3.cs" />
     <Compile Include="Scripts\Utill\CreateProcess.cs" />
+    <Compile Include="Scripts\Utill\CSVManager.cs" />
     <Compile Include="Scripts\Utill\Debug.cs" />
+    <Compile Include="Scripts\Utill\JsonManager.cs" />
     <Compile Include="Scripts\Utill\PipeServer.cs" />
     <Compile Include="Scripts\Utill\RtdeClient.cs" />
     <Compile Include="Scripts\Utill\TCPClient.cs" />

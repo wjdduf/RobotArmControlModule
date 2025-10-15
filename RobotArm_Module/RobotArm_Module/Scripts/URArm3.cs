@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 
@@ -251,6 +252,11 @@ namespace RobotArm_Module.Scripts
         }
 
         public override void MoveToRotation(float speed, eRotationAxis axis)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PlayCSV(List<CSVData> data)
         {
             throw new NotImplementedException();
         }

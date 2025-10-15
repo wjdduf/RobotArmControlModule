@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
@@ -76,6 +77,8 @@ namespace RobotArm_Module
                     Debug.Log($"TestCode :: Complete WorkQueue = 0");
                     isUsingPreset = false;
                     currentQueueCount = 0;
+                    isFistTime = true;
+
                     onPresetComplete?.Invoke();
                 }
                 return;
@@ -84,32 +87,33 @@ namespace RobotArm_Module
             {
                 if (currentTargetQueue == null)
                 {
-                    //Debug.Log($"TestCode :: start WorkQueue Dequeue");
 
                     // Get and remove the first item from the dictionary
                     currentTargetQueue = DataContainer.Instance.WorkPreset.WorkList[currentQueueCount];
                     currentQueueCount++;
+
+                    Debug.Log($"TestCode :: start WorkQueue Dequeue : {currentQueueCount}");
+
 
                     MoveToPreset(currentTargetQueue?.position, currentTargetQueue?.rotation, currentTargetQueue.moveType);
 
                     if(isFistTime)
                     {
                         Debug.Log("IntoSleep");
-                        Thread.Sleep(500);
+                        Thread.Sleep(100);
                         isFistTime = false;
                     }
 
                 }
                 else
                 {
-                    Debug.Log($"TestCode :: check WorkQueue Dequeue");
+                    //Debug.Log($"TestCode :: check WorkQueue Dequeue");
 
                     if (!isMove)
                     {
                         Debug.Log($"TestCode :: check WorkQueue complete");
 
                         currentTargetQueue = null;
-                        isFistTime = true;
                     }
                 }
             }
@@ -139,5 +143,7 @@ namespace RobotArm_Module
         public abstract void Homming();
         public abstract bool GetSafetyMode();
         public abstract void UnlockProtectiveStop();
+
+        public abstract void PlayCSV(List<CSVData> data);
     }
 }

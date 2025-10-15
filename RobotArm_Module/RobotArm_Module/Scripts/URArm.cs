@@ -178,7 +178,7 @@ namespace RobotArm_Module
             for (int i = 0; i < qd.Length; i++)
             {
                 //Move
-                if (Math.Abs(qd[i]) >= 0.001f)
+                if (Math.Abs(qd[i]) >= 0.0001f)
                 {
                     isMove = true;
                     break;
@@ -212,7 +212,7 @@ namespace RobotArm_Module
             if (moveType == eMoveType.Joint)
                 mType = "movej([";
             else
-                mType = "movel(p[";
+                mType = "movej(p[";
 
             if (position == null || rotation == null)
             {
@@ -244,7 +244,7 @@ namespace RobotArm_Module
             }
 
             //st.Append("])");
-            st.Append($"],{Acceleration},{Speed})");
+            st.Append($"],a={Acceleration},v={Speed})");
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
             
@@ -480,78 +480,126 @@ namespace RobotArm_Module
 
         public override void TestCode(string script)
         {
-            //UR.InterpreterMode.ClearInterpreter();
-            //UseInterPreterMode = true;
-            //Debug.Log($"TestCode :: {UR.InterpreterMode.Connected}");
-            //UR.PrimaryInterface.Script.Send(script);
-            //UR.PrimaryInterface.Script.Send("movel(p[-0.150,0.600,0.650,0,0,6],1.2,0.2,0,0.1)");
-            //UR.PrimaryInterface.Script.Send("movel(p[-0.150,0.300,0.650,0,0,6],1.2,0.2,0,0.1)");
-
-            //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.600,0.650,0,0,6],1.2,0.2,0,0.1)");
-            //UR.InterpreterMode.ExecuteCommand("movel(p[-0.150,0.300,0.650,0,0,6],1.2,0.2,0,0.1)");
-               
-            if(TCPClient == null)
-            {
-                TCPClient = new URTCPClient(DataContainer.Instance.URConfig.IP);
-            }
-            GetSafetyMode();
 
 
-            return;
+            string UrScriptCommand =
+        "movej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\n" +
+        "movej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\n" +
+        "movej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\n" +
+        "movej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)";
+
+            UrScriptCommand = @"def my_sequence():
+movej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)
+movej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)
+movej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)
+movej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)
+end";
+            UrScriptCommand = "def my_sequence():\nmovej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\nend";
 
 
 
-
-            PresetData temp = new PresetData(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
-            temp.presetID = "0";
-            DataContainer.Instance.WorkPreset.Add(temp);
-
-
-            temp = new PresetData(new Vector3(0.133f, 0.524f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
-            temp.presetID = "1";
-            DataContainer.Instance.WorkPreset.Add(temp);
-
-
-
-            temp = new PresetData(new Vector3(-0.300f, 0.100f, 0.650f), new Vector3(2.088f, 2.453f, -2.580f));
-            temp.presetID = "2";
-            DataContainer.Instance.WorkPreset.Add(temp);
-
-
-
-            temp = new PresetData(new Vector3(-0.600f, 0.100f, 0.650f), new Vector3(2.088f, 2.453f, -2.580f));
-            temp.presetID = "3";
-            DataContainer.Instance.WorkPreset.Add(temp);
-
-
-            temp = new PresetData(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
-            temp.presetID = "4";
-            DataContainer.Instance.WorkPreset.Add(temp);
-
-
-
-            temp = new PresetData(new Vector3(0.300f, -0.100f, 0.650f), new Vector3(2.088f, -2.453f, 2.580f));
-            temp.presetID = "5";
-            DataContainer.Instance.WorkPreset.Add(temp);
-
-
-            temp = new PresetData(new Vector3(0.600f, -0.100f, 0.650f), new Vector3(2.088f, -2.453f, 2.580f));
-            temp.presetID = "6";
-            DataContainer.Instance.WorkPreset.Add(temp);
-
-            //MoveP();
-            PlayPreset();
-            //UR.InterpreterMode.EndInterpreter();
-
-            return;
+            TCPClient.SendPacket(UrScriptCommand);
         }
 
         public override void PlayPreset(Action onComplete = null)
         {
             Debug.Log($"TestCode :: PlayPreset");
 
-            isUsingPreset = true;
-            onPresetComplete = onComplete;
+            //isUsingPreset = true;
+            //onPresetComplete = onComplete;
+
+            string scriptCommand;
+
+            StringBuilder st = new StringBuilder();
+            st.Append("def my_sequence():\n");
+
+            List<PresetData> currentTargetQueue = DataContainer.Instance.WorkPreset.WorkList;
+
+
+            for (int i =0;i< currentTargetQueue.Count;i++)
+            {
+                st.Append(GetScript(currentTargetQueue[i]?.position, currentTargetQueue[i]?.rotation, currentTargetQueue[i].moveType));
+                st.Append("\n");
+            }
+
+
+            st.Append("end");
+
+            scriptCommand = st.ToString();
+
+            Debug.Log($"PlayPreset Create Script { scriptCommand}");
+
+            TCPClient.SendPacket(scriptCommand);
+        }
+
+        private string GetScript(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position)
+        {
+            string mType = "movel";
+            if (moveType == eMoveType.Joint)
+                mType = "movej([";
+            else
+                mType = "movej(p[";
+
+            StringBuilder st = new StringBuilder();
+            st.Append($"{mType}");
+
+            if (moveType == eMoveType.Position)
+            {
+                st.Append(position.X.ToString("F3") + ",");
+                st.Append(position.Y.ToString("F3") + ",");
+                st.Append(position.Z.ToString("F3") + ",");
+                st.Append(rotation.X.ToString("F3") + ",");
+                st.Append(rotation.Y.ToString("F3") + ",");
+                st.Append(rotation.Z.ToString("F3"));
+            }
+            else if (moveType == eMoveType.Joint)
+            {
+                st.Append(DegreesToRadians(position.X).ToString("F3") + ",");
+                st.Append(DegreesToRadians(position.Y).ToString("F3") + ",");
+                st.Append(DegreesToRadians(position.Z).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.X).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.Y).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.Z).ToString("F3"));
+            }
+
+            st.Append($"],a={Acceleration},v={Speed})");
+
+            return st.ToString();
+        }
+
+        private string GetScript(Vector3 position, Vector3 rotation, float time, eMoveType moveType = eMoveType.Position)
+        {
+            string mType = "movel";
+            if (moveType == eMoveType.Joint)
+                mType = "movej([";
+            else
+                mType = "movej(p[";
+
+            StringBuilder st = new StringBuilder();
+            st.Append($"{mType}");
+
+            if (moveType == eMoveType.Position)
+            {
+                st.Append(position.X.ToString("F3") + ",");
+                st.Append(position.Y.ToString("F3") + ",");
+                st.Append(position.Z.ToString("F3") + ",");
+                st.Append(rotation.X.ToString("F3") + ",");
+                st.Append(rotation.Y.ToString("F3") + ",");
+                st.Append(rotation.Z.ToString("F3"));
+            }
+            else if (moveType == eMoveType.Joint)
+            {
+                st.Append(DegreesToRadians(position.X).ToString("F3") + ",");
+                st.Append(DegreesToRadians(position.Y).ToString("F3") + ",");
+                st.Append(DegreesToRadians(position.Z).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.X).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.Y).ToString("F3") + ",");
+                st.Append(DegreesToRadians(rotation.Z).ToString("F3"));
+            }
+
+            st.Append($"],t={time})");
+
+            return st.ToString();
         }
 
         public void MoveP()
@@ -612,7 +660,7 @@ namespace RobotArm_Module
 
         public override void Homming()
         {
-            MoveToPreset(new Vector3(90,-170,135), new Vector3(-150,90,0),eMoveType.Joint);
+            MoveToPreset(new Vector3(-90,-110,140), new Vector3(-30,90,180),eMoveType.Joint);
         }
 
         public override bool GetSafetyMode()
@@ -640,6 +688,44 @@ namespace RobotArm_Module
             TCPClient.SendPacket(URInterface.UnlockProtectiveStop, ePortType.Dashboard);
             TCPClient.Receive(ePortType.Dashboard);
 
+        }
+
+        public override void PlayCSV(List<CSVData> data)
+        {
+
+            Vector3 InitPos = new Vector3();
+            Vector3 InitRot = new Vector3();
+
+            InitPos.X = (float)(DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.BASE).Angle);
+            InitPos.Y = (float)(DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.SHOULDER).Angle);
+            InitPos.Z = (float)(DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.ELBOW).Angle);
+
+
+
+            InitRot.X = (float)DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST1).Angle;
+            InitRot.Y = (float)DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST2).Angle;
+            InitRot.Z = (float)DataContainer.Instance.RobotArmCurrentData.currentJoinData.GetJoint(eJointType.WRIST3).Angle;
+
+            StringBuilder st = new StringBuilder();
+            st.Append("def my_sequence():\n");
+
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                Vector3 rot = new Vector3();
+                rot.X = (float)(InitRot.X + data[i].radianX);
+                rot.Y = (float)(InitRot.Y + data[i].radianY);
+                rot.Z = (float)(InitRot.Z + data[i].radianZ);
+
+                st.Append(GetScript(InitPos, rot, 0.1f, eMoveType.Joint));
+                st.Append("\n");
+            }
+
+            st.Append("end");
+
+            Debug.Log(st.ToString());
+
+            TCPClient.SendPacket(st.ToString());
         }
     }
 }
