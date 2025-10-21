@@ -16,7 +16,6 @@ namespace RobotArm_Module
         {
             var dataList = new List<CSVData>();
 
-            int expectedCount = CSVData.ExpectedFieldCount;
             string path = filePath + name + ".csv";
 
             if (!File.Exists(path))
@@ -31,17 +30,28 @@ namespace RobotArm_Module
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
+                    if (line.StartsWith("//")) continue;
+
                     string[] parts = line.Split(',');
 
-                    if (parts.Length == 4)
+                    if (parts.Length == 6)
                     {
                         CSVData data = new CSVData();
                         data.radianX = double.Parse(parts[0]);
                         data.radianY = double.Parse(parts[1]);
                         data.radianZ = double.Parse(parts[2]);
-                        data.timeStamp = int.Parse(parts[3]);
-                        
+
+                        data.velocity = double.Parse(parts[3]);
+                        data.acceleration = double.Parse(parts[4]);
+                        data.timeStamp = int.Parse(parts[5]);
+                        //data.timeStamp = int.Parse(parts[3]);
+
                         dataList.Add(data);
+                        //if (data.velocity != 0 && data.acceleration != 0)
+                        //{
+                        //    dataList.Add(data);
+                        //}
+
                     }
                 }
             }

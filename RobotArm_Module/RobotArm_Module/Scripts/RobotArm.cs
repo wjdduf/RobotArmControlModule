@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace RobotArm_Module
 {
@@ -15,7 +16,7 @@ namespace RobotArm_Module
     }
 
 
-    public abstract class RobotArm : IMove, IConnect, ISafety, IData
+    public abstract class RobotArm : IMove, IConnect, ISafety, IData, IGripper
     {
         protected byte[] responseBuffer;
 
@@ -30,7 +31,7 @@ namespace RobotArm_Module
 
         public abstract bool Connect(string ip, Action onComplete = null);
         public abstract bool DisConnect();
-        public abstract void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position);
+        public abstract void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null);
         public abstract void ShutDown();
 
         public abstract void TestCode(string script);
@@ -44,11 +45,11 @@ namespace RobotArm_Module
 
         protected bool isMove = false;
 
-        private bool isFistTime = true;
+        public Queue<Action<Action>> actionQueue = new Queue<Action<Action>>();
 
         public RobotArm()
         {
-            WorkThread();
+            //WorkThread();
         }
 
         private async void WorkThread()
@@ -59,71 +60,58 @@ namespace RobotArm_Module
 
                 if (isUsingPreset)
                 {
-                    PlayMoveQueue();
+                    //PlayMoveQueue();
                 }
             }
         }
 
-        PresetData currentTargetQueue = null;
-
-        int currentQueueCount = 0;
-
-        private void PlayMoveQueue()
+        public void PlayRobotWork(string name)
         {
-            if (DataContainer.Instance.WorkPreset.WorkList.Count <= currentQueueCount)
-            {
-                if (isUsingPreset)
-                {
-                    Debug.Log($"TestCode :: Complete WorkQueue = 0");
-                    isUsingPreset = false;
-                    currentQueueCount = 0;
-                    isFistTime = true;
+            RobotWorkList data = JsonManager.ImportFromJsonFile<RobotWorkList>(name, DataContainer.Instance.JsonPath);
 
-                    onPresetComplete?.Invoke();
-                }
+            foreach (var step in data.WorkList)
+            {
+                actionQueue.Enqueue(next =>
+                {
+                    switch (step.Type)
+                    {
+                        case "PlayPreset":
+                            var preset = JsonManager.ImportFromJsonFile<WorkPreset>(step.PresetName, DataContainer.Instance.JsonPath);
+                            PlayPreset(preset,next);
+                            break;
+                        case "Grip":
+                            Grip(next);
+                            break;
+                        case "Release":
+                            Release(next);
+                            break;
+                    }
+                });
+            }
+
+            Console.WriteLine("▶️ 자동 시퀀스 시작");
+            RunNext();
+        }
+
+        private void RunNext()
+        {
+            if (actionQueue.Count == 0)
+            {
+                Console.WriteLine("✅ 모든 작업 완료");
                 return;
             }
-            else
-            {
-                if (currentTargetQueue == null)
-                {
 
-                    // Get and remove the first item from the dictionary
-                    currentTargetQueue = DataContainer.Instance.WorkPreset.WorkList[currentQueueCount];
-                    currentQueueCount++;
-
-                    Debug.Log($"TestCode :: start WorkQueue Dequeue : {currentQueueCount}");
-
-
-                    MoveToPreset(currentTargetQueue?.position, currentTargetQueue?.rotation, currentTargetQueue.moveType);
-
-                    if(isFistTime)
-                    {
-                        Debug.Log("IntoSleep");
-                        Thread.Sleep(100);
-                        isFistTime = false;
-                    }
-
-                }
-                else
-                {
-                    //Debug.Log($"TestCode :: check WorkQueue Dequeue");
-
-                    if (!isMove)
-                    {
-                        Debug.Log($"TestCode :: check WorkQueue complete");
-
-                        currentTargetQueue = null;
-                    }
-                }
-            }
+            var nextAction = actionQueue.Dequeue();
+            nextAction(RunNext); // 현재 작업 실행, 완료되면 RunNext 호출
         }
-        public double RadiansToDegrees(double radians)
+
+
+        public static double RadiansToDegrees(double radians)
         {
             return radians * (180.0 / Math.PI);
         }
 
-        public double DegreesToRadians(double degrees)
+        public static double DegreesToRadians(double degrees)
         {
             return degrees * (Math.PI / 180.0);
         }
@@ -134,7 +122,7 @@ namespace RobotArm_Module
         public abstract void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
         public abstract void JointRotation(float angle, eJointType type = eJointType.None);
         public abstract void SetPivot(Vector3 pivot);
-        public abstract void PlayPreset(Action onComplete = null);
+        public abstract void PlayPreset(WorkPreset preset ,Action onComplete = null);
         public abstract void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position);
         public abstract void AddWorkQueue(PresetData[] preset);
 
@@ -145,5 +133,7 @@ namespace RobotArm_Module
         public abstract void UnlockProtectiveStop();
 
         public abstract void PlayCSV(List<CSVData> data);
+        public abstract void Grip(Action onComplete = null);
+        public abstract void Release(Action onComplete = null);
     }
 }

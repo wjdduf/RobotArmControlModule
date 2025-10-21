@@ -41,6 +41,11 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
+        public override void Grip(Action onComplete = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Homming()
         {
             throw new NotImplementedException();
@@ -61,7 +66,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position)
+        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null)
         {
             throw new NotImplementedException();
         }
@@ -76,7 +81,12 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void PlayPreset(Action onComplete)
+        public override void PlayPreset(WorkPreset Preset, Action onComplete)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Release(Action onComplete = null)
         {
             throw new NotImplementedException();
         }

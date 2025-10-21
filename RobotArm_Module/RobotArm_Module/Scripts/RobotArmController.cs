@@ -16,6 +16,7 @@ namespace RobotArm_Module
         private IMove IMove;
         private IData IData;
         private ISafety ISafety;
+        private IGripper IGripper;
 
         public void Initialize(eRobotArmType type)
         {
@@ -31,6 +32,7 @@ namespace RobotArm_Module
             IMove = RobotArmBuilder.CurrentRobotArm;
             IData = RobotArmBuilder.CurrentRobotArm;
             ISafety = RobotArmBuilder.CurrentRobotArm;
+            IGripper = RobotArmBuilder.CurrentRobotArm;
         }
 
         public bool Connect(string ip)
@@ -76,14 +78,27 @@ namespace RobotArm_Module
         {
             IMove.SetPivot(pivot);
         }
+
+        public void ResetPivot()
+        {
+            IMove.SetPivot(Vector3.Zero());
+        }
+
         public void Stop()
         {
             IMove.Stop();
         }
 
-        public void ListPlay()
+        public void ListPlay(string jsonName)
         {
-            IMove.PlayPreset();
+            var preset = JsonManager.ImportFromJsonFile<WorkPreset>(jsonName, DataContainer.Instance.JsonPath);
+
+            IMove.PlayPreset(preset);
+        }
+
+        public void PlayWork(string workName)
+        {
+            IMove.PlayRobotWork(workName);
         }
 
         public void AddPlayList(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position)
@@ -120,7 +135,7 @@ namespace RobotArm_Module
         {
             CSVManager manager = new CSVManager();
 
-            List<CSVData> data = manager.LoadDataFromCsv("VDIS_GYRO_Radian_100ms", path);
+            List<CSVData> data = manager.LoadDataFromCsv("VDIS_GYRO_Radian_120ms", path);
 
             RobotArmBuilder.CurrentRobotArm.PlayCSV(data);
 
@@ -129,12 +144,40 @@ namespace RobotArm_Module
 
         public void ExportJson(string name)
         {
-            JsonManager.ExportToJsonFile<WorkPreset>(DataContainer.Instance.WorkPreset, name, AppDomain.CurrentDomain.BaseDirectory);
+            JsonManager.ExportToJsonFile<WorkPreset>(DataContainer.Instance.WorkPreset, name, DataContainer.Instance.JsonPath);
         }
 
         public void ImportJson(string name)
         {
-            DataContainer.Instance.WorkPreset = JsonManager.ImportFromJsonFile<WorkPreset>(name, AppDomain.CurrentDomain.BaseDirectory);
+            DataContainer.Instance.WorkPreset = JsonManager.ImportFromJsonFile<WorkPreset>(name, DataContainer.Instance.JsonPath);
+        }
+
+        public T ImportJson<T>(string name)
+        {
+            return JsonManager.ImportFromJsonFile<T>(name, DataContainer.Instance.JsonPath);
+        }
+
+        public void Grip()
+        {
+            IGripper.Grip();
+        }
+
+        public void Release()
+        {
+            IGripper.Release();
+        }
+
+        public void SetDeviceAlignment(Vector3 pivot, Vector3 rotation)
+        {
+            IMove.SetPivot(pivot);
+            Vector3 pos = new Vector3(DataContainer.Instance.RobotArmCurrentData.currentPosition.X,
+                                      DataContainer.Instance.RobotArmCurrentData.currentPosition.Y,
+                                      DataContainer.Instance.RobotArmCurrentData.currentPosition.Z);
+
+            Vector3 rot = new Vector3((float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.X),
+                                            (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Y),
+                                            (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Z));
+            IMove.MoveToPreset(pos, rot, eMoveType.Position,() => IMove.SetPivot(Vector3.Zero()));
         }
     }
 }

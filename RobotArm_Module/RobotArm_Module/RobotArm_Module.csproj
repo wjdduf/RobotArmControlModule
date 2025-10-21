@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CookComputing.XmlRpcV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <HintPath>..\packages\xmlrpcnet.3.0.0.266\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -61,6 +64,7 @@
     <Compile Include="Scripts\Data\RtdeData.cs" />
     <Compile Include="Scripts\Data\URInterface.cs" />
     <Compile Include="Scripts\Interface\IConnect.cs" />
+    <Compile Include="Scripts\Interface\IGripper.cs" />
     <Compile Include="Scripts\Interface\IMove.cs" />
     <Compile Include="Scripts\Interface\IData.cs" />
     <Compile Include="Program.cs" />
@@ -71,7 +75,6 @@
     <Compile Include="Scripts\RobotArmBuilder.cs" />
     <Compile Include="Scripts\RobotArmController.cs" />
     <Compile Include="Scripts\URArm.cs" />
-    <Compile Include="Scripts\URArm3.cs" />
     <Compile Include="Scripts\Utill\CreateProcess.cs" />
     <Compile Include="Scripts\Utill\CSVManager.cs" />
     <Compile Include="Scripts\Utill\Debug.cs" />

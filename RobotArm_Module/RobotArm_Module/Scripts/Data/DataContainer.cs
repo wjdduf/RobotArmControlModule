@@ -25,6 +25,7 @@ namespace RobotArm_Module
 
         public string currentIP = "192.168.1.40";
         public URConfig URConfig = new URConfig();
+        public string JsonPath = AppDomain.CurrentDomain.BaseDirectory + "WorkJson\\";
 
         public RobotArmCurrentData RobotArmCurrentData = new RobotArmCurrentData();
         public WorkPreset WorkPreset = new WorkPreset();

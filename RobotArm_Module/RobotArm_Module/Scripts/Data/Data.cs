@@ -83,6 +83,7 @@ namespace RobotArm_Module
         public string presetName;
         public string presetID;
         public eMoveType moveType = eMoveType.Position;
+        public bool isLinear = false;
 
         public PresetData()
         {
@@ -115,6 +116,22 @@ namespace RobotArm_Module
         public int INTERPRETER_PORT = 30020;
         public int REALTIMEINTERFACE_PORT = 30003;
         public int RTDE = 30004;
+    }
+
+    [Serializable]
+    public class RobotWorkList
+    {
+        public List<WorkStep> WorkList = new List<WorkStep>();
+        public string WorkName { get; set; }
+
+    }
+
+
+    [Serializable]
+    public class WorkStep
+    {
+        public string PresetName { get; set; }
+        public string Type { get; set; }
     }
 
 
@@ -236,6 +253,8 @@ namespace RobotArm_Module
         public double radianX;
         public double radianY;
         public double radianZ;
+        public double velocity;
+        public double acceleration;
         public int timeStamp;
     }
 

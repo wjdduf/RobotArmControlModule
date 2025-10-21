@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RobotArm_Module
@@ -204,7 +205,7 @@ namespace RobotArm_Module
 
         }
 
-        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position)
+        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null)
         {
             Debug.Log($"URArm MoveToPreset - {position} ::  {rotation}");
 
@@ -226,28 +227,30 @@ namespace RobotArm_Module
 
             if (moveType == eMoveType.Position)
             {
-                st.Append(position.X.ToString("F3") + ",");
-                st.Append(position.Y.ToString("F3") + ",");
-                st.Append(position.Z.ToString("F3") + ",");
-                st.Append(rotation.X.ToString("F3") + ",");
-                st.Append(rotation.Y.ToString("F3") + ",");
-                st.Append(rotation.Z.ToString("F3"));
+                st.Append(position.X.ToString("F5") + ",");
+                st.Append(position.Y.ToString("F5") + ",");
+                st.Append(position.Z.ToString("F5") + ",");
+                st.Append(rotation.X.ToString("F5") + ",");
+                st.Append(rotation.Y.ToString("F5") + ",");
+                st.Append(rotation.Z.ToString("F5"));
             }
             else if (moveType == eMoveType.Joint)
             {
-                st.Append(DegreesToRadians(position.X).ToString("F3") + ",");
-                st.Append(DegreesToRadians(position.Y).ToString("F3") + ",");
-                st.Append(DegreesToRadians(position.Z).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.X).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.Y).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.Z).ToString("F3"));
+                st.Append(DegreesToRadians(position.X).ToString("F5") + ",");
+                st.Append(DegreesToRadians(position.Y).ToString("F5") + ",");
+                st.Append(DegreesToRadians(position.Z).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.X).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.Y).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.Z).ToString("F5"));
             }
 
             //st.Append("])");
             st.Append($"],a={Acceleration},v={Speed})");
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
-            
+
+            MoveCheck(onComplete);
+
         }
 
         public override void MoveToPosition(float speed, eDirection direction)
@@ -480,28 +483,40 @@ namespace RobotArm_Module
 
         public override void TestCode(string script)
         {
+            string UrScriptCommand;
 
 
-            string UrScriptCommand =
-        "movej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\n" +
-        "movej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\n" +
-        "movej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\n" +
-        "movej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)";
+            //UrScriptCommand = "def my_sequence():\nmovej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\nend";
 
-            UrScriptCommand = @"def my_sequence():
-movej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)
-movej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)
-movej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)
-movej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)
-end";
-            UrScriptCommand = "def my_sequence():\nmovej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\nend";
+            //UrScriptCommand = "def my_sequence():\n" + URInterface.GripperStart + URInterface.Grip + URInterface.Pully + "end";
+
+            UrScriptCommand = URInterface.gripTest;
+            //UrScriptCommand = "popup(str(getModbusStatus()))\n";
 
 
 
-            TCPClient.SendPacket(UrScriptCommand);
+            //            UrScriptCommand = @"def my_sequence():
+            //write_modbus5(1417 + 3, 1)
+            //write_modbus5(1417 + 3, 0)
+            //end";
+
+
+            //TCPClient.SendPacket(UrScriptCommand);
+            //TCPClient.SendPacket($"load release.urp",ePortType.Dashboard);
+            //TCPClient.SendPacket($"play", ePortType.Dashboard);
+
+            //TCPClient.SendPacket(URInterface.Grip, ePortType.Dashboard);
+
+            TCPClient.SendPacket(URInterface.Grip,ePortType.Dashboard);
+            Thread.Sleep(500);
+            TCPClient.SendPacketWait("programState", "STOPPED");
+            TCPClient.SendPacket(URInterface.Release, ePortType.Dashboard);
+
+
+            //TCPClient.Test();
         }
 
-        public override void PlayPreset(Action onComplete = null)
+        public override void PlayPreset(WorkPreset Preset, Action onComplete = null)
         {
             Debug.Log($"TestCode :: PlayPreset");
 
@@ -511,14 +526,20 @@ end";
             string scriptCommand;
 
             StringBuilder st = new StringBuilder();
-            st.Append("def my_sequence():\n");
+            st.Append("def Test():\n");
 
-            List<PresetData> currentTargetQueue = DataContainer.Instance.WorkPreset.WorkList;
+            if (Preset.WorkList.Count == 0)
+            {
+                Debug.Log("Work Data Is Null");
+                return;
+            }
+
+            List<PresetData> currentTargetQueue = Preset.WorkList;
 
 
             for (int i =0;i< currentTargetQueue.Count;i++)
             {
-                st.Append(GetScript(currentTargetQueue[i]?.position, currentTargetQueue[i]?.rotation, currentTargetQueue[i].moveType));
+                st.Append(GetScript(currentTargetQueue[i]?.position, currentTargetQueue[i]?.rotation, currentTargetQueue[i].moveType, currentTargetQueue[i].isLinear));
                 st.Append("\n");
             }
 
@@ -530,39 +551,73 @@ end";
             Debug.Log($"PlayPreset Create Script { scriptCommand}");
 
             TCPClient.SendPacket(scriptCommand);
+
+
+
+
+            MoveCheck(onComplete);
         }
 
-        private string GetScript(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position)
+        private async void MoveCheck(Action action)
+        {
+            Thread.Sleep(1000);
+
+            while (isMove)
+            {
+                Debug.Log("Move Check");
+                await Task.Delay(100);
+            }
+
+            Debug.Log("Move Check Complete");
+            action?.Invoke();
+        }
+
+
+        private string GetScript(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false)
         {
             string mType = "movel";
-            if (moveType == eMoveType.Joint)
-                mType = "movej([";
+
+            if(isLinear)
+            {
+                mType = "movel";
+            }
             else
-                mType = "movej(p[";
+            {
+                mType = "movej";
+            }
+
+            if (moveType == eMoveType.Joint)
+                mType = mType + "([";
+            else
+                mType = mType + "(p[";
 
             StringBuilder st = new StringBuilder();
             st.Append($"{mType}");
 
             if (moveType == eMoveType.Position)
             {
-                st.Append(position.X.ToString("F3") + ",");
-                st.Append(position.Y.ToString("F3") + ",");
-                st.Append(position.Z.ToString("F3") + ",");
-                st.Append(rotation.X.ToString("F3") + ",");
-                st.Append(rotation.Y.ToString("F3") + ",");
-                st.Append(rotation.Z.ToString("F3"));
+                st.Append(position.X.ToString("F5") + ",");
+                st.Append(position.Y.ToString("F5") + ",");
+                st.Append(position.Z.ToString("F5") + ",");
+                st.Append(rotation.X.ToString("F5") + ",");
+                st.Append(rotation.Y.ToString("F5") + ",");
+                st.Append(rotation.Z.ToString("F5"));
             }
             else if (moveType == eMoveType.Joint)
             {
-                st.Append(DegreesToRadians(position.X).ToString("F3") + ",");
-                st.Append(DegreesToRadians(position.Y).ToString("F3") + ",");
-                st.Append(DegreesToRadians(position.Z).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.X).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.Y).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.Z).ToString("F3"));
+                st.Append(DegreesToRadians(position.X).ToString("F5") + ",");
+                st.Append(DegreesToRadians(position.Y).ToString("F5") + ",");
+                st.Append(DegreesToRadians(position.Z).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.X).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.Y).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.Z).ToString("F5"));
             }
 
-            st.Append($"],a={Acceleration},v={Speed})");
+            float speedFix = Speed;
+            if (isLinear)
+                speedFix = Speed / 2f;
+
+            st.Append($"],a={Acceleration},v={speedFix})");
 
             return st.ToString();
         }
@@ -580,24 +635,59 @@ end";
 
             if (moveType == eMoveType.Position)
             {
-                st.Append(position.X.ToString("F3") + ",");
-                st.Append(position.Y.ToString("F3") + ",");
-                st.Append(position.Z.ToString("F3") + ",");
-                st.Append(rotation.X.ToString("F3") + ",");
-                st.Append(rotation.Y.ToString("F3") + ",");
-                st.Append(rotation.Z.ToString("F3"));
+                st.Append(position.X.ToString("F5") + ",");
+                st.Append(position.Y.ToString("F5") + ",");
+                st.Append(position.Z.ToString("F5") + ",");
+                st.Append(rotation.X.ToString("F5") + ",");
+                st.Append(rotation.Y.ToString("F5") + ",");
+                st.Append(rotation.Z.ToString("F5"));
             }
             else if (moveType == eMoveType.Joint)
             {
-                st.Append(DegreesToRadians(position.X).ToString("F3") + ",");
-                st.Append(DegreesToRadians(position.Y).ToString("F3") + ",");
-                st.Append(DegreesToRadians(position.Z).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.X).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.Y).ToString("F3") + ",");
-                st.Append(DegreesToRadians(rotation.Z).ToString("F3"));
+                st.Append(DegreesToRadians(position.X).ToString("F5") + ",");
+                st.Append(DegreesToRadians(position.Y).ToString("F5") + ",");
+                st.Append(DegreesToRadians(position.Z).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.X).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.Y).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.Z).ToString("F5"));
             }
 
             st.Append($"],t={time})");
+
+            return st.ToString();
+        }
+
+        private string GetScript(Vector3 position, Vector3 rotation, double velocity, double acceleration, eMoveType moveType = eMoveType.Position)
+        {
+            string mType = "movel";
+            if (moveType == eMoveType.Joint)
+                mType = "movej([";
+            else
+                mType = "movej(p[";
+
+            StringBuilder st = new StringBuilder();
+            st.Append($"{mType}");
+
+            if (moveType == eMoveType.Position)
+            {
+                st.Append(position.X.ToString("F5") + ",");
+                st.Append(position.Y.ToString("F5") + ",");
+                st.Append(position.Z.ToString("F5") + ",");
+                st.Append(rotation.X.ToString("F5") + ",");
+                st.Append(rotation.Y.ToString("F5") + ",");
+                st.Append(rotation.Z.ToString("F5"));
+            }
+            else if (moveType == eMoveType.Joint)
+            {
+                st.Append(DegreesToRadians(position.X).ToString("F5") + ",");
+                st.Append(DegreesToRadians(position.Y).ToString("F5") + ",");
+                st.Append(DegreesToRadians(position.Z).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.X).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.Y).ToString("F5") + ",");
+                st.Append(DegreesToRadians(rotation.Z).ToString("F5"));
+            }
+
+            st.Append($"],a={acceleration},v={velocity})");
 
             return st.ToString();
         }
@@ -713,11 +803,13 @@ end";
             for (int i = 0; i < data.Count; i++)
             {
                 Vector3 rot = new Vector3();
-                rot.X = (float)(InitRot.X + data[i].radianX);
-                rot.Y = (float)(InitRot.Y + data[i].radianY);
-                rot.Z = (float)(InitRot.Z + data[i].radianZ);
+                rot.X = (float)(InitRot.X + (data[i].radianX * 10f));
+                rot.Y = (float)(InitRot.Y + (data[i].radianY * 10f));
+                rot.Z = (float)(InitRot.Z + (data[i].radianZ * 10f));
 
+                //st.Append(GetScript(InitPos, rot, data[i].velocity,data[i].acceleration, eMoveType.Joint));
                 st.Append(GetScript(InitPos, rot, 0.1f, eMoveType.Joint));
+
                 st.Append("\n");
             }
 
@@ -726,6 +818,30 @@ end";
             Debug.Log(st.ToString());
 
             TCPClient.SendPacket(st.ToString());
+        }
+
+        public override void Grip(Action onComplete = null)
+        {
+            TCPClient.SendPacket(URInterface.Grip, ePortType.Dashboard);
+            Thread.Sleep(500);
+            TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
+            Debug.Log("Grip");
+            Thread.Sleep(3000);
+
+
+            onComplete?.Invoke();
+        }
+
+        public override void Release(Action onComplete = null)
+        {
+            TCPClient.SendPacket(URInterface.Release, ePortType.Dashboard);
+            Thread.Sleep(500);
+            TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
+            Debug.Log("Release");
+            Thread.Sleep(2000);
+
+
+            onComplete?.Invoke();
         }
     }
 }

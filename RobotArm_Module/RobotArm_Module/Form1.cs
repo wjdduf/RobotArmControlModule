@@ -566,8 +566,10 @@ namespace RobotArm_Module
 
         private void ListPlay_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.ListPlay();
+            RobotArmController.ListPlay(JsonName_textBox.Text);
         }
+
+        
 
         private void ListAdd_Button_Click(object sender, EventArgs e)
         {
@@ -649,7 +651,99 @@ namespace RobotArm_Module
 
         private void CSVButton_Click(object sender, EventArgs e)
         {
-            RobotArmController.LoadCSV(AppDomain.CurrentDomain.BaseDirectory);
+            RobotArmController.LoadCSV(DataContainer.Instance.JsonPath);
+        }
+
+        private void GripButton_Click(object sender, EventArgs e)
+        {
+            RobotArmController.Grip();
+        }
+
+        private void Release_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.Release();
+        }
+
+        private void WorkPlay_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneGrip01");
+        }
+
+        private void PhoneGrip02_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneGrip02");
+        }
+
+        private void PhoneGrip03_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneGrip03");
+        }
+
+        private void PhoneGrip04_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneGrip04");
+        }
+
+        private void PhoneRelease02_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneRelease02");
+        }
+
+        private void PhoneRelease01_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneRelease01");
+        }
+
+        private void PhoneRelease03_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneRelease03");
+        }
+
+        private void PhoneRelease04_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneRelease04");
+        }
+
+        private void PhoneReady_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneReady");
+        }
+
+        private void PhoneFont_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneFront");
+        }
+
+        private void PhoneBack_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_PhoneBack");
+        }
+
+        private void Home_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_Home");
+        }
+
+        private void StickGrip01_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_StickGrip");
+        }
+
+        private void StickReturn_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_StickReturn");
+        }
+
+        private void StickSet_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_StickSet");
+
+        }
+
+        private void StickSetGrip_Button_Click(object sender, EventArgs e)
+        {
+            RobotArmController.PlayWork("Work_StickSetGrip");
+
         }
     }
 }

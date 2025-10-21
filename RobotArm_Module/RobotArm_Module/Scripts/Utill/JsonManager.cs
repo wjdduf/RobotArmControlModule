@@ -27,7 +27,7 @@ namespace RobotArm_Module
             string path = filePath + name + ".json";
             if (!File.Exists(path))
             {
-                Console.WriteLine($"[Import 실패] 파일을 찾을 수 없습니다: {filePath}");
+                Console.WriteLine($"[Import 실패] 파일을 찾을 수 없습니다: {path}");
                 return default(T);
             }
 

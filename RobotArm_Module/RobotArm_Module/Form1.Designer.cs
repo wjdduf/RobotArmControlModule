@@ -121,6 +121,24 @@ namespace RobotArm_Module
             this.JsonName_textBox = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.CSVButton = new System.Windows.Forms.Button();
+            this.GripButton = new System.Windows.Forms.Button();
+            this.Release_Button = new System.Windows.Forms.Button();
+            this.PhoneGrip01_Button = new System.Windows.Forms.Button();
+            this.PhoneGrip02_Button = new System.Windows.Forms.Button();
+            this.PhoneGrip03_Button = new System.Windows.Forms.Button();
+            this.PhoneGrip04_Button = new System.Windows.Forms.Button();
+            this.PhoneRelease04_Button = new System.Windows.Forms.Button();
+            this.PhoneRelease03_Button = new System.Windows.Forms.Button();
+            this.PhoneRelease02_Button = new System.Windows.Forms.Button();
+            this.PhoneRelease01_Button = new System.Windows.Forms.Button();
+            this.PhoneReady_Button = new System.Windows.Forms.Button();
+            this.PhoneFont_Button = new System.Windows.Forms.Button();
+            this.PhoneBack_Button = new System.Windows.Forms.Button();
+            this.Home_Button = new System.Windows.Forms.Button();
+            this.StickGrip01_Button = new System.Windows.Forms.Button();
+            this.StickReturn_Button = new System.Windows.Forms.Button();
+            this.StickSet_Button = new System.Windows.Forms.Button();
+            this.StickSetGrip_Button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.ArrowGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -940,7 +958,7 @@ namespace RobotArm_Module
             // Export_Button
             // 
             this.Export_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.Export_Button.Location = new System.Drawing.Point(139, 477);
+            this.Export_Button.Location = new System.Drawing.Point(116, 445);
             this.Export_Button.Name = "Export_Button";
             this.Export_Button.Size = new System.Drawing.Size(75, 23);
             this.Export_Button.TabIndex = 84;
@@ -951,7 +969,7 @@ namespace RobotArm_Module
             // Import_Button
             // 
             this.Import_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.Import_Button.Location = new System.Drawing.Point(139, 506);
+            this.Import_Button.Location = new System.Drawing.Point(116, 474);
             this.Import_Button.Name = "Import_Button";
             this.Import_Button.Size = new System.Drawing.Size(75, 23);
             this.Import_Button.TabIndex = 85;
@@ -961,7 +979,7 @@ namespace RobotArm_Module
             // 
             // JsonName_textBox
             // 
-            this.JsonName_textBox.Location = new System.Drawing.Point(26, 477);
+            this.JsonName_textBox.Location = new System.Drawing.Point(26, 447);
             this.JsonName_textBox.Name = "JsonName_textBox";
             this.JsonName_textBox.Size = new System.Drawing.Size(80, 21);
             this.JsonName_textBox.TabIndex = 86;
@@ -969,7 +987,7 @@ namespace RobotArm_Module
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.button2.Location = new System.Drawing.Point(26, 578);
+            this.button2.Location = new System.Drawing.Point(15, 474);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(97, 52);
             this.button2.TabIndex = 87;
@@ -980,7 +998,7 @@ namespace RobotArm_Module
             // CSVButton
             // 
             this.CSVButton.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.CSVButton.Location = new System.Drawing.Point(139, 535);
+            this.CSVButton.Location = new System.Drawing.Point(116, 503);
             this.CSVButton.Name = "CSVButton";
             this.CSVButton.Size = new System.Drawing.Size(75, 23);
             this.CSVButton.TabIndex = 88;
@@ -988,12 +1006,228 @@ namespace RobotArm_Module
             this.CSVButton.UseVisualStyleBackColor = false;
             this.CSVButton.Click += new System.EventHandler(this.CSVButton_Click);
             // 
+            // GripButton
+            // 
+            this.GripButton.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.GripButton.Location = new System.Drawing.Point(339, 256);
+            this.GripButton.Name = "GripButton";
+            this.GripButton.Size = new System.Drawing.Size(97, 52);
+            this.GripButton.TabIndex = 89;
+            this.GripButton.Text = "Grip";
+            this.GripButton.UseVisualStyleBackColor = false;
+            this.GripButton.Click += new System.EventHandler(this.GripButton_Click);
+            // 
+            // Release_Button
+            // 
+            this.Release_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Release_Button.Location = new System.Drawing.Point(452, 256);
+            this.Release_Button.Name = "Release_Button";
+            this.Release_Button.Size = new System.Drawing.Size(97, 52);
+            this.Release_Button.TabIndex = 90;
+            this.Release_Button.Text = "Release";
+            this.Release_Button.UseVisualStyleBackColor = false;
+            this.Release_Button.Click += new System.EventHandler(this.Release_Button_Click);
+            // 
+            // PhoneGrip01_Button
+            // 
+            this.PhoneGrip01_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneGrip01_Button.Location = new System.Drawing.Point(214, 488);
+            this.PhoneGrip01_Button.Name = "PhoneGrip01_Button";
+            this.PhoneGrip01_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneGrip01_Button.TabIndex = 91;
+            this.PhoneGrip01_Button.Text = "PhoneGrip01";
+            this.PhoneGrip01_Button.UseVisualStyleBackColor = false;
+            this.PhoneGrip01_Button.Click += new System.EventHandler(this.WorkPlay_Button_Click);
+            // 
+            // PhoneGrip02_Button
+            // 
+            this.PhoneGrip02_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneGrip02_Button.Location = new System.Drawing.Point(317, 488);
+            this.PhoneGrip02_Button.Name = "PhoneGrip02_Button";
+            this.PhoneGrip02_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneGrip02_Button.TabIndex = 92;
+            this.PhoneGrip02_Button.Text = "PhoneGrip02";
+            this.PhoneGrip02_Button.UseVisualStyleBackColor = false;
+            this.PhoneGrip02_Button.Click += new System.EventHandler(this.PhoneGrip02_Button_Click);
+            // 
+            // PhoneGrip03_Button
+            // 
+            this.PhoneGrip03_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneGrip03_Button.Location = new System.Drawing.Point(420, 488);
+            this.PhoneGrip03_Button.Name = "PhoneGrip03_Button";
+            this.PhoneGrip03_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneGrip03_Button.TabIndex = 93;
+            this.PhoneGrip03_Button.Text = "PhoneGrip03";
+            this.PhoneGrip03_Button.UseVisualStyleBackColor = false;
+            this.PhoneGrip03_Button.Click += new System.EventHandler(this.PhoneGrip03_Button_Click);
+            // 
+            // PhoneGrip04_Button
+            // 
+            this.PhoneGrip04_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneGrip04_Button.Location = new System.Drawing.Point(523, 488);
+            this.PhoneGrip04_Button.Name = "PhoneGrip04_Button";
+            this.PhoneGrip04_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneGrip04_Button.TabIndex = 94;
+            this.PhoneGrip04_Button.Text = "PhoneGrip04";
+            this.PhoneGrip04_Button.UseVisualStyleBackColor = false;
+            this.PhoneGrip04_Button.Click += new System.EventHandler(this.PhoneGrip04_Button_Click);
+            // 
+            // PhoneRelease04_Button
+            // 
+            this.PhoneRelease04_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneRelease04_Button.Location = new System.Drawing.Point(523, 546);
+            this.PhoneRelease04_Button.Name = "PhoneRelease04_Button";
+            this.PhoneRelease04_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneRelease04_Button.TabIndex = 98;
+            this.PhoneRelease04_Button.Text = "PhoneRelease04";
+            this.PhoneRelease04_Button.UseVisualStyleBackColor = false;
+            this.PhoneRelease04_Button.Click += new System.EventHandler(this.PhoneRelease04_Button_Click);
+            // 
+            // PhoneRelease03_Button
+            // 
+            this.PhoneRelease03_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneRelease03_Button.Location = new System.Drawing.Point(420, 546);
+            this.PhoneRelease03_Button.Name = "PhoneRelease03_Button";
+            this.PhoneRelease03_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneRelease03_Button.TabIndex = 97;
+            this.PhoneRelease03_Button.Text = "PhoneRelease03";
+            this.PhoneRelease03_Button.UseVisualStyleBackColor = false;
+            this.PhoneRelease03_Button.Click += new System.EventHandler(this.PhoneRelease03_Button_Click);
+            // 
+            // PhoneRelease02_Button
+            // 
+            this.PhoneRelease02_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneRelease02_Button.Location = new System.Drawing.Point(317, 546);
+            this.PhoneRelease02_Button.Name = "PhoneRelease02_Button";
+            this.PhoneRelease02_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneRelease02_Button.TabIndex = 96;
+            this.PhoneRelease02_Button.Text = "PhoneRelease02";
+            this.PhoneRelease02_Button.UseVisualStyleBackColor = false;
+            this.PhoneRelease02_Button.Click += new System.EventHandler(this.PhoneRelease02_Button_Click);
+            // 
+            // PhoneRelease01_Button
+            // 
+            this.PhoneRelease01_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneRelease01_Button.Location = new System.Drawing.Point(214, 546);
+            this.PhoneRelease01_Button.Name = "PhoneRelease01_Button";
+            this.PhoneRelease01_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneRelease01_Button.TabIndex = 95;
+            this.PhoneRelease01_Button.Text = "PhoneRelease01";
+            this.PhoneRelease01_Button.UseVisualStyleBackColor = false;
+            this.PhoneRelease01_Button.Click += new System.EventHandler(this.PhoneRelease01_Button_Click);
+            // 
+            // PhoneReady_Button
+            // 
+            this.PhoneReady_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneReady_Button.Location = new System.Drawing.Point(642, 488);
+            this.PhoneReady_Button.Name = "PhoneReady_Button";
+            this.PhoneReady_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneReady_Button.TabIndex = 99;
+            this.PhoneReady_Button.Text = "PhoneReady";
+            this.PhoneReady_Button.UseVisualStyleBackColor = false;
+            this.PhoneReady_Button.Click += new System.EventHandler(this.PhoneReady_Button_Click);
+            // 
+            // PhoneFont_Button
+            // 
+            this.PhoneFont_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneFont_Button.Location = new System.Drawing.Point(642, 549);
+            this.PhoneFont_Button.Name = "PhoneFont_Button";
+            this.PhoneFont_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneFont_Button.TabIndex = 100;
+            this.PhoneFont_Button.Text = "PhoneFont";
+            this.PhoneFont_Button.UseVisualStyleBackColor = false;
+            this.PhoneFont_Button.Click += new System.EventHandler(this.PhoneFont_Button_Click);
+            // 
+            // PhoneBack_Button
+            // 
+            this.PhoneBack_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PhoneBack_Button.Location = new System.Drawing.Point(745, 549);
+            this.PhoneBack_Button.Name = "PhoneBack_Button";
+            this.PhoneBack_Button.Size = new System.Drawing.Size(97, 52);
+            this.PhoneBack_Button.TabIndex = 101;
+            this.PhoneBack_Button.Text = "PhoneBack";
+            this.PhoneBack_Button.UseVisualStyleBackColor = false;
+            this.PhoneBack_Button.Click += new System.EventHandler(this.PhoneBack_Button_Click);
+            // 
+            // Home_Button
+            // 
+            this.Home_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Home_Button.Location = new System.Drawing.Point(745, 488);
+            this.Home_Button.Name = "Home_Button";
+            this.Home_Button.Size = new System.Drawing.Size(97, 52);
+            this.Home_Button.TabIndex = 102;
+            this.Home_Button.Text = "Home";
+            this.Home_Button.UseVisualStyleBackColor = false;
+            this.Home_Button.Click += new System.EventHandler(this.Home_Button_Click);
+            // 
+            // StickGrip01_Button
+            // 
+            this.StickGrip01_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.StickGrip01_Button.Location = new System.Drawing.Point(214, 633);
+            this.StickGrip01_Button.Name = "StickGrip01_Button";
+            this.StickGrip01_Button.Size = new System.Drawing.Size(97, 52);
+            this.StickGrip01_Button.TabIndex = 103;
+            this.StickGrip01_Button.Text = "StickGrip01";
+            this.StickGrip01_Button.UseVisualStyleBackColor = false;
+            this.StickGrip01_Button.Click += new System.EventHandler(this.StickGrip01_Button_Click);
+            // 
+            // StickReturn_Button
+            // 
+            this.StickReturn_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.StickReturn_Button.Location = new System.Drawing.Point(317, 633);
+            this.StickReturn_Button.Name = "StickReturn_Button";
+            this.StickReturn_Button.Size = new System.Drawing.Size(97, 52);
+            this.StickReturn_Button.TabIndex = 104;
+            this.StickReturn_Button.Text = "StickReturn";
+            this.StickReturn_Button.UseVisualStyleBackColor = false;
+            this.StickReturn_Button.Click += new System.EventHandler(this.StickReturn_Button_Click);
+            // 
+            // StickSet_Button
+            // 
+            this.StickSet_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.StickSet_Button.Location = new System.Drawing.Point(420, 633);
+            this.StickSet_Button.Name = "StickSet_Button";
+            this.StickSet_Button.Size = new System.Drawing.Size(97, 52);
+            this.StickSet_Button.TabIndex = 105;
+            this.StickSet_Button.Text = "StickSet";
+            this.StickSet_Button.UseVisualStyleBackColor = false;
+            this.StickSet_Button.Click += new System.EventHandler(this.StickSet_Button_Click);
+            // 
+            // StickSetGrip_Button
+            // 
+            this.StickSetGrip_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.StickSetGrip_Button.Location = new System.Drawing.Point(523, 633);
+            this.StickSetGrip_Button.Name = "StickSetGrip_Button";
+            this.StickSetGrip_Button.Size = new System.Drawing.Size(97, 52);
+            this.StickSetGrip_Button.TabIndex = 106;
+            this.StickSetGrip_Button.Text = "StickSetGrip";
+            this.StickSetGrip_Button.UseVisualStyleBackColor = false;
+            this.StickSetGrip_Button.Click += new System.EventHandler(this.StickSetGrip_Button_Click);
+            // 
             // WarningReset_Button
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.StickSetGrip_Button);
+            this.Controls.Add(this.StickSet_Button);
+            this.Controls.Add(this.StickReturn_Button);
+            this.Controls.Add(this.StickGrip01_Button);
+            this.Controls.Add(this.Home_Button);
+            this.Controls.Add(this.PhoneBack_Button);
+            this.Controls.Add(this.PhoneFont_Button);
+            this.Controls.Add(this.PhoneReady_Button);
+            this.Controls.Add(this.PhoneRelease04_Button);
+            this.Controls.Add(this.PhoneRelease03_Button);
+            this.Controls.Add(this.PhoneRelease02_Button);
+            this.Controls.Add(this.PhoneRelease01_Button);
+            this.Controls.Add(this.PhoneGrip04_Button);
+            this.Controls.Add(this.PhoneGrip03_Button);
+            this.Controls.Add(this.PhoneGrip02_Button);
+            this.Controls.Add(this.PhoneGrip01_Button);
+            this.Controls.Add(this.Release_Button);
+            this.Controls.Add(this.GripButton);
             this.Controls.Add(this.CSVButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.JsonName_textBox);
@@ -1187,6 +1421,24 @@ namespace RobotArm_Module
         private System.Windows.Forms.TextBox JsonName_textBox;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button CSVButton;
+        private System.Windows.Forms.Button GripButton;
+        private System.Windows.Forms.Button Release_Button;
+        private System.Windows.Forms.Button PhoneGrip01_Button;
+        private System.Windows.Forms.Button PhoneGrip04_Button;
+        private System.Windows.Forms.Button PhoneGrip03_Button;
+        private System.Windows.Forms.Button PhoneGrip02_Button;
+        private System.Windows.Forms.Button PhoneRelease04_Button;
+        private System.Windows.Forms.Button PhoneRelease03_Button;
+        private System.Windows.Forms.Button PhoneRelease02_Button;
+        private System.Windows.Forms.Button PhoneRelease01_Button;
+        private System.Windows.Forms.Button PhoneReady_Button;
+        private System.Windows.Forms.Button Home_Button;
+        private System.Windows.Forms.Button PhoneBack_Button;
+        private System.Windows.Forms.Button PhoneFont_Button;
+        private System.Windows.Forms.Button StickGrip01_Button;
+        private System.Windows.Forms.Button StickReturn_Button;
+        private System.Windows.Forms.Button StickSet_Button;
+        private System.Windows.Forms.Button StickSetGrip_Button;
     }
 }
 
