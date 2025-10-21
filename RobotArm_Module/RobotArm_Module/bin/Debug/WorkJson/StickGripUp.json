@@ -1,0 +1,73 @@
+{
+  "WorkList": [
+    {
+      "position": {
+        "X": 0.440,
+        "Y": -0.004,
+        "Z": 0.250
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToUp1",
+      "presetID": "0",
+      "moveType": 0,
+      "isLinear": true
+    },
+    {
+      "position": {
+        "X": 0.400,
+        "Y": -0.004,
+        "Z": 0.250
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToUp2",
+      "presetID": "1",
+      "moveType": 0,
+      "isLinear": false
+    },
+    {
+      "position": {
+        "X": 0.400,
+        "Y": -0.004,
+        "Z": 0.600
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToUp3",
+      "presetID": "2",
+      "moveType": 0,
+      "isLinear": true
+    },
+    {
+      "position": {
+        "X": 0.250,
+        "Y": -0.004,
+        "Z": 0.600
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToUp4",
+      "presetID": "3",
+      "moveType": 0,
+      "isLinear": false
+    }
+    
+  ]
+}

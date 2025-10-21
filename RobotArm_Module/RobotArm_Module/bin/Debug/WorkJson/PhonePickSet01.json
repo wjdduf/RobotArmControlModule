@@ -1,0 +1,53 @@
+{
+  "WorkList": [
+    {
+      "position": {
+        "X": -90,
+        "Y": -110,
+        "Z": 140
+      },
+      "rotation": {
+        "X": -30,
+        "Y": 90,
+        "Z": 180
+      },
+      "rotations": null,
+      "presetName": "Home",
+      "presetID": "0",
+      "moveType": 1
+    },
+    {
+      "position": {
+        "X": 0.215,
+        "Y": 0.152,
+        "Z": 0.216
+      },
+      "rotation": {
+        "X": 4.730,
+        "Y": 0,
+        "Z": 0
+      },
+      "rotations": null,
+      "presetName": "Pos1",
+      "presetID": "1",
+      "moveType": 0
+    },
+    {
+      "position": {
+        "X": 0.215,
+        "Y": 0.152,
+        "Z": 0.182
+      },
+      "rotation": {
+        "X": 4.730,
+        "Y": 0,
+        "Z": 0
+      },
+      "rotations": null,
+      "presetName": "grab1",
+      "presetID": "2",
+      "moveType": 0
+    }
+    
+  ]
+}

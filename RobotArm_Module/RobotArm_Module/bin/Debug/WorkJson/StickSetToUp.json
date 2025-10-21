@@ -1,0 +1,22 @@
+{
+  "WorkList": [
+    {
+      "position": {
+        "X": 0.134,
+        "Y": 0.668,
+        "Z": 0.600
+      },
+      "rotation": {
+        "X": -1.570,
+        "Y": 0,
+        "Z": 0
+      },
+      "rotations": null,
+      "presetName": "MoveToUp",
+      "presetID": "1",
+      "moveType": 0,
+      "isLinear": true
+    }
+    
+  ]
+}

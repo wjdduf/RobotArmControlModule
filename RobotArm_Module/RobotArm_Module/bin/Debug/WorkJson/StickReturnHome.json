@@ -1,0 +1,69 @@
+{
+  "WorkList": [
+    {
+      "position": {
+        "X": 0.410,
+        "Y": -0.004,
+        "Z": 0.230
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToStickCenter",
+      "presetID": "1",
+      "moveType": 0
+    },
+    {
+      "position": {
+        "X": 0.410,
+        "Y": 0.100,
+        "Z": 0.230
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToStickFront",
+      "presetID": "2",
+      "moveType": 0
+    },
+    {
+      "position": {
+        "X": 0.300,
+        "Y": 0.100,
+        "Z": 0.230
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToStickFront2",
+      "presetID": "3",
+      "moveType": 0
+    },
+    {
+      "position": {
+        "X": -90,
+        "Y": -110,
+        "Z": 140
+      },
+      "rotation": {
+        "X": -30,
+        "Y": 90,
+        "Z": 180
+      },
+      "rotations": null,
+      "presetName": "Home",
+      "presetID": "4",
+      "moveType": 1
+    }
+    
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "WorkList": [
+    {
+      "position": {
+        "X": -90,
+        "Y": -110,
+        "Z": 140
+      },
+      "rotation": {
+        "X": -30,
+        "Y": 90,
+        "Z": 180
+      },
+      "rotations": null,
+      "presetName": "Home",
+      "presetID": "0",
+      "moveType": 1
+    }
+    
+  ]
+}

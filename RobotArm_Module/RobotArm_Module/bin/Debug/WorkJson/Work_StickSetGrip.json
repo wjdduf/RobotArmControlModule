@@ -1,0 +1,25 @@
+{
+  "WorkName": "조립 작업 A",
+  "WorkList": [
+    {
+      "PresetName": "StickHome",
+      "Type": "PlayPreset"
+    },
+    {
+      "PresetName": "StickSetGrip",
+      "Type": "PlayPreset"
+    },
+    {
+      "PresetName": "그립 닫기",
+      "Type": "Grip"
+    },
+    {
+      "PresetName": "StickSetToUp",
+      "Type": "PlayPreset"
+    },
+    {
+      "PresetName": "StickHome",
+      "Type": "PlayPreset"
+    }
+  ]
+}

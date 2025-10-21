@@ -1,0 +1,21 @@
+{
+  "WorkList": [
+    {
+      "position": {
+        "X": -120,
+        "Y": -96,
+        "Z": 68
+      },
+      "rotation": {
+        "X": 30,
+        "Y": 66.5,
+        "Z": 180
+      },
+      "rotations": null,
+      "presetName": "StickHome",
+      "presetID": "0",
+      "moveType": 1
+    }
+    
+  ]
+}

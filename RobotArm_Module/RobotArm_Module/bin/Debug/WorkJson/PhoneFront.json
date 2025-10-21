@@ -1,0 +1,21 @@
+{
+  "WorkList": [
+    {
+      "position": {
+        "X": 0.1265,
+        "Y": 0.666,
+        "Z": 0.434
+      },
+      "rotation": {
+        "X": 0.00,
+        "Y": 0.00,
+        "Z": 0.00
+      },
+      "rotations": null,
+      "presetName": "PhoneSet",
+      "presetID": "1",
+      "moveType": 0
+    }
+    
+  ]
+}

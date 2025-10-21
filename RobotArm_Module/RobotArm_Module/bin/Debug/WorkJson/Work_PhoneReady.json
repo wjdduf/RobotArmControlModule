@@ -1,0 +1,13 @@
+{
+  "WorkName": "조립 작업 A",
+  "WorkList": [
+    {
+      "PresetName": "Home",
+      "Type": "PlayPreset"
+    },
+    {
+      "PresetName": "PhoneReady",
+      "Type": "PlayPreset"
+    }
+  ]
+}

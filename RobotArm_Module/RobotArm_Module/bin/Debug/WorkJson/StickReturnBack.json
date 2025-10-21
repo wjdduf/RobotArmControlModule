@@ -1,0 +1,39 @@
+{
+  "WorkList": [
+    {
+      "position": {
+        "X": 0.134,
+        "Y": 0.638,
+        "Z": 0.555
+      },
+      "rotation": {
+        "X": -1.570,
+        "Y": 0,
+        "Z": 0
+      },
+      "rotations": null,
+      "presetName": "MoveToBack",
+      "presetID": "1",
+      "moveType": 0,
+      "isLinear": true
+    },
+    {
+      "position": {
+        "X": 0.05,
+        "Y": 0.638,
+        "Z": 0.555
+      },
+      "rotation": {
+        "X": -1.570,
+        "Y": 0,
+        "Z": 0
+      },
+      "rotations": null,
+      "presetName": "MoveToLeft",
+      "presetID": "1",
+      "moveType": 0,
+      "isLinear": true
+    }
+    
+  ]
+}

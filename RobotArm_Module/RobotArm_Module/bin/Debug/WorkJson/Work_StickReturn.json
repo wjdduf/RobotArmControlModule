@@ -1,0 +1,21 @@
+{
+  "WorkName": "조립 작업 A",
+  "WorkList": [
+    {
+      "PresetName": "StickHome",
+      "Type": "PlayPreset"
+    },
+    {
+      "PresetName": "StickReturn",
+      "Type": "PlayPreset"
+    },
+    {
+      "PresetName": "그립 열기",
+      "Type": "Release"
+    },
+    {
+      "PresetName": "StickReturnHome",
+      "Type": "PlayPreset"
+    }
+  ]
+}

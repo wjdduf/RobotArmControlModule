@@ -1,0 +1,103 @@
+{
+  "WorkList": [
+    
+    {
+      "position": {
+        "X": -90,
+        "Y": -110,
+        "Z": 140
+      },
+      "rotation": {
+        "X": -30,
+        "Y": 90,
+        "Z": 180
+      },
+      "rotations": null,
+      "presetName": "Home",
+      "presetID": "0",
+      "moveType": 1
+    },
+    {
+      "position": {
+        "X": -0.133,
+        "Y": 0.294,
+        "Z": 0.230
+      },
+      "rotation": {
+        "X": -1.572,
+        "Y": 0.003,
+        "Z": 0.0
+      },
+      "rotations": null,
+      "presetName": "Down",
+      "presetID": "1",
+      "moveType": 0
+    },
+    {
+      "position": {
+        "X": -180,
+        "Y": -105.48,
+        "Z": 143.7
+      },
+      "rotation": {
+        "X": -38.215,
+        "Y": 90.125,
+        "Z": 180.0
+      },
+      "rotations": null,
+      "presetName": "Turn",
+      "presetID": "2",
+      "moveType": 1
+    },
+    {
+      "position": {
+        "X": 0.410,
+        "Y": 0.100,
+        "Z": 0.230
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToStickFront",
+      "presetID": "3",
+      "moveType": 0
+    },
+    {
+      "position": {
+        "X": 0.410,
+        "Y": -0.004,
+        "Z": 0.230
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToStickCenter",
+      "presetID": "4",
+      "moveType": 0
+    },
+    {
+      "position": {
+        "X": 0.440,
+        "Y": -0.004,
+        "Z": 0.230
+      },
+      "rotation": {
+        "X": -1.206,
+        "Y": 1.212,
+        "Z": -1.210
+      },
+      "rotations": null,
+      "presetName": "MoveToStickSet",
+      "presetID": "5",
+      "moveType": 0
+    }
+    
+    
+  ]
+}
