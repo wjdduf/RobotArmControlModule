@@ -56,6 +56,11 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
+        public override bool MonitorConnection()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
         {
             throw new NotImplementedException();

@@ -62,6 +62,8 @@ namespace RobotArm_Module
             {
                 await Task.Delay(100);
 
+                ConnectCheck();
+
                 SetCurrentData();
                 if(isPosition)
                 {
@@ -73,6 +75,21 @@ namespace RobotArm_Module
                 }
 
                 MoveToJoint(speed, selectJoint);
+
+                
+            }
+        }
+
+        private void ConnectCheck()
+        {
+            if (DataContainer.Instance.RobotArmCurrentData.isConnect)
+            {
+                ConnectCheck_Text.Text = "Connect";
+            }
+            else
+            {
+                ConnectCheck_Text.Text = "Disconnect";
+
             }
         }
 
@@ -532,7 +549,7 @@ namespace RobotArm_Module
             pivot.X = float.Parse( SetPivotX_TextBox.Text);
             pivot.Y = float.Parse(SetPivotY_TextBox.Text);
             pivot.Z = float.Parse(SetPivotZ_TextBox.Text);
-
+            //
             RobotArmController.SetPivot(pivot);
 
         }
@@ -549,19 +566,19 @@ namespace RobotArm_Module
 
         private void ListDelete_Button_Click(object sender, EventArgs e)
         {
-            if(WorkQue_ListBox.SelectedIndex != -1)
-            {
-                string id = RemoveAfterCharacter(WorkQue_ListBox.Items[WorkQue_ListBox.SelectedIndex].ToString(), ':');
-                
-                DataContainer.Instance.WorkPreset.Delete(id);
-
-                WorkQue_ListBox.Items.RemoveAt(WorkQue_ListBox.SelectedIndex);
-
-                foreach(var item in DataContainer.Instance.WorkPreset.WorkList)
-                {
-                    Debug.Log($"Key: {item.presetID}, Value: {item.presetName}");
-                }
-            }
+            //if(WorkQue_ListBox.SelectedIndex != -1)
+            //{
+            //    string id = RemoveAfterCharacter(WorkQue_ListBox.Items[WorkQue_ListBox.SelectedIndex].ToString(), ':');
+            //    
+            //    DataContainer.Instance.WorkPreset.Delete(id);
+            //
+            //    WorkQue_ListBox.Items.RemoveAt(WorkQue_ListBox.SelectedIndex);
+            //
+            //    foreach(var item in DataContainer.Instance.WorkPreset.WorkList)
+            //    {
+            //        Debug.Log($"Key: {item.presetID}, Value: {item.presetName}");
+            //    }
+            //}
         }
 
         private void ListPlay_Button_Click(object sender, EventArgs e)
@@ -579,14 +596,14 @@ namespace RobotArm_Module
 
         private void ListUpdate()
         {
-            WorkQue_ListBox.Items.Clear();
-
-            foreach (var item in DataContainer.Instance.WorkPreset.WorkList)
-            {
-                Debug.Log($"Key: {item.presetID}, Value: {item.presetName}");
-                WorkQue_ListBox.Items.Add(item.presetName);
-                
-            }
+            //WorkQue_ListBox.Items.Clear();
+            //
+            //foreach (var item in DataContainer.Instance.WorkPreset.WorkList)
+            //{
+            //    Debug.Log($"Key: {item.presetID}, Value: {item.presetName}");
+            //    WorkQue_ListBox.Items.Add(item.presetName);
+            //    
+            //}
         }
 
         public static string RemoveAfterCharacter(string input, char separator)
@@ -744,6 +761,22 @@ namespace RobotArm_Module
         {
             RobotArmController.PlayWork("Work_StickSetGrip");
 
+        }
+
+        private void Alignment_Button_Click(object sender, EventArgs e)
+        {
+            Vector3 pivot = new Vector3();
+            pivot.X = float.Parse(SetPivotX_TextBox.Text);
+            pivot.Y = float.Parse(SetPivotY_TextBox.Text);
+            pivot.Z = float.Parse(SetPivotZ_TextBox.Text);
+
+            Vector3 rot = new Vector3();
+            rot.X = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignX_TextBox.Text));
+            rot.Y = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignX_TextBox.Text));
+            rot.Z = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignX_TextBox.Text));
+
+            //
+            RobotArmController.SetDeviceAlignment(pivot, rot);
         }
     }
 }

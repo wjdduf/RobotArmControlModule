@@ -72,6 +72,8 @@ namespace RobotArm_Module
         public int moveSpeed;
         public int power;
 
+        public bool isConnect = false;
+
     }
 
     [Serializable]

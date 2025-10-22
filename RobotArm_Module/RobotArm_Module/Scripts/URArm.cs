@@ -45,6 +45,9 @@ namespace RobotArm_Module
                 TCPClient = new URTCPClient(ip);
                 Debug.Log("서버에 연결되었습니다.");
 
+                TCPClient.OnRTDEDataReceive -= Rtde_OutputDataReceived;
+                TCPClient.OnRTDEDataReceive += Rtde_OutputDataReceived;
+
                 TCPClient.SendPacket(URInterface.RobotMode, ePortType.Dashboard);
 
                 if(TCPClient.Receive(ePortType.Dashboard).Contains(eRobotMode.RUNNING.ToString()))
@@ -53,8 +56,7 @@ namespace RobotArm_Module
                     return true;
                 }
 
-                TCPClient.OnRTDEDataReceive -= Rtde_OutputDataReceived;
-                TCPClient.OnRTDEDataReceive += Rtde_OutputDataReceived;
+                
 
 
                 TCPClient.SendPacket(URInterface.PowerOn, ePortType.Dashboard);
@@ -249,7 +251,7 @@ namespace RobotArm_Module
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
 
-            MoveCheck(onComplete);
+            MoveWaitAsync(onComplete);
 
         }
 
@@ -555,16 +557,15 @@ namespace RobotArm_Module
 
 
 
-            MoveCheck(onComplete);
+            MoveWaitAsync(onComplete);
         }
 
-        private async void MoveCheck(Action action)
+        private async void MoveWaitAsync(Action action)
         {
             Thread.Sleep(1000);
 
             while (isMove)
             {
-                Debug.Log("Move Check");
                 await Task.Delay(100);
             }
 
@@ -842,6 +843,24 @@ namespace RobotArm_Module
 
 
             onComplete?.Invoke();
+        }
+
+        public override bool MonitorConnection()
+        {
+            bool isConnect = false;
+
+            if(TCPClient == null)
+                return isConnect;
+
+
+            TCPClient.SendPacket(URInterface.RobotMode, ePortType.Dashboard,false);
+
+            if(TCPClient.Receive(ePortType.Dashboard,false).Contains(eRobotMode.RUNNING.ToString()))
+            {
+                isConnect = true;
+            }
+
+            return isConnect;
         }
     }
 }

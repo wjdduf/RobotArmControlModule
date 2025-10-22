@@ -48,8 +48,13 @@ namespace RobotArm_Module
                 PrimaryClient.Connect(ip, DataContainer.Instance.URConfig.PRIMARY_PORT);
                 PrimaryStream = PrimaryClient.GetStream();
 
-                RtdeClientConnector = new RtdeClientConnector();
-                RtdeClientConnector.Connect(ip, 2);
+                if(RtdeClientConnector == null)
+                {
+                    RtdeClientConnector = new RtdeClientConnector();
+                    //RtdeClientConnector.Disconnect();
+                    RtdeClientConnector.Connect(ip, 2);
+                }
+                
 
                 proxy.Url = url;
 
@@ -118,7 +123,7 @@ namespace RobotArm_Module
             }
         }
 
-        public override void SendPacket(string message, ePortType portType = ePortType.Primary)
+        public override void SendPacket(string message, ePortType portType = ePortType.Primary, bool useLog = true)
         {
 
             if (portType == ePortType.Dashboard)
@@ -129,7 +134,9 @@ namespace RobotArm_Module
 
                 DashBoardStream = DashBoardClient.GetStream(); // 데이터 전송을 위한 네트워크 스트림 얻기
                 DashBoardStream.Write(data, 0, data.Length); // 데이터 쓰기
-                Console.WriteLine($"패킷 전송 완료: '{message}'");
+                
+                if(useLog)
+                    Console.WriteLine($"패킷 전송 완료: '{message}'");
             }
             else
             {
@@ -137,11 +144,13 @@ namespace RobotArm_Module
 
                 PrimaryStream = PrimaryClient.GetStream(); // 데이터 전송을 위한 네트워크 스트림 얻기
                 PrimaryStream.Write(data, 0, data.Length); // 데이터 쓰기
-                Debug.Log($"패킷 전송 완료: '{message}'");
+                
+                if(useLog)
+                    Debug.Log($"패킷 전송 완료: '{message}'");
             }
         }
 
-        public override string Receive(ePortType portType = ePortType.Primary)
+        public override string Receive(ePortType portType = ePortType.Primary, bool useLog = true)
         {
             string responseMessage = string.Empty;
             byte[] responseBuffer = new byte[1024];
@@ -156,7 +165,9 @@ namespace RobotArm_Module
                 bytesRead = PrimaryStream.Read(responseBuffer, 0, responseBuffer.Length);
             }
             responseMessage = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead);
-            Console.WriteLine($"서버로부터 받은 응답: '{responseMessage}'\n");
+
+            if(useLog)
+                Console.WriteLine($"서버로부터 받은 응답: '{responseMessage}'\n");
         
             return responseMessage;
         }

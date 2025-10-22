@@ -167,7 +167,7 @@ namespace RobotArm_Module
             IGripper.Release();
         }
 
-        public void SetDeviceAlignment(Vector3 pivot, Vector3 rotation)
+        public void SetDeviceAlignment(Vector3 pivot, Vector3 rotation, Action onComplete = null)
         {
             IMove.SetPivot(pivot);
             Vector3 pos = new Vector3(DataContainer.Instance.RobotArmCurrentData.currentPosition.X,
@@ -177,7 +177,11 @@ namespace RobotArm_Module
             Vector3 rot = new Vector3((float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.X),
                                             (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Y),
                                             (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Z));
-            IMove.MoveToPreset(pos, rot, eMoveType.Position,() => IMove.SetPivot(Vector3.Zero()));
+            IMove.MoveToPreset(pos, rot, eMoveType.Position, () => 
+            { 
+                IMove.SetPivot(Vector3.Zero());
+                onComplete?.Invoke();
+            });
         }
     }
 }

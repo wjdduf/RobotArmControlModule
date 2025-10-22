@@ -33,6 +33,7 @@ namespace RobotArm_Module
         public abstract bool DisConnect();
         public abstract void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null);
         public abstract void ShutDown();
+        public abstract bool MonitorConnection();
 
         public abstract void TestCode(string script);
 
@@ -49,7 +50,8 @@ namespace RobotArm_Module
 
         public RobotArm()
         {
-            //WorkThread();
+            WorkThread();
+            
         }
 
         private async void WorkThread()
@@ -58,10 +60,7 @@ namespace RobotArm_Module
             {
                 await Task.Delay(100);
 
-                if (isUsingPreset)
-                {
-                    //PlayMoveQueue();
-                }
+                DataContainer.Instance.RobotArmCurrentData.isConnect = MonitorConnection();
             }
         }
 
