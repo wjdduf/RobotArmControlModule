@@ -8,8 +8,8 @@ namespace RobotArm_Module
 {
     public interface IGripper
     {
-        int Grip(Action onComplete = null);
-        int Release(Action onComplete = null);
+        void Grip(Action<bool> onComplete = null);
+        void Release(Action<bool> onComplete = null);
 
     }
 }

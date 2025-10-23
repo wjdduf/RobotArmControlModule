@@ -35,14 +35,14 @@ namespace RobotArm_Module
             IGripper = RobotArmBuilder.CurrentRobotArm;
         }
 
-        public bool Connect(string ip)
+        public bool Connect(string ip, Action<bool> onComplete = null)
         {
-            return IConnect.Connect(ip);
+            return IConnect.Connect(ip, onComplete);
         }
 
-        public bool DisConnect()
+        public bool DisConnect(Action<bool> onComplete = null)
         {
-            return IConnect.DisConnect();
+            return IConnect.DisConnect(onComplete);
         }
 
         public void MoveToPosition(float speed, eDirection direction)
@@ -60,44 +60,44 @@ namespace RobotArm_Module
             IMove.MoveToPreset(position, rotation);
         }
 
-        public int SetPositionJ()
+        public void SetPositionJ(Action<bool> onComplete = null)
         {
-            return IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation);
+            IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation,eMoveType.Position,false, onComplete);
         }
 
-        public int SetPositionL()
+        public void SetPositionL(Action<bool> onComplete = null)
         {
-            return IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation,eMoveType.Position, true);
+            IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation,eMoveType.Position, true, onComplete);
         }
 
-        public int SetJoint()
+        public void SetJoint(Action<bool> onComplete = null)
         {
-            return IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation, eMoveType.Joint);
+            IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation, eMoveType.Joint, false, onComplete);
         }
 
-        public int MoveToJoint(float speed, bool isUp, eJointType type)
+        public void MoveToJoint(float speed, bool isUp, eJointType type)
         {
-            return IMove.MoveToJoint(speed, isUp, type);
+            IMove.MoveToJoint(speed, isUp, type);
         }
 
-        public int JointRotation(float angle, eJointType type)
+        public void JointRotation(float angle, eJointType type)
         {
-            return IMove.JointRotation(angle, type);
+            IMove.JointRotation(angle, type);
         }
 
-        public int SetPivot(Vector3 pivot)
+        public void SetPivot(Vector3 pivot, Action<bool> onComplete = null)
         {
-            return IMove.SetPivot(pivot);
+            IMove.SetPivot(pivot, onComplete);
         }
 
-        public int ResetPivot()
+        public void ResetPivot(Action<bool> onComplete = null)
         {
-            return IMove.SetPivot(Vector3.Zero());
+            IMove.SetPivot(Vector3.Zero(), onComplete);
         }
 
-        public int Stop()
+        public void Stop(Action<bool> onComplete = null)
         {
-            return IMove.Stop();
+            IMove.Stop(onComplete);
         }
 
         public void ListPlay(string jsonName)
@@ -107,13 +107,12 @@ namespace RobotArm_Module
             IMove.PlayPreset(preset);
         }
 
-        public int PlayWork(string workName)
+        public void PlayWork(string workName, Action<bool> onComplete = null)
         {
-            IMove.PlayRobotWork(workName);
+            IMove.PlayRobotWork(workName, onComplete);
 
             Debug.Log("▶️ 자동 작업 실행 완료: " + workName);
 
-            return 1;
         }
 
         public void AddPlayList(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position)
@@ -121,9 +120,9 @@ namespace RobotArm_Module
             IData.AddWorkQueue(pos, rot, moveType);
         }
 
-        public int SetHoming()
+        public void SetHoming(Action<bool> onComplete = null)
         {
-            return ISafety.Homming();
+            ISafety.Homming(onComplete);
         }
 
         public void SetSpeed(float speed)
@@ -141,9 +140,9 @@ namespace RobotArm_Module
             return ISafety.GetSafetyMode();
         }
 
-        public int UnlockProtectiveStop()
+        public void UnlockProtectiveStop(Action<bool> onComplete = null)
         {
-            return ISafety.UnlockProtectiveStop();
+            ISafety.UnlockProtectiveStop(onComplete);
         }
 
         public List<CSVData> LoadCSV(string path)
@@ -157,9 +156,9 @@ namespace RobotArm_Module
             return data;
         }
 
-        public int PlayCSV(List<CSVData> data)
+        public void PlayCSV(List<CSVData> data, Action<bool> onComplete = null)
         {
-            return RobotArmBuilder.CurrentRobotArm.PlayCSV(data);
+            RobotArmBuilder.CurrentRobotArm.PlayCSV(data, onComplete);
         }
 
         public void ExportJson(string name)
@@ -177,17 +176,17 @@ namespace RobotArm_Module
             return JsonManager.ImportFromJsonFile<T>(name, DataContainer.Instance.JsonPath);
         }
 
-        public int Grip()
+        public void Grip(Action<bool> onComplete = null)
         {
-            return IGripper.Grip();
+            IGripper.Grip(onComplete);
         }
 
-        public int Release()
+        public void Release(Action<bool> onComplete = null)
         {
-            return IGripper.Release();
+            IGripper.Release(onComplete);
         }
 
-        public int SetDeviceAlignment(Vector3 pivot, Vector3 rotation, Action onComplete = null)
+        public void SetDeviceAlignment(Vector3 pivot, Vector3 rotation, Action<bool> onComplete = null)
         {
             IMove.SetPivot(pivot);
             Vector3 pos = new Vector3(DataContainer.Instance.RobotArmCurrentData.currentPosition.X,
@@ -197,13 +196,11 @@ namespace RobotArm_Module
             Vector3 rot = new Vector3((float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.X),
                                             (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Y),
                                             (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Z));
-            IMove.MoveToPreset(pos, rot, eMoveType.Position, false, () => 
+            IMove.MoveToPreset(pos, rot, eMoveType.Position, false, (isSuccess) => 
             { 
                 IMove.SetPivot(Vector3.Zero());
-                onComplete?.Invoke();
+                onComplete?.Invoke(true);
             });
-
-            return 1;
         }
 
         public void WorkQueueClear()
@@ -211,17 +208,17 @@ namespace RobotArm_Module
             RobotArmBuilder.CurrentRobotArm.actionQueue.Clear();
         }
 
-        public int PlayLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position)
+        public void PlayLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action<bool> onComplete = null, eMoveType moveType = eMoveType.Position)
         {
-            return IMove.MoveLoop(fromPos,fromRot,toPos,toRot,isLoop,loopTime);
+            IMove.MoveLoop(fromPos,fromRot,toPos,toRot,isLoop,loopTime, onComplete, moveType);
 
         }
 
-        public int PlayLoop(Vector3 fromPos,  Vector3 toPos, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position)
+        public void PlayLoop(Vector3 fromPos,  Vector3 toPos, bool isLoop, float loopTime, Action<bool> onComplete = null, eMoveType moveType = eMoveType.Position)
         {
-            return IMove.MoveLoop(fromPos, DataContainer.Instance.RobotArmCurrentData.currentRotation,
+            IMove.MoveLoop(fromPos, DataContainer.Instance.RobotArmCurrentData.currentRotation,
                 toPos, DataContainer.Instance.RobotArmCurrentData.currentRotation, 
-                isLoop, loopTime);
+                isLoop, loopTime, onComplete, moveType);
 
         }
     }

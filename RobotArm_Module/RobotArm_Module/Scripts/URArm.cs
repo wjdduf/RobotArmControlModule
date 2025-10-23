@@ -27,7 +27,7 @@ namespace RobotArm_Module
         //private UR UR;
         private URTCPClient TCPClient;
         
-        public override bool Connect(string ip, Action onComplete = null)
+        public override bool Connect(string ip, Action<bool> onComplete = null)
         {
             int port = DataContainer.Instance.URConfig.DASHBOARD_PORT;
             DataContainer.Instance.currentIP = ip;
@@ -38,7 +38,7 @@ namespace RobotArm_Module
 
             try
             {
-                
+
 
                 // 2. 서버에 연결하기
                 Debug.Log($"서버에 연결 중... ({ip}:{port})");
@@ -50,13 +50,13 @@ namespace RobotArm_Module
 
                 TCPClient.SendPacket(URInterface.RobotMode, ePortType.Dashboard);
 
-                if(TCPClient.Receive(ePortType.Dashboard).Contains(eRobotMode.RUNNING.ToString()))
+                if (TCPClient.Receive(ePortType.Dashboard).Contains(eRobotMode.RUNNING.ToString()))
                 {
                     Debug.Log("이미 연결 중입니다.");
                     return true;
                 }
 
-                
+
 
 
                 TCPClient.SendPacket(URInterface.PowerOn, ePortType.Dashboard);
@@ -78,32 +78,19 @@ namespace RobotArm_Module
             catch (SocketException e)
             {
                 Debug.Log($"소켓 예외 발생: {e.Message}");
+                isSucces = false;
             }
             catch (Exception e)
             {
                 Debug.Log($"일반 예외 발생: {e.Message}");
+                isSucces = false;
             }
-            finally
-            {
-                // 5. 연결 끊기
-                // NetworkStream과 TcpClient 객체를 닫아 리소스를 해제합니다.
-                if (stream != null)
-                {
-                    stream.Close();
-                    Debug.Log("네트워크 스트림을 닫았습니다.");
-                }
-                if (client != null)
-                {
-                    client.Close();
-                    Debug.Log("클라이언트 연결을 끊었습니다.");
-                }
 
-
-            }
+            onComplete?.Invoke(isSucces);
             return isSucces;
         }
 
-        public override bool DisConnect()
+        public override bool DisConnect(Action<bool> onComplete = null)
         {
             int port = DataContainer.Instance.URConfig.DASHBOARD_PORT;
             string ip = DataContainer.Instance.currentIP;
@@ -129,22 +116,18 @@ namespace RobotArm_Module
             catch (SocketException e)
             {
                 Debug.Log($"소켓 예외 발생: {e.Message}");
+                TCPClient.ConnectCheck = false;
+                isSucces = false;
             }
             catch (Exception e)
             {
                 Debug.Log($"일반 예외 발생: {e.Message}");
-            }
-            finally
-            {
-                // 5. 연결 끊기
-                // NetworkStream과 TcpClient 객체를 닫아 리소스를 해제합니다.
-                //if(TCPClient!= null)
-                //    TCPClient.DisConnect();
-
                 TCPClient.ConnectCheck = false;
-
-
+                isSucces = false;
             }
+
+            onComplete?.Invoke(isSucces);
+
             return isSucces;
         }
 
@@ -198,7 +181,7 @@ namespace RobotArm_Module
             this.isMove = isMove;
         }
 
-        public override int Stop()
+        public override void Stop(Action<bool> onComplete = null)
         {
             //UR.PrimaryInterface.Script.Send("speedl([0,0,0,0,0,0],0.5)");
             //UR.PrimaryInterface.Script.Send("speedj([0,0,0,0,0,0],0.5)");
@@ -213,16 +196,17 @@ namespace RobotArm_Module
             isMove = false;
             isUsingPreset = false;
 
-            return 1;
+            onComplete?.Invoke(true);
         }
 
-        public override int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action onComplete = null)
+        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action<bool> onComplete = null)
         {
 
             if (position == null || rotation == null)
             {
                 Debug.Log($"MoveToPreset :: position or rotation is null");
-                return 0;
+                onComplete?.Invoke(false);
+                return;
             }
 
             Debug.Log($"URArm MoveToPreset - {position} ::  {rotation}");
@@ -275,7 +259,7 @@ namespace RobotArm_Module
 
             MoveWaitAsync(onComplete);
 
-            return 1;
+            
         }
 
         public override void MoveToPosition(float speed, eDirection direction)
@@ -370,7 +354,7 @@ namespace RobotArm_Module
 
         }
 
-        public override int MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
+        public override void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
         {
             Vector3 position = new Vector3();
             Vector3 rotation = new Vector3();
@@ -415,10 +399,10 @@ namespace RobotArm_Module
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
 
-            return 1;
+            
         }
 
-        public override int JointRotation(float angle, eJointType type = eJointType.None)
+        public override void JointRotation(float angle, eJointType type = eJointType.None)
         {
             JointData joint = new JointData();
 
@@ -466,7 +450,7 @@ namespace RobotArm_Module
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
 
-            return 1;
+            
         }
 
         private void SetCurrentJoinData(double[] angle)
@@ -493,7 +477,7 @@ namespace RobotArm_Module
                 
         }
 
-        public override int SetPivot(Vector3 pivot)
+        public override void SetPivot(Vector3 pivot, Action<bool> onComplete = null)
         {
             StringBuilder st = new StringBuilder();
             st.Append("set_tcp(p[");
@@ -507,7 +491,7 @@ namespace RobotArm_Module
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
 
-            return 1;
+            onComplete?.Invoke(true);
         }
 
         public override void TestCode(string script)
@@ -515,7 +499,7 @@ namespace RobotArm_Module
             
         }
 
-        public override void PlayPreset(WorkPreset Preset, Action onComplete = null)
+        public override void PlayPreset(WorkPreset Preset, Action<bool> onComplete = null)
         {
             Debug.Log($"TestCode :: PlayPreset");
 
@@ -554,8 +538,10 @@ namespace RobotArm_Module
             MoveWaitAsync(onComplete);
         }
 
-        private async void MoveWaitAsync(Action action)
+        private async void MoveWaitAsync(Action<bool> action)
         {
+            bool isPositionMatched = false;
+
             Thread.Sleep(1000);
 
             while (isMove)
@@ -564,7 +550,7 @@ namespace RobotArm_Module
             }
 
             Debug.Log("Move Check Complete");
-            action?.Invoke();
+            action?.Invoke(isPositionMatched);
         }
 
 
@@ -743,11 +729,11 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override int Homming()
+        public override void Homming(Action<bool> onComplete = null)
         {
-            MoveToPreset(new Vector3(-90,-110,140), new Vector3(-30,90,180),eMoveType.Joint);
+            MoveToPreset(new Vector3(-90,-110,140), new Vector3(-30,90,180),eMoveType.Joint,false,onComplete);
 
-            return 1;
+            
         }
 
         public override bool GetSafetyMode()
@@ -767,7 +753,7 @@ namespace RobotArm_Module
             return isSafety;
         }
 
-        public override int UnlockProtectiveStop()
+        public override void UnlockProtectiveStop(Action<bool> onComplete = null)
         {
             TCPClient.SendPacket(URInterface.ClosePopup, ePortType.Dashboard);
             TCPClient.Receive(ePortType.Dashboard);
@@ -775,10 +761,10 @@ namespace RobotArm_Module
             TCPClient.SendPacket(URInterface.UnlockProtectiveStop, ePortType.Dashboard);
             TCPClient.Receive(ePortType.Dashboard);
 
-            return 1;
+            onComplete?.Invoke(true);
         }
 
-        public override int PlayCSV(List<CSVData> data)
+        public override void PlayCSV(List<CSVData> data, Action<bool> onComplete = null)
         {
 
             Vector3 InitPos = new Vector3();
@@ -817,10 +803,10 @@ namespace RobotArm_Module
 
             TCPClient.SendPacket(st.ToString());
 
-            return 1;
+            MoveWaitAsync(onComplete);
         }
 
-        public override int Grip(Action onComplete = null)
+        public override void Grip(Action<bool> onComplete = null)
         {
             TCPClient.SendPacket(URInterface.Grip, ePortType.Dashboard);
             Thread.Sleep(500);
@@ -829,12 +815,12 @@ namespace RobotArm_Module
             Thread.Sleep(3000);
 
 
-            onComplete?.Invoke();
+            onComplete?.Invoke(true);
 
-            return 1;
+            
         }
 
-        public override int Release(Action onComplete = null)
+        public override void Release(Action<bool> onComplete = null)
         {
             TCPClient.SendPacket(URInterface.Release, ePortType.Dashboard);
             Thread.Sleep(500);
@@ -843,9 +829,9 @@ namespace RobotArm_Module
             Thread.Sleep(2000);
 
 
-            onComplete?.Invoke();
+            onComplete?.Invoke(true);
 
-            return 1;
+            
 
         }
 
@@ -870,7 +856,7 @@ namespace RobotArm_Module
             return isConnect;
         }
 
-        public override int MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position)
+        public override void MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action<bool> onComplete = null, eMoveType moveType = eMoveType.Position)
         {
             StringBuilder st = new StringBuilder();
 
@@ -908,7 +894,7 @@ namespace RobotArm_Module
 
             MoveWaitAsync(onComplete);
 
-            return 1;
+            
         }
     }
 }

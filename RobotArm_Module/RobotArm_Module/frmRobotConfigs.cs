@@ -240,13 +240,11 @@ namespace RobotArm_Module
             PowerOn_Click();
         }
 
-        public int PowerOn_Click()
+        public void PowerOn_Click(Action<bool> onComplete = null)
         {
-            int isSuccess = 0;
 
-            isSuccess = RobotArmController.Connect(DataContainer.Instance.URConfig.IP) ? 1 : 0;
+            RobotArmController.Connect(DataContainer.Instance.URConfig.IP);
 
-            return isSuccess;
         }
 
         private void PowerOff_Click(object sender, EventArgs e)
@@ -254,13 +252,9 @@ namespace RobotArm_Module
             PowerOff_Click();
         }
 
-        public int PowerOff_Click()
+        public void PowerOff_Click(Action<bool> onComplete = null)
         {
-            int isSuccess = 0;
-
-            isSuccess = RobotArmController.DisConnect() ? 1 : 0;
-
-            return isSuccess;
+            RobotArmController.DisConnect();
         }
 
 
@@ -330,9 +324,8 @@ namespace RobotArm_Module
             SetPositionButton();
         }
 
-        public int SetPositionButton()
+        public void SetPositionButton(Action<bool> onComplete = null)
         {
-            int result = 0;
             try
             {
                 DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text));
@@ -340,14 +333,13 @@ namespace RobotArm_Module
 
                 RobotArmController.SetPositionJ();
 
-                result = 1;
             }
             catch (Exception exception)
             {
                 Debug.Log(exception.ToString());
+                onComplete?.Invoke(false);
             }
 
-            return result;
         }
 
         private void SetPositionLButton(object sender, EventArgs e)
@@ -355,24 +347,23 @@ namespace RobotArm_Module
             SetPositionLButton();
         }
 
-        public int SetPositionLButton()
+        public void SetPositionLButton(Action<bool> onComplete = null)
         {
-            int result = 0;
             try
             {
                 DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text));
                 DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text));
 
-                RobotArmController.SetPositionL();
+                RobotArmController.SetPositionL(onComplete);
 
-                result = 1;
             }
             catch (Exception exception)
             {
                 Debug.Log(exception.ToString());
+                onComplete?.Invoke(false);
+
             }
 
-            return result;
         }
 
         private void SetJoint_Button_Click(object sender, EventArgs e)
@@ -380,24 +371,23 @@ namespace RobotArm_Module
             SetJoint_Button_Click();
         }
 
-        public int SetJoint_Button_Click()
+        public void SetJoint_Button_Click(Action<bool> onComplete = null)
         {
-            int result = 0;
             try
             {
                 DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text));
                 DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text));
 
-                RobotArmController.SetJoint();
+                RobotArmController.SetJoint(onComplete);
 
-                result = 1;
             }
             catch (Exception exception)
             {
                 Debug.Log(exception.ToString());
+                onComplete?.Invoke(false);
+
             }
 
-            return result;
         }
 
 
@@ -590,12 +580,12 @@ namespace RobotArm_Module
             RotationJoint_Button_Click();
         }
         
-        public int RotationJoint_Button_Click()
+        public void RotationJoint_Button_Click(Action<bool> onComplete = null)
         {
             float angle;
             float.TryParse(JointAngle_TextBox.Text, out angle);
             
-            return RobotArmController.JointRotation(angle, selectJoint);
+            RobotArmController.JointRotation(angle, selectJoint);
         }
 
         private void SetPivot_Button_Click(object sender, EventArgs e)
@@ -603,14 +593,14 @@ namespace RobotArm_Module
             SetPivot_Button_Click();
         }
         
-        public int SetPivot_Button_Click()
+        public void SetPivot_Button_Click(Action<bool> onComplete = null)
         {
             Vector3 pivot = new Vector3();
             pivot.X = float.Parse(SetPivotX_TextBox.Text);
             pivot.Y = float.Parse(SetPivotY_TextBox.Text);
             pivot.Z = float.Parse(SetPivotZ_TextBox.Text);
             //
-            return RobotArmController.SetPivot(pivot);
+            RobotArmController.SetPivot(pivot);
         }
 
         private void PivotReset_Button_Click(object sender, EventArgs e)
@@ -618,21 +608,20 @@ namespace RobotArm_Module
             PivotReset_Button_Click();
         }
 
-        public int PivotReset_Button_Click()
+        public void PivotReset_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.SetPivot(Vector3.Zero());
+            RobotArmController.SetPivot(Vector3.Zero(), onComplete);
         }
 
         private void ListStop_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.WorkQueueClear();
-            RobotArmController.Stop();
+            ListStop_Button_Click();
         }
 
-        public int ListStop_Button_Click()
+        public void ListStop_Button_Click(Action<bool> onComplete = null)
         {
             RobotArmController.WorkQueueClear();
-            return RobotArmController.Stop();
+            RobotArmController.Stop();
         }
 
         private void ListDelete_Button_Click(object sender, EventArgs e)
@@ -660,7 +649,7 @@ namespace RobotArm_Module
 
         }
 
-        public int ListPlay_Button_Click()
+        public void ListPlay_Button_Click(Action<bool> onComplete = null)
         {
             Vector3 fromPos = new Vector3();
 
@@ -678,7 +667,7 @@ namespace RobotArm_Module
 
             float loopTime = float.Parse(MoveLoopTime_TextBox.Text);
 
-            return RobotArmController.PlayLoop(fromPos, toPos, isLoop, loopTime);
+            RobotArmController.PlayLoop(fromPos, toPos, isLoop, loopTime, onComplete);
         }
 
         
@@ -720,9 +709,9 @@ namespace RobotArm_Module
             Homming_Button_Click();
         }
 
-        public int Homming_Button_Click()
+        public void Homming_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.SetHoming();
+            RobotArmController.SetHoming(onComplete);
         }
 
         
@@ -755,24 +744,23 @@ namespace RobotArm_Module
             UnlockProtectiveStop();
         }
 
-        public int UnlockProtectiveStop()
+        public void UnlockProtectiveStop(Action<bool> onComplete = null)
         {
             if (!RobotArmController.GetSafetyMode())
             {
-                RobotArmController.UnlockProtectiveStop();
+                RobotArmController.UnlockProtectiveStop(onComplete);
             }
-            return 1;
         }
 
         private void CSVButton_Click(object sender, EventArgs e)
         {
-            RobotArmController.LoadCSV(DataContainer.Instance.JsonPath);
+            CSVButton_Click();
         }
 
-        public int CSVButton_Click()
+        public void CSVButton_Click(Action<bool> onComplete = null)
         {
             var data = RobotArmController.LoadCSV(DataContainer.Instance.JsonPath);
-            return RobotArmController.PlayCSV(data);
+            RobotArmController.PlayCSV(data, onComplete);
         }
 
         public void GripButton_Click(object sender, EventArgs e)
@@ -780,9 +768,9 @@ namespace RobotArm_Module
             GripButton_Click();
         }
 
-        public int GripButton_Click()
+        public void GripButton_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.Grip();
+            RobotArmController.Grip(onComplete);
         }
 
         public void Release_Button_Click(object sender, EventArgs e)
@@ -790,9 +778,9 @@ namespace RobotArm_Module
             Release_Button_Click();
         }
 
-        public int Release_Button_Click()
+        public void Release_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.Release();
+            RobotArmController.Release();
         }
 
         public void PhoneGrip01_Button_Click(object sender, EventArgs e)
@@ -800,9 +788,9 @@ namespace RobotArm_Module
             PhoneGrip01_Button_Click();
         }
 
-        public int PhoneGrip01_Button_Click()
+        public void PhoneGrip01_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneGrip01");
+            RobotArmController.PlayWork("Work_PhoneGrip01", onComplete);
         }
 
         public void PhoneGrip02_Button_Click(object sender, EventArgs e)
@@ -810,9 +798,9 @@ namespace RobotArm_Module
             PhoneGrip02_Button_Click();
         }
 
-        public int PhoneGrip02_Button_Click()
+        public void PhoneGrip02_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneGrip02");
+            RobotArmController.PlayWork("Work_PhoneGrip02", onComplete);
         }
 
         public void PhoneGrip03_Button_Click(object sender, EventArgs e)
@@ -820,9 +808,9 @@ namespace RobotArm_Module
             PhoneGrip03_Button_Click();
         }
 
-        public int PhoneGrip03_Button_Click()
+        public void PhoneGrip03_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneGrip03");
+            RobotArmController.PlayWork("Work_PhoneGrip03", onComplete);
         }
 
         public void PhoneGrip04_Button_Click(object sender, EventArgs e)
@@ -830,9 +818,9 @@ namespace RobotArm_Module
             PhoneGrip04_Button_Click();
         }
 
-        public int PhoneGrip04_Button_Click()
+        public void PhoneGrip04_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneGrip04");
+            RobotArmController.PlayWork("Work_PhoneGrip04", onComplete);
         }
 
         public void PhoneRelease01_Button_Click(object sender, EventArgs e)
@@ -840,9 +828,9 @@ namespace RobotArm_Module
             PhoneRelease01_Button_Click();
         }
 
-        public int PhoneRelease01_Button_Click()
+        public void PhoneRelease01_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneRelease01");
+            RobotArmController.PlayWork("Work_PhoneRelease01", onComplete);
         }
 
         public void PhoneRelease02_Button_Click(object sender, EventArgs e)
@@ -850,9 +838,9 @@ namespace RobotArm_Module
             PhoneRelease02_Button_Click();
         }
 
-        public int PhoneRelease02_Button_Click()
+        public void PhoneRelease02_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneRelease02");
+            RobotArmController.PlayWork("Work_PhoneRelease02", onComplete);
         }
 
         public void PhoneRelease03_Button_Click(object sender, EventArgs e)
@@ -860,9 +848,9 @@ namespace RobotArm_Module
             PhoneRelease03_Button_Click();
         }
 
-        public int PhoneRelease03_Button_Click()
+        public void PhoneRelease03_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneRelease03");
+            RobotArmController.PlayWork("Work_PhoneRelease03", onComplete);
         }
 
         public void PhoneRelease04_Button_Click(object sender, EventArgs e)
@@ -870,9 +858,9 @@ namespace RobotArm_Module
             PhoneRelease04_Button_Click();
         }
 
-        public int PhoneRelease04_Button_Click()
+        public void PhoneRelease04_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneRelease04");
+            RobotArmController.PlayWork("Work_PhoneRelease04", onComplete);
         }
 
         public void PhoneReady_Button_Click(object sender, EventArgs e)
@@ -880,9 +868,9 @@ namespace RobotArm_Module
             PhoneReady_Button_Click();
         }
 
-        public int PhoneReady_Button_Click()
+        public void PhoneReady_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneReady");
+            RobotArmController.PlayWork("Work_PhoneReady", onComplete);
         }
 
         public void PhoneFont_Button_Click(object sender, EventArgs e)
@@ -890,9 +878,9 @@ namespace RobotArm_Module
             PhoneFont_Button_Click();
         }
 
-        public int PhoneFont_Button_Click()
+        public void PhoneFont_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneFront");
+            RobotArmController.PlayWork("Work_PhoneFront", onComplete);
         }
 
         public void PhoneBack_Button_Click(object sender, EventArgs e)
@@ -900,9 +888,9 @@ namespace RobotArm_Module
             PhoneBack_Button_Click();
         }
 
-        public int PhoneBack_Button_Click()
+        public void PhoneBack_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_PhoneBack");
+            RobotArmController.PlayWork("Work_PhoneBack", onComplete);
         }
 
         public void Home_Button_Click(object sender, EventArgs e)
@@ -910,9 +898,9 @@ namespace RobotArm_Module
             Home_Button_Click();
         }
 
-        public int Home_Button_Click()
+        public void Home_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_Home");
+            RobotArmController.PlayWork("Work_Home", onComplete);
         }
 
         public void StickGrip01_Button_Click(object sender, EventArgs e)
@@ -920,9 +908,9 @@ namespace RobotArm_Module
             StickGrip01_Button_Click();
         }
 
-        public int StickGrip01_Button_Click()
+        public void StickGrip01_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_StickGrip");
+            RobotArmController.PlayWork("Work_StickGrip", onComplete);
         }
 
         public void StickReturn_Button_Click(object sender, EventArgs e)
@@ -930,9 +918,9 @@ namespace RobotArm_Module
             StickReturn_Button_Click();
         }
 
-        public int StickReturn_Button_Click()
+        public void StickReturn_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_StickReturn");
+            RobotArmController.PlayWork("Work_StickReturn", onComplete);
         }
 
         public void StickSet_Button_Click(object sender, EventArgs e)
@@ -941,9 +929,9 @@ namespace RobotArm_Module
 
         }
 
-        public int StickSet_Button_Click()
+        public void StickSet_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_StickSet");
+            RobotArmController.PlayWork("Work_StickSet", onComplete);
         }
 
         public void StickSetGrip_Button_Click(object sender, EventArgs e)
@@ -952,9 +940,9 @@ namespace RobotArm_Module
 
         }
 
-        public int StickSetGrip_Button_Click()
+        public void StickSetGrip_Button_Click(Action<bool> onComplete = null)
         {
-            return RobotArmController.PlayWork("Work_StickSetGrip");
+            RobotArmController.PlayWork("Work_StickSetGrip", onComplete);
         }
 
         public void Alignment_Button_Click(object sender, EventArgs e)
@@ -962,7 +950,7 @@ namespace RobotArm_Module
             Alignment_Button_Click();
         }
 
-        public int Alignment_Button_Click()
+        public void Alignment_Button_Click(Action<bool> onComplete = null)
         {
             Vector3 pivot = new Vector3();
             pivot.X = float.Parse(SetPivotX_TextBox.Text);
@@ -975,7 +963,7 @@ namespace RobotArm_Module
             rot.Z = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignZ_TextBox.Text));
 
             //
-            return RobotArmController.SetDeviceAlignment(pivot, rot);
+            RobotArmController.SetDeviceAlignment(pivot, rot, onComplete);
         }
     }
 }

@@ -9,10 +9,10 @@ namespace RobotArm_Module
     public interface ISafety
     {
         void EmergencyStop();
-        int Homming();
+        void Homming(Action<bool> onComplete = null);
 
         bool GetSafetyMode();
-        int UnlockProtectiveStop();
+        void UnlockProtectiveStop(Action<bool> onComplete = null);
 
     }
 }

@@ -1,5 +1,4 @@
-﻿using CookComputing.XmlRpc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,8 +16,6 @@ namespace RobotArm_Module
 
         protected TcpClient PrimaryClient = null;
         protected NetworkStream PrimaryStream = null;
-
-        IModbusXmlRpc proxy = XmlRpcProxyGen.Create<IModbusXmlRpc>();
 
         private RtdeClientConnector RtdeClientConnector;
 
@@ -51,16 +48,9 @@ namespace RobotArm_Module
                 PrimaryClient.Connect(ip, DataContainer.Instance.URConfig.PRIMARY_PORT);
                 PrimaryStream = PrimaryClient.GetStream();
 
-                if(RtdeClientConnector == null)
-                {
-                    RtdeClientConnector = new RtdeClientConnector();
-                    //RtdeClientConnector.Disconnect();
-                    RtdeClientConnector.Connect(ip, 2);
-                }
+                RtdeClientConnector = new RtdeClientConnector();
+                RtdeClientConnector.Connect(ip, 2);
                 
-
-                proxy.Url = url;
-
                 RTDEInitialize();
                 Debug.Log("서버에 연결되었습니다.");
 
@@ -268,26 +258,5 @@ namespace RobotArm_Module
             }
         }
 
-        public void Test()
-        {
-            int address = 1409;  // 예시 주소
-            int data = 1;       // 예시 데이터
-            try
-            {
-                int result = proxy.WriteModbus5(address, data);
-                Console.WriteLine($"Modbus Write Result: {result}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"XML-RPC 호출 오류: {ex.Message}");
-            }
-        }
-
-    }
-
-    public interface IModbusXmlRpc : IXmlRpcProxy
-    {
-        [XmlRpcMethod("tool_modbus_write5")]
-        int WriteModbus5(int address, int data);
     }
 }

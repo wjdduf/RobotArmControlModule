@@ -19,14 +19,12 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override bool Connect(string ip, Action onComplete = null)
+        public override bool Connect(string ip, Action<bool> onComplete = null)
         {
-            //연결 관련 코드 구현
-            Debug.Log($"Rainbow ip - {ip}");
-            return true;
+            throw new NotImplementedException();
         }
 
-        public override bool DisConnect()
+        public override bool DisConnect(Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
@@ -41,17 +39,17 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override int Grip(Action onComplete = null)
+        public override void Grip(Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
 
-        public override int Homming()
+        public override void Homming(Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
 
-        public override int JointRotation(float angle, eJointType type = eJointType.None)
+        public override void JointRotation(float angle, eJointType type = eJointType.None)
         {
             throw new NotImplementedException();
         }
@@ -61,12 +59,12 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override int MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position)
+        public override void MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action<bool> onComplete = null, eMoveType moveType = eMoveType.Position)
         {
             throw new NotImplementedException();
         }
 
-        public override int MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
+        public override void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
         {
             throw new NotImplementedException();
         }
@@ -76,7 +74,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position,bool isLinear = false, Action onComplete = null)
+        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
@@ -86,22 +84,22 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override int PlayCSV(List<CSVData> data)
+        public override void PlayCSV(List<CSVData> data, Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
 
-        public override void PlayPreset(WorkPreset Preset, Action onComplete)
+        public override void PlayPreset(WorkPreset preset, Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
 
-        public override int Release(Action onComplete = null)
+        public override void Release(Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
 
-        public override int SetPivot(Vector3 pivot)
+        public override void SetPivot(Vector3 pivot, Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
@@ -111,7 +109,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override int Stop()
+        public override void Stop(Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }
@@ -121,7 +119,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override int UnlockProtectiveStop()
+        public override void UnlockProtectiveStop(Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }

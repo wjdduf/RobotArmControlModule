@@ -29,9 +29,9 @@ namespace RobotArm_Module
         public Vector3 currentPosition = new Vector3();
         public Vector3 currentRotation = new Vector3();
 
-        public abstract bool Connect(string ip, Action onComplete = null);
-        public abstract bool DisConnect();
-        public abstract int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action onComplete = null);
+        public abstract bool Connect(string ip, Action<bool> onComplete = null);
+        public abstract bool DisConnect(Action<bool> onComplete = null);
+        public abstract void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action<bool> onComplete = null);
         public abstract void ShutDown();
         public abstract bool MonitorConnection();
 
@@ -47,7 +47,7 @@ namespace RobotArm_Module
         protected bool isMove = false;
 
 
-        public Queue<Action<Action>> actionQueue = new Queue<Action<Action>>();
+        public Queue<Action<Action<bool>>> actionQueue = new Queue<Action<Action<bool>>>();
 
         public RobotArm()
         {
@@ -66,7 +66,7 @@ namespace RobotArm_Module
             }
         }
 
-        public void PlayRobotWork(string name)
+        public void PlayRobotWork(string name, Action<bool> onComplete = null)
         {
             RobotWorkList data = JsonManager.ImportFromJsonFile<RobotWorkList>(name, DataContainer.Instance.JsonPath);
 
@@ -91,19 +91,20 @@ namespace RobotArm_Module
             }
 
             Console.WriteLine("▶️ 자동 시퀀스 시작");
-            RunNext();
+            RunNext(onComplete);
         }
 
-        private void RunNext()
+        private void RunNext(Action<bool> onComplete = null)
         {
             if (actionQueue.Count == 0)
             {
                 Console.WriteLine("✅ 모든 작업 완료");
+                onComplete?.Invoke(true);
                 return;
             }
 
             var nextAction = actionQueue.Dequeue();
-            nextAction(RunNext); // 현재 작업 실행, 완료되면 RunNext 호출
+            nextAction(isSuccess => RunNext()); // 현재 작업 실행, 완료되면 RunNext 호출
         }
 
 
@@ -117,25 +118,25 @@ namespace RobotArm_Module
             return degrees * (Math.PI / 180.0);
         }
 
-        public abstract int Stop();
+        public abstract void Stop(Action<bool> onComplete = null);
         public abstract void MoveToPosition(float speed, eDirection direction);
         public abstract void MoveToRotation(float speed, eRotationAxis axis);
-        public abstract int MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
-        public abstract int JointRotation(float angle, eJointType type = eJointType.None);
-        public abstract int SetPivot(Vector3 pivot);
-        public abstract void PlayPreset(WorkPreset preset ,Action onComplete = null);
+        public abstract void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
+        public abstract void JointRotation(float angle, eJointType type = eJointType.None);
+        public abstract void SetPivot(Vector3 pivot, Action<bool> onComplete = null);
+        public abstract void PlayPreset(WorkPreset preset ,Action<bool> onComplete = null);
         public abstract void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position);
         public abstract void AddWorkQueue(PresetData[] preset);
 
         public abstract void EmergencyStop();
 
-        public abstract int Homming();
+        public abstract void Homming(Action<bool> onComplete = null);
         public abstract bool GetSafetyMode();
-        public abstract int UnlockProtectiveStop();
+        public abstract void UnlockProtectiveStop(Action<bool> onComplete = null);
 
-        public abstract int PlayCSV(List<CSVData> data);
-        public abstract int Grip(Action onComplete = null);
-        public abstract int Release(Action onComplete = null);
-        public abstract int MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position);
+        public abstract void PlayCSV(List<CSVData> data, Action<bool> onComplete = null);
+        public abstract void Grip(Action<bool> onComplete = null);
+        public abstract void Release(Action<bool> onComplete = null);
+        public abstract void MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action<bool> onComplete = null, eMoveType moveType = eMoveType.Position);
     }
 }

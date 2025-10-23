@@ -4,18 +4,18 @@ namespace RobotArm_Module
 {
     public interface IMove
     {
-        int MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
-        int JointRotation(float angle, eJointType type = eJointType.None);
-        int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action onComplete = null);
+        void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
+        void JointRotation(float angle, eJointType type = eJointType.None);
+        void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action<bool> onComplete = null);
 
         void MoveToPosition(float speed, eDirection direction);
         void MoveToRotation(float speed, eRotationAxis axis);
 
-        void PlayPreset(WorkPreset preset, Action onComplete = null);
-        void PlayRobotWork(string name);
+        void PlayPreset(WorkPreset preset, Action<bool> onComplete = null);
+        void PlayRobotWork(string name, Action<bool> onComplete = null);
 
-        int SetPivot(Vector3 pivot);
-        int Stop();
-        int MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position);
+        void SetPivot(Vector3 pivot, Action<bool> onComplete = null);
+        void Stop(Action<bool> onComplete = null);
+        void MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action<bool> onComplete = null, eMoveType moveType = eMoveType.Position);
     }
 }
