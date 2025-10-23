@@ -31,13 +31,13 @@ namespace RobotArm_Module
 
         public abstract bool Connect(string ip, Action onComplete = null);
         public abstract bool DisConnect();
-        public abstract void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null);
+        public abstract int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action onComplete = null);
         public abstract void ShutDown();
         public abstract bool MonitorConnection();
 
         public abstract void TestCode(string script);
 
-        public float Speed = 0.1f;
+        public float Speed = 0.3f;
         public float Acceleration = 1.2f;
 
         protected bool isUsingPreset = false;
@@ -45,6 +45,7 @@ namespace RobotArm_Module
         protected Action onPresetComplete = null;
 
         protected bool isMove = false;
+
 
         public Queue<Action<Action>> actionQueue = new Queue<Action<Action>>();
 
@@ -61,6 +62,7 @@ namespace RobotArm_Module
                 await Task.Delay(100);
 
                 DataContainer.Instance.RobotArmCurrentData.isConnect = MonitorConnection();
+
             }
         }
 
@@ -115,24 +117,25 @@ namespace RobotArm_Module
             return degrees * (Math.PI / 180.0);
         }
 
-        public abstract void Stop();
+        public abstract int Stop();
         public abstract void MoveToPosition(float speed, eDirection direction);
         public abstract void MoveToRotation(float speed, eRotationAxis axis);
-        public abstract void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
-        public abstract void JointRotation(float angle, eJointType type = eJointType.None);
-        public abstract void SetPivot(Vector3 pivot);
+        public abstract int MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
+        public abstract int JointRotation(float angle, eJointType type = eJointType.None);
+        public abstract int SetPivot(Vector3 pivot);
         public abstract void PlayPreset(WorkPreset preset ,Action onComplete = null);
         public abstract void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position);
         public abstract void AddWorkQueue(PresetData[] preset);
 
         public abstract void EmergencyStop();
 
-        public abstract void Homming();
+        public abstract int Homming();
         public abstract bool GetSafetyMode();
-        public abstract void UnlockProtectiveStop();
+        public abstract int UnlockProtectiveStop();
 
-        public abstract void PlayCSV(List<CSVData> data);
-        public abstract void Grip(Action onComplete = null);
-        public abstract void Release(Action onComplete = null);
+        public abstract int PlayCSV(List<CSVData> data);
+        public abstract int Grip(Action onComplete = null);
+        public abstract int Release(Action onComplete = null);
+        public abstract int MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position);
     }
 }

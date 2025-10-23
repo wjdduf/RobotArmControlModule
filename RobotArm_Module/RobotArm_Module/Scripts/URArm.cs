@@ -69,6 +69,10 @@ namespace RobotArm_Module
 
                 TCPClient.SendPacketWait(URInterface.RobotMode, eRobotMode.RUNNING.ToString());
 
+                TCPClient.SendPacket(URInterface.ConnectGrip, ePortType.Dashboard);
+
+
+                TCPClient.ConnectCheck = true;
                 isSucces = true;
             }
             catch (SocketException e)
@@ -136,6 +140,10 @@ namespace RobotArm_Module
                 // NetworkStream과 TcpClient 객체를 닫아 리소스를 해제합니다.
                 //if(TCPClient!= null)
                 //    TCPClient.DisConnect();
+
+                TCPClient.ConnectCheck = false;
+
+
             }
             return isSucces;
         }
@@ -190,7 +198,7 @@ namespace RobotArm_Module
             this.isMove = isMove;
         }
 
-        public override void Stop()
+        public override int Stop()
         {
             //UR.PrimaryInterface.Script.Send("speedl([0,0,0,0,0,0],0.5)");
             //UR.PrimaryInterface.Script.Send("speedj([0,0,0,0,0,0],0.5)");
@@ -205,26 +213,40 @@ namespace RobotArm_Module
             isMove = false;
             isUsingPreset = false;
 
+            return 1;
         }
 
-        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null)
+        public override int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action onComplete = null)
         {
-            Debug.Log($"URArm MoveToPreset - {position} ::  {rotation}");
-
-            string mType = "movel";
-            if (moveType == eMoveType.Joint)
-                mType = "movej([";
-            else
-                mType = "movej(p[";
 
             if (position == null || rotation == null)
             {
                 Debug.Log($"MoveToPreset :: position or rotation is null");
-                return;
+                return 0;
             }
+
+            Debug.Log($"URArm MoveToPreset - {position} ::  {rotation}");
+
+
+            string mType = "movel";
+
+            if (isLinear)
+            {
+                mType = "movel";
+            }
+            else
+            {
+                mType = "movej";
+            }
+
+            if (moveType == eMoveType.Joint)
+                mType = mType + "([";
+            else
+                mType = mType + "(p[";
 
             StringBuilder st = new StringBuilder();
             st.Append($"{mType}");
+
             //st.Append("movel(p[");
 
             if (moveType == eMoveType.Position)
@@ -253,6 +275,7 @@ namespace RobotArm_Module
 
             MoveWaitAsync(onComplete);
 
+            return 1;
         }
 
         public override void MoveToPosition(float speed, eDirection direction)
@@ -347,7 +370,7 @@ namespace RobotArm_Module
 
         }
 
-        public override void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
+        public override int MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
         {
             Vector3 position = new Vector3();
             Vector3 rotation = new Vector3();
@@ -392,9 +415,10 @@ namespace RobotArm_Module
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
 
+            return 1;
         }
 
-        public override void JointRotation(float angle, eJointType type = eJointType.None)
+        public override int JointRotation(float angle, eJointType type = eJointType.None)
         {
             JointData joint = new JointData();
 
@@ -442,6 +466,7 @@ namespace RobotArm_Module
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
 
+            return 1;
         }
 
         private void SetCurrentJoinData(double[] angle)
@@ -468,7 +493,7 @@ namespace RobotArm_Module
                 
         }
 
-        public override void SetPivot(Vector3 pivot)
+        public override int SetPivot(Vector3 pivot)
         {
             StringBuilder st = new StringBuilder();
             st.Append("set_tcp(p[");
@@ -481,41 +506,13 @@ namespace RobotArm_Module
 
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
+
+            return 1;
         }
 
         public override void TestCode(string script)
         {
-            string UrScriptCommand;
-
-
-            //UrScriptCommand = "def my_sequence():\nmovej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.571,3.142],a=1.2,v=0.5)\nmovej([-1.571,-1.920,2.443,-0.524,1.920,3.142],a=1.2,v=0.5)\nend";
-
-            //UrScriptCommand = "def my_sequence():\n" + URInterface.GripperStart + URInterface.Grip + URInterface.Pully + "end";
-
-            UrScriptCommand = URInterface.gripTest;
-            //UrScriptCommand = "popup(str(getModbusStatus()))\n";
-
-
-
-            //            UrScriptCommand = @"def my_sequence():
-            //write_modbus5(1417 + 3, 1)
-            //write_modbus5(1417 + 3, 0)
-            //end";
-
-
-            //TCPClient.SendPacket(UrScriptCommand);
-            //TCPClient.SendPacket($"load release.urp",ePortType.Dashboard);
-            //TCPClient.SendPacket($"play", ePortType.Dashboard);
-
-            //TCPClient.SendPacket(URInterface.Grip, ePortType.Dashboard);
-
-            TCPClient.SendPacket(URInterface.Grip,ePortType.Dashboard);
-            Thread.Sleep(500);
-            TCPClient.SendPacketWait("programState", "STOPPED");
-            TCPClient.SendPacket(URInterface.Release, ePortType.Dashboard);
-
-
-            //TCPClient.Test();
+            
         }
 
         public override void PlayPreset(WorkPreset Preset, Action onComplete = null)
@@ -552,7 +549,7 @@ namespace RobotArm_Module
 
             Debug.Log($"PlayPreset Create Script { scriptCommand}");
 
-            TCPClient.SendPacket(scriptCommand);
+            //TCPClient.SendPacket(scriptCommand);
 
 
 
@@ -749,9 +746,11 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void Homming()
+        public override int Homming()
         {
             MoveToPreset(new Vector3(-90,-110,140), new Vector3(-30,90,180),eMoveType.Joint);
+
+            return 1;
         }
 
         public override bool GetSafetyMode()
@@ -771,7 +770,7 @@ namespace RobotArm_Module
             return isSafety;
         }
 
-        public override void UnlockProtectiveStop()
+        public override int UnlockProtectiveStop()
         {
             TCPClient.SendPacket(URInterface.ClosePopup, ePortType.Dashboard);
             TCPClient.Receive(ePortType.Dashboard);
@@ -779,9 +778,10 @@ namespace RobotArm_Module
             TCPClient.SendPacket(URInterface.UnlockProtectiveStop, ePortType.Dashboard);
             TCPClient.Receive(ePortType.Dashboard);
 
+            return 1;
         }
 
-        public override void PlayCSV(List<CSVData> data)
+        public override int PlayCSV(List<CSVData> data)
         {
 
             Vector3 InitPos = new Vector3();
@@ -819,30 +819,37 @@ namespace RobotArm_Module
             Debug.Log(st.ToString());
 
             TCPClient.SendPacket(st.ToString());
+
+            return 1;
         }
 
-        public override void Grip(Action onComplete = null)
+        public override int Grip(Action onComplete = null)
         {
-            TCPClient.SendPacket(URInterface.Grip, ePortType.Dashboard);
+            //TCPClient.SendPacket(URInterface.Grip, ePortType.Dashboard);
             Thread.Sleep(500);
-            TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
+            //TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
             Debug.Log("Grip");
             Thread.Sleep(3000);
 
 
             onComplete?.Invoke();
+
+            return 1;
         }
 
-        public override void Release(Action onComplete = null)
+        public override int Release(Action onComplete = null)
         {
-            TCPClient.SendPacket(URInterface.Release, ePortType.Dashboard);
+            //TCPClient.SendPacket(URInterface.Release, ePortType.Dashboard);
             Thread.Sleep(500);
-            TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
+            //TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
             Debug.Log("Release");
             Thread.Sleep(2000);
 
 
             onComplete?.Invoke();
+
+            return 1;
+
         }
 
         public override bool MonitorConnection()
@@ -850,6 +857,9 @@ namespace RobotArm_Module
             bool isConnect = false;
 
             if(TCPClient == null)
+                return isConnect;
+
+            if (!TCPClient.ConnectCheck)
                 return isConnect;
 
 
@@ -861,6 +871,47 @@ namespace RobotArm_Module
             }
 
             return isConnect;
+        }
+
+        public override int MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position)
+        {
+            StringBuilder st = new StringBuilder();
+
+            st.Append("def my_sequence():\n");
+
+            if (isLoop)
+            {
+                st.Append("while (True):\n");
+            }
+
+            if(isLoop)
+            {
+                loopTime = 1;
+            }
+
+            for (int i = 0; i < loopTime; i++)
+            {
+                st.Append(GetScript(fromPos, fromRot));
+                st.Append("\n");
+                st.Append(GetScript(toPos, toRot));
+                st.Append("\n");
+
+            }
+
+            if (isLoop)
+            {
+                st.Append("end\n");
+            }
+
+            st.Append("end");
+
+            Debug.Log(st.ToString());
+
+            TCPClient.SendPacket(st.ToString());
+
+            MoveWaitAsync(onComplete);
+
+            return 1;
         }
     }
 }

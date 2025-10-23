@@ -31,12 +31,8 @@ namespace RobotArm_Module
         /// </summary>
         private void InitializeComponent()
         {
-            this.MoveToFront = new System.Windows.Forms.Button();
-            this.MoveToBack = new System.Windows.Forms.Button();
             this.PowerOn = new System.Windows.Forms.Button();
             this.PowerOff = new System.Windows.Forms.Button();
-            this.MoveToBack2 = new System.Windows.Forms.Button();
-            this.MoveToFront2 = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.button1 = new System.Windows.Forms.Button();
             this.CurPosX_TextBox = new System.Windows.Forms.TextBox();
@@ -105,10 +101,9 @@ namespace RobotArm_Module
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.ListPlay_Button = new System.Windows.Forms.Button();
+            this.LoopPlay_Button = new System.Windows.Forms.Button();
             this.ListAdd_Button = new System.Windows.Forms.Button();
-            this.ListStop_Button = new System.Windows.Forms.Button();
-            this.ListDelete_Button = new System.Windows.Forms.Button();
+            this.Stop_Button = new System.Windows.Forms.Button();
             this.Homming_Button = new System.Windows.Forms.Button();
             this.JointListAdd_Button = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -148,31 +143,26 @@ namespace RobotArm_Module
             this.label11 = new System.Windows.Forms.Label();
             this.Alignment_Button = new System.Windows.Forms.Button();
             this.ConnectCheck_Text = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.LoopFromPosZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.LoopFromPosY_TextBox = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.LoopFromPosX_TextBox = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.LoopToPosZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.LoopToPosY_TextBox = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.LoopToPosX_TextBox = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.MoveLoopTime_TextBox = new System.Windows.Forms.TextBox();
+            this.MoveLoop_CheckBox = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.ArrowGroupBox.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // MoveToFront
-            // 
-            this.MoveToFront.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.MoveToFront.Location = new System.Drawing.Point(642, 382);
-            this.MoveToFront.Name = "MoveToFront";
-            this.MoveToFront.Size = new System.Drawing.Size(70, 30);
-            this.MoveToFront.TabIndex = 0;
-            this.MoveToFront.Text = "앞";
-            this.MoveToFront.UseVisualStyleBackColor = false;
-            this.MoveToFront.Click += new System.EventHandler(this.MoveToFront_Click);
-            // 
-            // MoveToBack
-            // 
-            this.MoveToBack.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.MoveToBack.Location = new System.Drawing.Point(718, 382);
-            this.MoveToBack.Name = "MoveToBack";
-            this.MoveToBack.Size = new System.Drawing.Size(70, 30);
-            this.MoveToBack.TabIndex = 1;
-            this.MoveToBack.Text = "뒤";
-            this.MoveToBack.UseVisualStyleBackColor = false;
-            this.MoveToBack.Click += new System.EventHandler(this.MoveToBack_Click);
             // 
             // PowerOn
             // 
@@ -196,28 +186,6 @@ namespace RobotArm_Module
             this.PowerOff.UseVisualStyleBackColor = false;
             this.PowerOff.Click += new System.EventHandler(this.PowerOff_Click);
             // 
-            // MoveToBack2
-            // 
-            this.MoveToBack2.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.MoveToBack2.Location = new System.Drawing.Point(718, 418);
-            this.MoveToBack2.Name = "MoveToBack2";
-            this.MoveToBack2.Size = new System.Drawing.Size(70, 30);
-            this.MoveToBack2.TabIndex = 5;
-            this.MoveToBack2.Text = "뒤";
-            this.MoveToBack2.UseVisualStyleBackColor = false;
-            this.MoveToBack2.Click += new System.EventHandler(this.MoveToBack_Click2);
-            // 
-            // MoveToFront2
-            // 
-            this.MoveToFront2.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.MoveToFront2.Location = new System.Drawing.Point(642, 418);
-            this.MoveToFront2.Name = "MoveToFront2";
-            this.MoveToFront2.Size = new System.Drawing.Size(70, 30);
-            this.MoveToFront2.TabIndex = 4;
-            this.MoveToFront2.Text = "앞";
-            this.MoveToFront2.UseVisualStyleBackColor = false;
-            this.MoveToFront2.Click += new System.EventHandler(this.MoveToFront2_Click);
-            // 
             // fileSystemWatcher1
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
@@ -226,13 +194,12 @@ namespace RobotArm_Module
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.button1.Location = new System.Drawing.Point(767, 633);
+            this.button1.Location = new System.Drawing.Point(767, 665);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // CurPosX_TextBox
@@ -363,6 +330,7 @@ namespace RobotArm_Module
             this.SetRotZ_TextBox.Name = "SetRotZ_TextBox";
             this.SetRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
             this.SetRotZ_TextBox.TabIndex = 31;
+            this.SetRotZ_TextBox.Text = "0.000";
             // 
             // SetRotY_Text
             // 
@@ -379,6 +347,7 @@ namespace RobotArm_Module
             this.SetRotY_TextBox.Name = "SetRotY_TextBox";
             this.SetRotY_TextBox.Size = new System.Drawing.Size(80, 21);
             this.SetRotY_TextBox.TabIndex = 29;
+            this.SetRotY_TextBox.Text = "0.000";
             // 
             // SetRotX_Text
             // 
@@ -395,6 +364,7 @@ namespace RobotArm_Module
             this.SetRotX_TextBox.Name = "SetRotX_TextBox";
             this.SetRotX_TextBox.Size = new System.Drawing.Size(80, 21);
             this.SetRotX_TextBox.TabIndex = 27;
+            this.SetRotX_TextBox.Text = "0.000";
             // 
             // SetPosZ_Text
             // 
@@ -411,6 +381,7 @@ namespace RobotArm_Module
             this.SetPosZ_TextBox.Name = "SetPosZ_TextBox";
             this.SetPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
             this.SetPosZ_TextBox.TabIndex = 25;
+            this.SetPosZ_TextBox.Text = "0.000";
             // 
             // SetPosY_Text
             // 
@@ -427,6 +398,7 @@ namespace RobotArm_Module
             this.SetPosY_TextBox.Name = "SetPosY_TextBox";
             this.SetPosY_TextBox.Size = new System.Drawing.Size(80, 21);
             this.SetPosY_TextBox.TabIndex = 23;
+            this.SetPosY_TextBox.Text = "0.000";
             // 
             // SetPosX_Text
             // 
@@ -452,22 +424,24 @@ namespace RobotArm_Module
             this.SetPosX_TextBox.Name = "SetPosX_TextBox";
             this.SetPosX_TextBox.Size = new System.Drawing.Size(80, 21);
             this.SetPosX_TextBox.TabIndex = 20;
+            this.SetPosX_TextBox.Text = "0.000";
             // 
             // button2f
             // 
             this.button2f.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.button2f.Location = new System.Drawing.Point(28, 400);
+            this.button2f.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button2f.Location = new System.Drawing.Point(15, 401);
             this.button2f.Name = "button2f";
-            this.button2f.Size = new System.Drawing.Size(100, 23);
+            this.button2f.Size = new System.Drawing.Size(95, 25);
             this.button2f.TabIndex = 33;
-            this.button2f.Text = "SetPosition";
+            this.button2f.Text = "SetPosition(J)";
             this.button2f.UseVisualStyleBackColor = false;
             this.button2f.Click += new System.EventHandler(this.SetPositionButton);
             // 
             // ZPositive_Button
             // 
             this.ZPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ZPositive_Button.Location = new System.Drawing.Point(672, 152);
+            this.ZPositive_Button.Location = new System.Drawing.Point(745, 163);
             this.ZPositive_Button.Name = "ZPositive_Button";
             this.ZPositive_Button.Size = new System.Drawing.Size(50, 30);
             this.ZPositive_Button.TabIndex = 34;
@@ -479,7 +453,7 @@ namespace RobotArm_Module
             // ZNegative_Button
             // 
             this.ZNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ZNegative_Button.Location = new System.Drawing.Point(672, 212);
+            this.ZNegative_Button.Location = new System.Drawing.Point(745, 223);
             this.ZNegative_Button.Name = "ZNegative_Button";
             this.ZNegative_Button.Size = new System.Drawing.Size(50, 30);
             this.ZNegative_Button.TabIndex = 35;
@@ -491,7 +465,7 @@ namespace RobotArm_Module
             // XNegative_Button
             // 
             this.XNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.XNegative_Button.Location = new System.Drawing.Point(616, 178);
+            this.XNegative_Button.Location = new System.Drawing.Point(689, 189);
             this.XNegative_Button.Name = "XNegative_Button";
             this.XNegative_Button.Size = new System.Drawing.Size(50, 30);
             this.XNegative_Button.TabIndex = 36;
@@ -503,7 +477,7 @@ namespace RobotArm_Module
             // XPositive_Button
             // 
             this.XPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.XPositive_Button.Location = new System.Drawing.Point(728, 178);
+            this.XPositive_Button.Location = new System.Drawing.Point(801, 189);
             this.XPositive_Button.Name = "XPositive_Button";
             this.XPositive_Button.Size = new System.Drawing.Size(50, 30);
             this.XPositive_Button.TabIndex = 37;
@@ -515,7 +489,7 @@ namespace RobotArm_Module
             // YPositive_Button
             // 
             this.YPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.YPositive_Button.Location = new System.Drawing.Point(616, 136);
+            this.YPositive_Button.Location = new System.Drawing.Point(689, 147);
             this.YPositive_Button.Name = "YPositive_Button";
             this.YPositive_Button.Size = new System.Drawing.Size(50, 30);
             this.YPositive_Button.TabIndex = 38;
@@ -527,7 +501,7 @@ namespace RobotArm_Module
             // YNegative_Button
             // 
             this.YNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.YNegative_Button.Location = new System.Drawing.Point(728, 136);
+            this.YNegative_Button.Location = new System.Drawing.Point(801, 147);
             this.YNegative_Button.Name = "YNegative_Button";
             this.YNegative_Button.Size = new System.Drawing.Size(50, 30);
             this.YNegative_Button.TabIndex = 39;
@@ -564,7 +538,7 @@ namespace RobotArm_Module
             // 
             this.ArrowGroupBox.Controls.Add(this.Position_Radio_Button);
             this.ArrowGroupBox.Controls.Add(this.Rotation_Radio_Button);
-            this.ArrowGroupBox.Location = new System.Drawing.Point(599, 82);
+            this.ArrowGroupBox.Location = new System.Drawing.Point(672, 93);
             this.ArrowGroupBox.Name = "ArrowGroupBox";
             this.ArrowGroupBox.Size = new System.Drawing.Size(190, 49);
             this.ArrowGroupBox.TabIndex = 42;
@@ -572,11 +546,11 @@ namespace RobotArm_Module
             // 
             // Speed_Textbox
             // 
-            this.Speed_Textbox.Location = new System.Drawing.Point(668, 12);
+            this.Speed_Textbox.Location = new System.Drawing.Point(741, 23);
             this.Speed_Textbox.Name = "Speed_Textbox";
             this.Speed_Textbox.Size = new System.Drawing.Size(100, 21);
             this.Speed_Textbox.TabIndex = 43;
-            this.Speed_Textbox.Text = "0.1";
+            this.Speed_Textbox.Text = "0.3";
             this.Speed_Textbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.Speed_Textbox.TextChanged += new System.EventHandler(this.Speed_Textbox_TextChanged);
             this.Speed_Textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
@@ -584,7 +558,7 @@ namespace RobotArm_Module
             // SpeedLabel
             // 
             this.SpeedLabel.AutoSize = true;
-            this.SpeedLabel.Location = new System.Drawing.Point(615, 15);
+            this.SpeedLabel.Location = new System.Drawing.Point(688, 26);
             this.SpeedLabel.Name = "SpeedLabel";
             this.SpeedLabel.Size = new System.Drawing.Size(41, 12);
             this.SpeedLabel.TabIndex = 44;
@@ -594,7 +568,7 @@ namespace RobotArm_Module
             // 
             this.Joint_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Joint_ComboBox.FormattingEnabled = true;
-            this.Joint_ComboBox.Location = new System.Drawing.Point(627, 262);
+            this.Joint_ComboBox.Location = new System.Drawing.Point(700, 273);
             this.Joint_ComboBox.Name = "Joint_ComboBox";
             this.Joint_ComboBox.Size = new System.Drawing.Size(142, 20);
             this.Joint_ComboBox.TabIndex = 45;
@@ -603,7 +577,7 @@ namespace RobotArm_Module
             // RotationJoint_Button
             // 
             this.RotationJoint_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.RotationJoint_Button.Location = new System.Drawing.Point(626, 335);
+            this.RotationJoint_Button.Location = new System.Drawing.Point(699, 346);
             this.RotationJoint_Button.Name = "RotationJoint_Button";
             this.RotationJoint_Button.Size = new System.Drawing.Size(75, 23);
             this.RotationJoint_Button.TabIndex = 46;
@@ -614,7 +588,7 @@ namespace RobotArm_Module
             // JointAngleDown_Button
             // 
             this.JointAngleDown_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.JointAngleDown_Button.Location = new System.Drawing.Point(719, 331);
+            this.JointAngleDown_Button.Location = new System.Drawing.Point(792, 342);
             this.JointAngleDown_Button.Name = "JointAngleDown_Button";
             this.JointAngleDown_Button.Size = new System.Drawing.Size(50, 30);
             this.JointAngleDown_Button.TabIndex = 48;
@@ -626,7 +600,7 @@ namespace RobotArm_Module
             // JointAngleUp_Button
             // 
             this.JointAngleUp_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.JointAngleUp_Button.Location = new System.Drawing.Point(719, 292);
+            this.JointAngleUp_Button.Location = new System.Drawing.Point(792, 303);
             this.JointAngleUp_Button.Name = "JointAngleUp_Button";
             this.JointAngleUp_Button.Size = new System.Drawing.Size(50, 30);
             this.JointAngleUp_Button.TabIndex = 47;
@@ -637,7 +611,7 @@ namespace RobotArm_Module
             // 
             // JointAngle_TextBox
             // 
-            this.JointAngle_TextBox.Location = new System.Drawing.Point(626, 298);
+            this.JointAngle_TextBox.Location = new System.Drawing.Point(699, 309);
             this.JointAngle_TextBox.Name = "JointAngle_TextBox";
             this.JointAngle_TextBox.Size = new System.Drawing.Size(75, 21);
             this.JointAngle_TextBox.TabIndex = 49;
@@ -760,7 +734,7 @@ namespace RobotArm_Module
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(579, 268);
+            this.label1.Location = new System.Drawing.Point(652, 279);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(31, 12);
             this.label1.TabIndex = 63;
@@ -769,7 +743,7 @@ namespace RobotArm_Module
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(579, 301);
+            this.label2.Location = new System.Drawing.Point(652, 312);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 12);
             this.label2.TabIndex = 64;
@@ -851,49 +825,39 @@ namespace RobotArm_Module
             this.label5.TabIndex = 72;
             this.label5.Text = "Z";
             // 
-            // ListPlay_Button
+            // LoopPlay_Button
             // 
-            this.ListPlay_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ListPlay_Button.Location = new System.Drawing.Point(339, 205);
-            this.ListPlay_Button.Name = "ListPlay_Button";
-            this.ListPlay_Button.Size = new System.Drawing.Size(60, 25);
-            this.ListPlay_Button.TabIndex = 74;
-            this.ListPlay_Button.Text = "Play";
-            this.ListPlay_Button.UseVisualStyleBackColor = false;
-            this.ListPlay_Button.Click += new System.EventHandler(this.ListPlay_Button_Click);
+            this.LoopPlay_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.LoopPlay_Button.Location = new System.Drawing.Point(352, 228);
+            this.LoopPlay_Button.Name = "LoopPlay_Button";
+            this.LoopPlay_Button.Size = new System.Drawing.Size(60, 25);
+            this.LoopPlay_Button.TabIndex = 74;
+            this.LoopPlay_Button.Text = "Play";
+            this.LoopPlay_Button.UseVisualStyleBackColor = false;
+            this.LoopPlay_Button.Click += new System.EventHandler(this.ListPlay_Button_Click);
             // 
             // ListAdd_Button
             // 
             this.ListAdd_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ListAdd_Button.Location = new System.Drawing.Point(141, 400);
+            this.ListAdd_Button.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ListAdd_Button.Location = new System.Drawing.Point(116, 401);
             this.ListAdd_Button.Name = "ListAdd_Button";
-            this.ListAdd_Button.Size = new System.Drawing.Size(75, 23);
+            this.ListAdd_Button.Size = new System.Drawing.Size(95, 25);
             this.ListAdd_Button.TabIndex = 75;
-            this.ListAdd_Button.Text = "Add";
+            this.ListAdd_Button.Text = "SetPosition(L)";
             this.ListAdd_Button.UseVisualStyleBackColor = false;
-            this.ListAdd_Button.Click += new System.EventHandler(this.ListAdd_Button_Click);
+            this.ListAdd_Button.Click += new System.EventHandler(this.SetPositionLButton);
             // 
-            // ListStop_Button
+            // Stop_Button
             // 
-            this.ListStop_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ListStop_Button.Location = new System.Drawing.Point(420, 205);
-            this.ListStop_Button.Name = "ListStop_Button";
-            this.ListStop_Button.Size = new System.Drawing.Size(60, 25);
-            this.ListStop_Button.TabIndex = 76;
-            this.ListStop_Button.Text = "Stop";
-            this.ListStop_Button.UseVisualStyleBackColor = false;
-            this.ListStop_Button.Click += new System.EventHandler(this.ListStop_Button_Click);
-            // 
-            // ListDelete_Button
-            // 
-            this.ListDelete_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ListDelete_Button.Location = new System.Drawing.Point(501, 205);
-            this.ListDelete_Button.Name = "ListDelete_Button";
-            this.ListDelete_Button.Size = new System.Drawing.Size(60, 25);
-            this.ListDelete_Button.TabIndex = 77;
-            this.ListDelete_Button.Text = "Delete";
-            this.ListDelete_Button.UseVisualStyleBackColor = false;
-            this.ListDelete_Button.Click += new System.EventHandler(this.ListDelete_Button_Click);
+            this.Stop_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Stop_Button.Location = new System.Drawing.Point(641, 391);
+            this.Stop_Button.Name = "Stop_Button";
+            this.Stop_Button.Size = new System.Drawing.Size(70, 50);
+            this.Stop_Button.TabIndex = 76;
+            this.Stop_Button.Text = "Stop";
+            this.Stop_Button.UseVisualStyleBackColor = false;
+            this.Stop_Button.Click += new System.EventHandler(this.ListStop_Button_Click);
             // 
             // Homming_Button
             // 
@@ -909,18 +873,19 @@ namespace RobotArm_Module
             // JointListAdd_Button
             // 
             this.JointListAdd_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.JointListAdd_Button.Location = new System.Drawing.Point(225, 400);
+            this.JointListAdd_Button.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.JointListAdd_Button.Location = new System.Drawing.Point(219, 401);
             this.JointListAdd_Button.Name = "JointListAdd_Button";
-            this.JointListAdd_Button.Size = new System.Drawing.Size(75, 23);
+            this.JointListAdd_Button.Size = new System.Drawing.Size(90, 25);
             this.JointListAdd_Button.TabIndex = 79;
-            this.JointListAdd_Button.Text = "Add(Joint)";
+            this.JointListAdd_Button.Text = "SetJoint";
             this.JointListAdd_Button.UseVisualStyleBackColor = false;
-            this.JointListAdd_Button.Click += new System.EventHandler(this.JointListAdd_Button_Click);
+            this.JointListAdd_Button.Click += new System.EventHandler(this.SetJoint_Button_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(579, 47);
+            this.label6.Location = new System.Drawing.Point(652, 58);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 12);
             this.label6.TabIndex = 81;
@@ -928,7 +893,7 @@ namespace RobotArm_Module
             // 
             // Acceleration_TextBox
             // 
-            this.Acceleration_TextBox.Location = new System.Drawing.Point(668, 44);
+            this.Acceleration_TextBox.Location = new System.Drawing.Point(741, 55);
             this.Acceleration_TextBox.Name = "Acceleration_TextBox";
             this.Acceleration_TextBox.Size = new System.Drawing.Size(100, 21);
             this.Acceleration_TextBox.TabIndex = 80;
@@ -940,7 +905,7 @@ namespace RobotArm_Module
             // UnityPanel
             // 
             this.UnityPanel.BackColor = System.Drawing.SystemColors.Desktop;
-            this.UnityPanel.Location = new System.Drawing.Point(865, 15);
+            this.UnityPanel.Location = new System.Drawing.Point(892, 502);
             this.UnityPanel.Name = "UnityPanel";
             this.UnityPanel.Size = new System.Drawing.Size(403, 215);
             this.UnityPanel.TabIndex = 82;
@@ -949,7 +914,7 @@ namespace RobotArm_Module
             // IPCTest_Button
             // 
             this.IPCTest_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.IPCTest_Button.Location = new System.Drawing.Point(905, 578);
+            this.IPCTest_Button.Location = new System.Drawing.Point(767, 694);
             this.IPCTest_Button.Name = "IPCTest_Button";
             this.IPCTest_Button.Size = new System.Drawing.Size(75, 23);
             this.IPCTest_Button.TabIndex = 83;
@@ -996,7 +961,7 @@ namespace RobotArm_Module
             this.button2.TabIndex = 87;
             this.button2.Text = "WarningReset";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.UnlockProtectiveStop);
             // 
             // CSVButton
             // 
@@ -1012,9 +977,9 @@ namespace RobotArm_Module
             // GripButton
             // 
             this.GripButton.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.GripButton.Location = new System.Drawing.Point(339, 256);
+            this.GripButton.Location = new System.Drawing.Point(717, 391);
             this.GripButton.Name = "GripButton";
-            this.GripButton.Size = new System.Drawing.Size(97, 52);
+            this.GripButton.Size = new System.Drawing.Size(70, 50);
             this.GripButton.TabIndex = 89;
             this.GripButton.Text = "Grip";
             this.GripButton.UseVisualStyleBackColor = false;
@@ -1023,9 +988,9 @@ namespace RobotArm_Module
             // Release_Button
             // 
             this.Release_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.Release_Button.Location = new System.Drawing.Point(452, 256);
+            this.Release_Button.Location = new System.Drawing.Point(792, 391);
             this.Release_Button.Name = "Release_Button";
-            this.Release_Button.Size = new System.Drawing.Size(97, 52);
+            this.Release_Button.Size = new System.Drawing.Size(70, 50);
             this.Release_Button.TabIndex = 90;
             this.Release_Button.Text = "Release";
             this.Release_Button.UseVisualStyleBackColor = false;
@@ -1040,7 +1005,7 @@ namespace RobotArm_Module
             this.PhoneGrip01_Button.TabIndex = 91;
             this.PhoneGrip01_Button.Text = "PhoneGrip01";
             this.PhoneGrip01_Button.UseVisualStyleBackColor = false;
-            this.PhoneGrip01_Button.Click += new System.EventHandler(this.WorkPlay_Button_Click);
+            this.PhoneGrip01_Button.Click += new System.EventHandler(this.PhoneGrip01_Button_Click);
             // 
             // PhoneGrip02_Button
             // 
@@ -1300,12 +1265,185 @@ namespace RobotArm_Module
             this.ConnectCheck_Text.TabIndex = 116;
             this.ConnectCheck_Text.Text = "DisConnect";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(308, 153);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(39, 12);
+            this.label12.TabIndex = 122;
+            this.label12.Text = "Pos Z";
+            // 
+            // LoopFromPosZ_TextBox
+            // 
+            this.LoopFromPosZ_TextBox.Location = new System.Drawing.Point(353, 149);
+            this.LoopFromPosZ_TextBox.Name = "LoopFromPosZ_TextBox";
+            this.LoopFromPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromPosZ_TextBox.TabIndex = 121;
+            this.LoopFromPosZ_TextBox.Text = "0.000";
+            this.LoopFromPosZ_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(308, 126);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(39, 12);
+            this.label13.TabIndex = 120;
+            this.label13.Text = "Pos Y";
+            // 
+            // LoopFromPosY_TextBox
+            // 
+            this.LoopFromPosY_TextBox.Location = new System.Drawing.Point(353, 122);
+            this.LoopFromPosY_TextBox.Name = "LoopFromPosY_TextBox";
+            this.LoopFromPosY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromPosY_TextBox.TabIndex = 119;
+            this.LoopFromPosY_TextBox.Text = "0.000";
+            this.LoopFromPosY_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(308, 99);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(39, 12);
+            this.label14.TabIndex = 118;
+            this.label14.Text = "Pos X";
+            // 
+            // LoopFromPosX_TextBox
+            // 
+            this.LoopFromPosX_TextBox.Location = new System.Drawing.Point(353, 95);
+            this.LoopFromPosX_TextBox.Name = "LoopFromPosX_TextBox";
+            this.LoopFromPosX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromPosX_TextBox.TabIndex = 117;
+            this.LoopFromPosX_TextBox.Text = "0.000";
+            this.LoopFromPosX_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(495, 156);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(39, 12);
+            this.label15.TabIndex = 128;
+            this.label15.Text = "Pos Z";
+            // 
+            // LoopToPosZ_TextBox
+            // 
+            this.LoopToPosZ_TextBox.Location = new System.Drawing.Point(540, 151);
+            this.LoopToPosZ_TextBox.Name = "LoopToPosZ_TextBox";
+            this.LoopToPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToPosZ_TextBox.TabIndex = 127;
+            this.LoopToPosZ_TextBox.Text = "0.000";
+            this.LoopToPosZ_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(495, 129);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(39, 12);
+            this.label16.TabIndex = 126;
+            this.label16.Text = "Pos Y";
+            // 
+            // LoopToPosY_TextBox
+            // 
+            this.LoopToPosY_TextBox.Location = new System.Drawing.Point(540, 124);
+            this.LoopToPosY_TextBox.Name = "LoopToPosY_TextBox";
+            this.LoopToPosY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToPosY_TextBox.TabIndex = 125;
+            this.LoopToPosY_TextBox.Text = "0.000";
+            this.LoopToPosY_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(495, 102);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(39, 12);
+            this.label17.TabIndex = 124;
+            this.label17.Text = "Pos X";
+            // 
+            // LoopToPosX_TextBox
+            // 
+            this.LoopToPosX_TextBox.Location = new System.Drawing.Point(540, 97);
+            this.LoopToPosX_TextBox.Name = "LoopToPosX_TextBox";
+            this.LoopToPosX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToPosX_TextBox.TabIndex = 123;
+            this.LoopToPosX_TextBox.Text = "0.000";
+            this.LoopToPosX_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("굴림", 18F);
+            this.label18.Location = new System.Drawing.Point(446, 121);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(34, 24);
+            this.label18.TabIndex = 129;
+            this.label18.Text = "▶";
+            // 
+            // MoveLoopTime_TextBox
+            // 
+            this.MoveLoopTime_TextBox.Location = new System.Drawing.Point(352, 194);
+            this.MoveLoopTime_TextBox.Name = "MoveLoopTime_TextBox";
+            this.MoveLoopTime_TextBox.Size = new System.Drawing.Size(75, 21);
+            this.MoveLoopTime_TextBox.TabIndex = 130;
+            this.MoveLoopTime_TextBox.Text = "1";
+            this.MoveLoopTime_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.MoveLoopTime_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // MoveLoop_CheckBox
+            // 
+            this.MoveLoop_CheckBox.AutoSize = true;
+            this.MoveLoop_CheckBox.Location = new System.Drawing.Point(435, 198);
+            this.MoveLoop_CheckBox.Name = "MoveLoop_CheckBox";
+            this.MoveLoop_CheckBox.Size = new System.Drawing.Size(52, 16);
+            this.MoveLoop_CheckBox.TabIndex = 131;
+            this.MoveLoop_CheckBox.Text = "Loop";
+            this.MoveLoop_CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(356, 72);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(34, 12);
+            this.label19.TabIndex = 132;
+            this.label19.Text = "From";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(543, 72);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(20, 12);
+            this.label20.TabIndex = 133;
+            this.label20.Text = "To";
+            // 
             // WarningReset_Button
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(864, 681);
+            this.ClientSize = new System.Drawing.Size(1345, 729);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.MoveLoop_CheckBox);
+            this.Controls.Add(this.MoveLoopTime_TextBox);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.LoopToPosZ_TextBox);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.LoopToPosY_TextBox);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.LoopToPosX_TextBox);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.LoopFromPosZ_TextBox);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.LoopFromPosY_TextBox);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.LoopFromPosX_TextBox);
             this.Controls.Add(this.ConnectCheck_Text);
             this.Controls.Add(this.Alignment_Button);
             this.Controls.Add(this.label11);
@@ -1345,10 +1483,9 @@ namespace RobotArm_Module
             this.Controls.Add(this.Acceleration_TextBox);
             this.Controls.Add(this.JointListAdd_Button);
             this.Controls.Add(this.Homming_Button);
-            this.Controls.Add(this.ListDelete_Button);
-            this.Controls.Add(this.ListStop_Button);
+            this.Controls.Add(this.Stop_Button);
             this.Controls.Add(this.ListAdd_Button);
-            this.Controls.Add(this.ListPlay_Button);
+            this.Controls.Add(this.LoopPlay_Button);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -1414,12 +1551,8 @@ namespace RobotArm_Module
             this.Controls.Add(this.CurrentPosTitle);
             this.Controls.Add(this.CurPosX_TextBox);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.MoveToBack2);
-            this.Controls.Add(this.MoveToFront2);
             this.Controls.Add(this.PowerOff);
             this.Controls.Add(this.PowerOn);
-            this.Controls.Add(this.MoveToBack);
-            this.Controls.Add(this.MoveToFront);
             this.Name = "WarningReset_Button";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -1435,13 +1568,8 @@ namespace RobotArm_Module
         
 
         #endregion
-
-        private System.Windows.Forms.Button MoveToFront;
-        private System.Windows.Forms.Button MoveToBack;
         private System.Windows.Forms.Button PowerOn;
         private System.Windows.Forms.Button PowerOff;
-        private System.Windows.Forms.Button MoveToBack2;
-        private System.Windows.Forms.Button MoveToFront2;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label CurPosX_Text;
@@ -1510,10 +1638,9 @@ namespace RobotArm_Module
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button ListDelete_Button;
-        private System.Windows.Forms.Button ListStop_Button;
+        private System.Windows.Forms.Button Stop_Button;
         private System.Windows.Forms.Button ListAdd_Button;
-        private System.Windows.Forms.Button ListPlay_Button;
+        private System.Windows.Forms.Button LoopPlay_Button;
         private System.Windows.Forms.Button Homming_Button;
         private System.Windows.Forms.Button JointListAdd_Button;
         private System.Windows.Forms.Label label6;
@@ -1553,6 +1680,23 @@ namespace RobotArm_Module
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button Alignment_Button;
         private System.Windows.Forms.Label ConnectCheck_Text;
+        private System.Windows.Forms.CheckBox MoveLoop_CheckBox;
+        private System.Windows.Forms.TextBox MoveLoopTime_TextBox;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox LoopToPosZ_TextBox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox LoopToPosY_TextBox;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox LoopToPosX_TextBox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox LoopFromPosZ_TextBox;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox LoopFromPosY_TextBox;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox LoopFromPosX_TextBox;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
     }
 }
 

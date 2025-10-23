@@ -29,6 +29,9 @@ namespace RobotArm_Module
 
         string url = "http://192.168.1.40:31000/RPC2";
 
+
+        public bool ConnectCheck = false;
+
         public URTCPClient() { }
 
         public URTCPClient(string ip)
@@ -132,21 +135,53 @@ namespace RobotArm_Module
 
                 byte[] data = Encoding.UTF8.GetBytes(message + "\n");
 
-                DashBoardStream = DashBoardClient.GetStream(); // 데이터 전송을 위한 네트워크 스트림 얻기
-                DashBoardStream.Write(data, 0, data.Length); // 데이터 쓰기
+                if(DashBoardClient.Connected && DashBoardClient != null)
+                {
+                    try
+                    {
+                        DashBoardStream = DashBoardClient.GetStream(); // 데이터 전송을 위한 네트워크 스트림 얻기
+                        DashBoardStream.Write(data, 0, data.Length); // 데이터 쓰기
+
+                        if (useLog)
+                            Console.WriteLine($"패킷 전송 완료: '{message}'");
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine($"SendPacket Error :: '{e.Message}'");
+
+                    }
+
+                }
+
                 
-                if(useLog)
-                    Console.WriteLine($"패킷 전송 완료: '{message}'");
             }
             else
             {
                 byte[] data = Encoding.UTF8.GetBytes(message + "\n");
 
-                PrimaryStream = PrimaryClient.GetStream(); // 데이터 전송을 위한 네트워크 스트림 얻기
-                PrimaryStream.Write(data, 0, data.Length); // 데이터 쓰기
-                
-                if(useLog)
-                    Debug.Log($"패킷 전송 완료: '{message}'");
+                if(PrimaryClient.Connected && PrimaryClient != null)
+                {
+                    try
+                    {
+                        PrimaryStream = PrimaryClient.GetStream(); // 데이터 전송을 위한 네트워크 스트림 얻기
+                        PrimaryStream.Write(data, 0, data.Length); // 데이터 쓰기
+
+                        if (useLog)
+                            Debug.Log($"패킷 전송 완료: '{message}'");
+                    }
+                    catch(Exception e)
+                    {
+                        ConnectCheck = false;
+
+                        Console.WriteLine($"SendPacket Error :: '{e.Message}'");
+
+                    }
+                }
+                else
+                {
+                    ConnectCheck = false;
+
+                }
             }
         }
 
@@ -156,18 +191,30 @@ namespace RobotArm_Module
             byte[] responseBuffer = new byte[1024];
 
             int bytesRead;
-            if (portType == ePortType.Dashboard)
-            {
-                bytesRead = DashBoardStream.Read(responseBuffer, 0, responseBuffer.Length);
-            }
-            else
-            {
-                bytesRead = PrimaryStream.Read(responseBuffer, 0, responseBuffer.Length);
-            }
-            responseMessage = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead);
 
-            if(useLog)
-                Console.WriteLine($"서버로부터 받은 응답: '{responseMessage}'\n");
+            try
+            {
+                if (portType == ePortType.Dashboard)
+                {
+
+                    bytesRead = DashBoardStream.Read(responseBuffer, 0, responseBuffer.Length);
+                }
+                else
+                {
+                    bytesRead = PrimaryStream.Read(responseBuffer, 0, responseBuffer.Length);
+                }
+                responseMessage = Encoding.UTF8.GetString(responseBuffer, 0, bytesRead);
+
+                if (useLog)
+                    Console.WriteLine($"서버로부터 받은 응답: '{responseMessage}'\n");
+            }
+            catch(Exception e)
+            {
+                ConnectCheck = false;
+
+                Console.WriteLine($"Receive Error :: '{e.Message}'");
+            }
+            
         
             return responseMessage;
         }

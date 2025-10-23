@@ -41,17 +41,17 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void Grip(Action onComplete = null)
+        public override int Grip(Action onComplete = null)
         {
             throw new NotImplementedException();
         }
 
-        public override void Homming()
+        public override int Homming()
         {
             throw new NotImplementedException();
         }
 
-        public override void JointRotation(float angle, eJointType type = eJointType.None)
+        public override int JointRotation(float angle, eJointType type = eJointType.None)
         {
             throw new NotImplementedException();
         }
@@ -61,7 +61,12 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
+        public override int MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None)
         {
             throw new NotImplementedException();
         }
@@ -71,7 +76,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null)
+        public override int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null)
         {
             throw new NotImplementedException();
         }
@@ -81,7 +86,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void PlayCSV(List<CSVData> data)
+        public override int PlayCSV(List<CSVData> data)
         {
             throw new NotImplementedException();
         }
@@ -91,12 +96,12 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void Release(Action onComplete = null)
+        public override int Release(Action onComplete = null)
         {
             throw new NotImplementedException();
         }
 
-        public override void SetPivot(Vector3 pivot)
+        public override int SetPivot(Vector3 pivot)
         {
             throw new NotImplementedException();
         }
@@ -106,7 +111,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void Stop()
+        public override int Stop()
         {
             throw new NotImplementedException();
         }
@@ -116,7 +121,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void UnlockProtectiveStop()
+        public override int UnlockProtectiveStop()
         {
             throw new NotImplementedException();
         }

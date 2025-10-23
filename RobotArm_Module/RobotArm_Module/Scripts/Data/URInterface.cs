@@ -56,6 +56,7 @@ namespace RobotArm_Module
 
         #region Gripper
 
+        public const string ConnectGrip = "load connectgrip.urp\n" + "play";
 
         public const string Grip = "load grip.urp\n" + "play";
 

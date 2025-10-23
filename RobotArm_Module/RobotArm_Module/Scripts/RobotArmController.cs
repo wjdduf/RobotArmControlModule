@@ -60,33 +60,44 @@ namespace RobotArm_Module
             IMove.MoveToPreset(position, rotation);
         }
 
-        public void Move()
+        public int SetPositionJ()
         {
-            IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation);
-        }
-        public void MoveToJoint(float speed, bool isUp, eJointType type)
-        {
-            IMove.MoveToJoint(speed, isUp, type);
+            return IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation);
         }
 
-        public void JointRotation(float angle, eJointType type)
+        public int SetPositionL()
         {
-            IMove.JointRotation(angle, type);
+            return IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation,eMoveType.Position, true);
         }
 
-        public void SetPivot(Vector3 pivot)
+        public int SetJoint()
         {
-            IMove.SetPivot(pivot);
+            return IMove.MoveToPreset(DataContainer.Instance.RobotArmCurrentData.SetPosition, DataContainer.Instance.RobotArmCurrentData.SetRotation, eMoveType.Joint);
         }
 
-        public void ResetPivot()
+        public int MoveToJoint(float speed, bool isUp, eJointType type)
         {
-            IMove.SetPivot(Vector3.Zero());
+            return IMove.MoveToJoint(speed, isUp, type);
         }
 
-        public void Stop()
+        public int JointRotation(float angle, eJointType type)
         {
-            IMove.Stop();
+            return IMove.JointRotation(angle, type);
+        }
+
+        public int SetPivot(Vector3 pivot)
+        {
+            return IMove.SetPivot(pivot);
+        }
+
+        public int ResetPivot()
+        {
+            return IMove.SetPivot(Vector3.Zero());
+        }
+
+        public int Stop()
+        {
+            return IMove.Stop();
         }
 
         public void ListPlay(string jsonName)
@@ -96,9 +107,13 @@ namespace RobotArm_Module
             IMove.PlayPreset(preset);
         }
 
-        public void PlayWork(string workName)
+        public int PlayWork(string workName)
         {
             IMove.PlayRobotWork(workName);
+
+            Debug.Log("▶️ 자동 작업 실행 완료: " + workName);
+
+            return 1;
         }
 
         public void AddPlayList(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position)
@@ -106,9 +121,9 @@ namespace RobotArm_Module
             IData.AddWorkQueue(pos, rot, moveType);
         }
 
-        public void SetHoming()
+        public int SetHoming()
         {
-            ISafety.Homming();
+            return ISafety.Homming();
         }
 
         public void SetSpeed(float speed)
@@ -126,9 +141,9 @@ namespace RobotArm_Module
             return ISafety.GetSafetyMode();
         }
 
-        public void UnlockProtectiveStop()
+        public int UnlockProtectiveStop()
         {
-            ISafety.UnlockProtectiveStop();
+            return ISafety.UnlockProtectiveStop();
         }
 
         public List<CSVData> LoadCSV(string path)
@@ -137,9 +152,14 @@ namespace RobotArm_Module
 
             List<CSVData> data = manager.LoadDataFromCsv("VDIS_GYRO_Radian_120ms", path);
 
-            RobotArmBuilder.CurrentRobotArm.PlayCSV(data);
+            //RobotArmBuilder.CurrentRobotArm.PlayCSV(data);
 
             return data;
+        }
+
+        public int PlayCSV(List<CSVData> data)
+        {
+            return RobotArmBuilder.CurrentRobotArm.PlayCSV(data);
         }
 
         public void ExportJson(string name)
@@ -157,17 +177,17 @@ namespace RobotArm_Module
             return JsonManager.ImportFromJsonFile<T>(name, DataContainer.Instance.JsonPath);
         }
 
-        public void Grip()
+        public int Grip()
         {
-            IGripper.Grip();
+            return IGripper.Grip();
         }
 
-        public void Release()
+        public int Release()
         {
-            IGripper.Release();
+            return IGripper.Release();
         }
 
-        public void SetDeviceAlignment(Vector3 pivot, Vector3 rotation, Action onComplete = null)
+        public int SetDeviceAlignment(Vector3 pivot, Vector3 rotation, Action onComplete = null)
         {
             IMove.SetPivot(pivot);
             Vector3 pos = new Vector3(DataContainer.Instance.RobotArmCurrentData.currentPosition.X,
@@ -177,11 +197,32 @@ namespace RobotArm_Module
             Vector3 rot = new Vector3((float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.X),
                                             (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Y),
                                             (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Z));
-            IMove.MoveToPreset(pos, rot, eMoveType.Position, () => 
+            IMove.MoveToPreset(pos, rot, eMoveType.Position, false, () => 
             { 
                 IMove.SetPivot(Vector3.Zero());
                 onComplete?.Invoke();
             });
+
+            return 1;
+        }
+
+        public void WorkQueueClear()
+        {
+            RobotArmBuilder.CurrentRobotArm.actionQueue.Clear();
+        }
+
+        public int PlayLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position)
+        {
+            return IMove.MoveLoop(fromPos,fromRot,toPos,toRot,isLoop,loopTime);
+
+        }
+
+        public int PlayLoop(Vector3 fromPos,  Vector3 toPos, bool isLoop, float loopTime, Action onComplete = null, eMoveType moveType = eMoveType.Position)
+        {
+            return IMove.MoveLoop(fromPos, DataContainer.Instance.RobotArmCurrentData.currentRotation,
+                toPos, DataContainer.Instance.RobotArmCurrentData.currentRotation, 
+                isLoop, loopTime);
+
         }
     }
 }

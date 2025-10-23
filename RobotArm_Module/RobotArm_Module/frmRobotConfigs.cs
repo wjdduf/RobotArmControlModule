@@ -32,7 +32,7 @@ namespace RobotArm_Module
 
         private bool isPosition = true;
 
-        private float speed = 0.1f;
+        private float speed = 0.3f;
         private float acceleration = 1.2f;
 
         public WarningReset_Button()
@@ -235,41 +235,32 @@ namespace RobotArm_Module
 
         }
 
-        private void PowerOn_Click(object sender, EventArgs e)
+        public void PowerOn_Click(object sender, EventArgs e)
         {
-            RobotArmController.Connect(DataContainer.Instance.URConfig.IP);
+            PowerOn_Click();
+        }
 
+        public int PowerOn_Click()
+        {
+            int isSuccess = 0;
+
+            isSuccess = RobotArmController.Connect(DataContainer.Instance.URConfig.IP) ? 1 : 0;
+
+            return isSuccess;
         }
 
         private void PowerOff_Click(object sender, EventArgs e)
         {
-            RobotArmController.DisConnect();
+            PowerOff_Click();
         }
 
-
-        private void MoveToFront_Click(object sender, EventArgs e)
+        public int PowerOff_Click()
         {
-            RobotArmController.MoveToPreset(new Vector3(0.150f, 0.600f, 0.650f), new Vector3(0, 0, 6));
-        }
+            int isSuccess = 0;
 
-        
-        private void MoveToBack_Click(object sender, EventArgs e)
-        {
-            RobotArmController.MoveToPreset(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(0, 0, 6));
+            isSuccess = RobotArmController.DisConnect() ? 1 : 0;
 
-
-        }
-
-        private void MoveToFront2_Click(object sender, EventArgs e)
-        {
-            RobotArmController.MoveToPreset(new Vector3(0.133f, 0.524f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
-
-        }
-
-        private void MoveToBack_Click2(object sender, EventArgs e)
-        {
-            RobotArmController.MoveToPreset(new Vector3(0.150f, 0.300f, 0.650f), new Vector3(4.766f, 0.010f, 0.010f));
-
+            return isSuccess;
         }
 
 
@@ -336,21 +327,79 @@ namespace RobotArm_Module
 
         private void SetPositionButton(object sender, EventArgs e)
         {
+            SetPositionButton();
+        }
+
+        public int SetPositionButton()
+        {
+            int result = 0;
             try
             {
-                DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse( SetPosX_TextBox.Text), float.Parse( SetPosY_TextBox.Text), float.Parse( SetPosZ_TextBox.Text));
-                DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse( SetRotX_TextBox.Text), float.Parse( SetRotY_TextBox.Text), float.Parse( SetRotZ_TextBox.Text));
+                DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text));
+                DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text));
 
+                RobotArmController.SetPositionJ();
 
-
-                RobotArmController.Move();
+                result = 1;
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 Debug.Log(exception.ToString());
             }
-            
+
+            return result;
         }
+
+        private void SetPositionLButton(object sender, EventArgs e)
+        {
+            SetPositionLButton();
+        }
+
+        public int SetPositionLButton()
+        {
+            int result = 0;
+            try
+            {
+                DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text));
+                DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text));
+
+                RobotArmController.SetPositionL();
+
+                result = 1;
+            }
+            catch (Exception exception)
+            {
+                Debug.Log(exception.ToString());
+            }
+
+            return result;
+        }
+
+        private void SetJoint_Button_Click(object sender, EventArgs e)
+        {
+            SetJoint_Button_Click();
+        }
+
+        public int SetJoint_Button_Click()
+        {
+            int result = 0;
+            try
+            {
+                DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text));
+                DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text));
+
+                RobotArmController.SetJoint();
+
+                result = 1;
+            }
+            catch (Exception exception)
+            {
+                Debug.Log(exception.ToString());
+            }
+
+            return result;
+        }
+
 
         private void MoveButtonDown(object sender, MouseEventArgs e)
         {
@@ -538,30 +587,52 @@ namespace RobotArm_Module
 
         private void RotationJoint_Button_Click(object sender, EventArgs e)
         {
+            RotationJoint_Button_Click();
+        }
+        
+        public int RotationJoint_Button_Click()
+        {
             float angle;
             float.TryParse(JointAngle_TextBox.Text, out angle);
-            RobotArmController.JointRotation(angle,selectJoint);
+            
+            return RobotArmController.JointRotation(angle, selectJoint);
         }
 
         private void SetPivot_Button_Click(object sender, EventArgs e)
         {
+            SetPivot_Button_Click();
+        }
+        
+        public int SetPivot_Button_Click()
+        {
             Vector3 pivot = new Vector3();
-            pivot.X = float.Parse( SetPivotX_TextBox.Text);
+            pivot.X = float.Parse(SetPivotX_TextBox.Text);
             pivot.Y = float.Parse(SetPivotY_TextBox.Text);
             pivot.Z = float.Parse(SetPivotZ_TextBox.Text);
             //
-            RobotArmController.SetPivot(pivot);
-
+            return RobotArmController.SetPivot(pivot);
         }
 
         private void PivotReset_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.SetPivot(Vector3.Zero());
+            PivotReset_Button_Click();
+        }
+
+        public int PivotReset_Button_Click()
+        {
+            return RobotArmController.SetPivot(Vector3.Zero());
         }
 
         private void ListStop_Button_Click(object sender, EventArgs e)
         {
+            RobotArmController.WorkQueueClear();
             RobotArmController.Stop();
+        }
+
+        public int ListStop_Button_Click()
+        {
+            RobotArmController.WorkQueueClear();
+            return RobotArmController.Stop();
         }
 
         private void ListDelete_Button_Click(object sender, EventArgs e)
@@ -583,16 +654,36 @@ namespace RobotArm_Module
 
         private void ListPlay_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.ListPlay(JsonName_textBox.Text);
+            //RobotArmController.ListPlay(JsonName_textBox.Text);
+
+            ListPlay_Button_Click();
+
+        }
+
+        public int ListPlay_Button_Click()
+        {
+            Vector3 fromPos = new Vector3();
+
+            fromPos.X = float.Parse(LoopFromPosX_TextBox.Text);
+            fromPos.Y = float.Parse(LoopFromPosY_TextBox.Text);
+            fromPos.Z = float.Parse(LoopFromPosZ_TextBox.Text);
+
+            Vector3 toPos = new Vector3();
+
+            toPos.X = float.Parse(LoopToPosX_TextBox.Text);
+            toPos.Y = float.Parse(LoopToPosY_TextBox.Text);
+            toPos.Z = float.Parse(LoopToPosZ_TextBox.Text);
+
+            bool isLoop = MoveLoop_CheckBox.Checked;
+
+            float loopTime = float.Parse(MoveLoopTime_TextBox.Text);
+
+            return RobotArmController.PlayLoop(fromPos, toPos, isLoop, loopTime);
         }
 
         
 
-        private void ListAdd_Button_Click(object sender, EventArgs e)
-        {
-            RobotArmController.AddPlayList(new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text)), new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text)));
-            ListUpdate();
-        }
+        
 
         private void ListUpdate()
         {
@@ -626,14 +717,15 @@ namespace RobotArm_Module
 
         private void Homming_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.SetHoming();
+            Homming_Button_Click();
         }
 
-        private void JointListAdd_Button_Click(object sender, EventArgs e)
+        public int Homming_Button_Click()
         {
-            RobotArmController.AddPlayList(new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text)), new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text)), eMoveType.Joint);
-            ListUpdate();
+            return RobotArmController.SetHoming();
         }
+
+        
 
         private void IPCTest_Button_Click(object sender, EventArgs e)
         {
@@ -658,12 +750,18 @@ namespace RobotArm_Module
             ListUpdate();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void UnlockProtectiveStop(object sender, EventArgs e)
         {
-            if(!RobotArmController.GetSafetyMode())
+            UnlockProtectiveStop();
+        }
+
+        public int UnlockProtectiveStop()
+        {
+            if (!RobotArmController.GetSafetyMode())
             {
                 RobotArmController.UnlockProtectiveStop();
             }
+            return 1;
         }
 
         private void CSVButton_Click(object sender, EventArgs e)
@@ -671,99 +769,200 @@ namespace RobotArm_Module
             RobotArmController.LoadCSV(DataContainer.Instance.JsonPath);
         }
 
-        private void GripButton_Click(object sender, EventArgs e)
+        public int CSVButton_Click()
         {
-            RobotArmController.Grip();
+            var data = RobotArmController.LoadCSV(DataContainer.Instance.JsonPath);
+            return RobotArmController.PlayCSV(data);
         }
 
-        private void Release_Button_Click(object sender, EventArgs e)
+        public void GripButton_Click(object sender, EventArgs e)
         {
-            RobotArmController.Release();
+            GripButton_Click();
         }
 
-        private void WorkPlay_Button_Click(object sender, EventArgs e)
+        public int GripButton_Click()
         {
-            RobotArmController.PlayWork("Work_PhoneGrip01");
+            return RobotArmController.Grip();
         }
 
-        private void PhoneGrip02_Button_Click(object sender, EventArgs e)
+        public void Release_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.PlayWork("Work_PhoneGrip02");
+            Release_Button_Click();
         }
 
-        private void PhoneGrip03_Button_Click(object sender, EventArgs e)
+        public int Release_Button_Click()
         {
-            RobotArmController.PlayWork("Work_PhoneGrip03");
+            return RobotArmController.Release();
         }
 
-        private void PhoneGrip04_Button_Click(object sender, EventArgs e)
+        public void PhoneGrip01_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.PlayWork("Work_PhoneGrip04");
+            PhoneGrip01_Button_Click();
         }
 
-        private void PhoneRelease02_Button_Click(object sender, EventArgs e)
+        public int PhoneGrip01_Button_Click()
         {
-            RobotArmController.PlayWork("Work_PhoneRelease02");
+            return RobotArmController.PlayWork("Work_PhoneGrip01");
         }
 
-        private void PhoneRelease01_Button_Click(object sender, EventArgs e)
+        public void PhoneGrip02_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.PlayWork("Work_PhoneRelease01");
+            PhoneGrip02_Button_Click();
         }
 
-        private void PhoneRelease03_Button_Click(object sender, EventArgs e)
+        public int PhoneGrip02_Button_Click()
         {
-            RobotArmController.PlayWork("Work_PhoneRelease03");
+            return RobotArmController.PlayWork("Work_PhoneGrip02");
         }
 
-        private void PhoneRelease04_Button_Click(object sender, EventArgs e)
+        public void PhoneGrip03_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.PlayWork("Work_PhoneRelease04");
+            PhoneGrip03_Button_Click();
         }
 
-        private void PhoneReady_Button_Click(object sender, EventArgs e)
+        public int PhoneGrip03_Button_Click()
         {
-            RobotArmController.PlayWork("Work_PhoneReady");
+            return RobotArmController.PlayWork("Work_PhoneGrip03");
         }
 
-        private void PhoneFont_Button_Click(object sender, EventArgs e)
+        public void PhoneGrip04_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.PlayWork("Work_PhoneFront");
+            PhoneGrip04_Button_Click();
         }
 
-        private void PhoneBack_Button_Click(object sender, EventArgs e)
+        public int PhoneGrip04_Button_Click()
         {
-            RobotArmController.PlayWork("Work_PhoneBack");
+            return RobotArmController.PlayWork("Work_PhoneGrip04");
         }
 
-        private void Home_Button_Click(object sender, EventArgs e)
+        public void PhoneRelease01_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.PlayWork("Work_Home");
+            PhoneRelease01_Button_Click();
         }
 
-        private void StickGrip01_Button_Click(object sender, EventArgs e)
+        public int PhoneRelease01_Button_Click()
         {
-            RobotArmController.PlayWork("Work_StickGrip");
+            return RobotArmController.PlayWork("Work_PhoneRelease01");
         }
 
-        private void StickReturn_Button_Click(object sender, EventArgs e)
+        public void PhoneRelease02_Button_Click(object sender, EventArgs e)
         {
-            RobotArmController.PlayWork("Work_StickReturn");
+            PhoneRelease02_Button_Click();
         }
 
-        private void StickSet_Button_Click(object sender, EventArgs e)
+        public int PhoneRelease02_Button_Click()
         {
-            RobotArmController.PlayWork("Work_StickSet");
+            return RobotArmController.PlayWork("Work_PhoneRelease02");
+        }
+
+        public void PhoneRelease03_Button_Click(object sender, EventArgs e)
+        {
+            PhoneRelease03_Button_Click();
+        }
+
+        public int PhoneRelease03_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_PhoneRelease03");
+        }
+
+        public void PhoneRelease04_Button_Click(object sender, EventArgs e)
+        {
+            PhoneRelease04_Button_Click();
+        }
+
+        public int PhoneRelease04_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_PhoneRelease04");
+        }
+
+        public void PhoneReady_Button_Click(object sender, EventArgs e)
+        {
+            PhoneReady_Button_Click();
+        }
+
+        public int PhoneReady_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_PhoneReady");
+        }
+
+        public void PhoneFont_Button_Click(object sender, EventArgs e)
+        {
+            PhoneFont_Button_Click();
+        }
+
+        public int PhoneFont_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_PhoneFront");
+        }
+
+        public void PhoneBack_Button_Click(object sender, EventArgs e)
+        {
+            PhoneBack_Button_Click();
+        }
+
+        public int PhoneBack_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_PhoneBack");
+        }
+
+        public void Home_Button_Click(object sender, EventArgs e)
+        {
+            Home_Button_Click();
+        }
+
+        public int Home_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_Home");
+        }
+
+        public void StickGrip01_Button_Click(object sender, EventArgs e)
+        {
+            StickGrip01_Button_Click();
+        }
+
+        public int StickGrip01_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_StickGrip");
+        }
+
+        public void StickReturn_Button_Click(object sender, EventArgs e)
+        {
+            StickReturn_Button_Click();
+        }
+
+        public int StickReturn_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_StickReturn");
+        }
+
+        public void StickSet_Button_Click(object sender, EventArgs e)
+        {
+            StickSet_Button_Click();
 
         }
 
-        private void StickSetGrip_Button_Click(object sender, EventArgs e)
+        public int StickSet_Button_Click()
         {
-            RobotArmController.PlayWork("Work_StickSetGrip");
+            return RobotArmController.PlayWork("Work_StickSet");
+        }
+
+        public void StickSetGrip_Button_Click(object sender, EventArgs e)
+        {
+            StickSetGrip_Button_Click();
 
         }
 
-        private void Alignment_Button_Click(object sender, EventArgs e)
+        public int StickSetGrip_Button_Click()
+        {
+            return RobotArmController.PlayWork("Work_StickSetGrip");
+        }
+
+        public void Alignment_Button_Click(object sender, EventArgs e)
+        {
+            Alignment_Button_Click();
+        }
+
+        public int Alignment_Button_Click()
         {
             Vector3 pivot = new Vector3();
             pivot.X = float.Parse(SetPivotX_TextBox.Text);
@@ -772,11 +971,11 @@ namespace RobotArm_Module
 
             Vector3 rot = new Vector3();
             rot.X = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignX_TextBox.Text));
-            rot.Y = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignX_TextBox.Text));
-            rot.Z = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignX_TextBox.Text));
+            rot.Y = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignY_TextBox.Text));
+            rot.Z = (float)RobotArm.DegreesToRadians(double.Parse(SetAlignZ_TextBox.Text));
 
             //
-            RobotArmController.SetDeviceAlignment(pivot, rot);
+            return RobotArmController.SetDeviceAlignment(pivot, rot);
         }
     }
 }
