@@ -3,7 +3,7 @@ using System;
 
 namespace RobotArm_Module
 {
-    partial class WarningReset_Button
+    partial class frmRobotConfigs
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.

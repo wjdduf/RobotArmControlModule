@@ -549,10 +549,7 @@ namespace RobotArm_Module
 
             Debug.Log($"PlayPreset Create Script { scriptCommand}");
 
-            //TCPClient.SendPacket(scriptCommand);
-
-
-
+            TCPClient.SendPacket(scriptCommand);
 
             MoveWaitAsync(onComplete);
         }
@@ -825,9 +822,9 @@ namespace RobotArm_Module
 
         public override int Grip(Action onComplete = null)
         {
-            //TCPClient.SendPacket(URInterface.Grip, ePortType.Dashboard);
+            TCPClient.SendPacket(URInterface.Grip, ePortType.Dashboard);
             Thread.Sleep(500);
-            //TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
+            TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
             Debug.Log("Grip");
             Thread.Sleep(3000);
 
@@ -839,9 +836,9 @@ namespace RobotArm_Module
 
         public override int Release(Action onComplete = null)
         {
-            //TCPClient.SendPacket(URInterface.Release, ePortType.Dashboard);
+            TCPClient.SendPacket(URInterface.Release, ePortType.Dashboard);
             Thread.Sleep(500);
-            //TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
+            TCPClient.SendPacketWait(URInterface.ProgramState, "STOPPED");
             Debug.Log("Release");
             Thread.Sleep(2000);
 

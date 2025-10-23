@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace RobotArm_Module
 {
-    public partial class WarningReset_Button : Form
+    public partial class frmRobotConfigs : Form
     {
         public RobotArmController RobotArmController;
 
@@ -35,7 +35,7 @@ namespace RobotArm_Module
         private float speed = 0.3f;
         private float acceleration = 1.2f;
 
-        public WarningReset_Button()
+        public frmRobotConfigs()
         {
             Start();
 

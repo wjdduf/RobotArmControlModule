@@ -76,7 +76,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, Action onComplete = null)
+        public override int MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position,bool isLinear = false, Action onComplete = null)
         {
             throw new NotImplementedException();
         }
