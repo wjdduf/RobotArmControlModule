@@ -193,9 +193,9 @@ namespace RobotArm_Module
                                       DataContainer.Instance.RobotArmCurrentData.currentPosition.Y,
                                       DataContainer.Instance.RobotArmCurrentData.currentPosition.Z);
 
-            Vector3 rot = new Vector3((float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.X),
-                                            (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Y),
-                                            (float)RobotArm.DegreesToRadians(DataContainer.Instance.RobotArmCurrentData.currentRotation.Z));
+            Vector3 rot = new Vector3((float)(DataContainer.Instance.RobotArmCurrentData.currentRotation.X + rotation.X),
+                                            (float)(DataContainer.Instance.RobotArmCurrentData.currentRotation.Y + rotation.Y),
+                                            (float)(DataContainer.Instance.RobotArmCurrentData.currentRotation.Z + rotation.Z));
             IMove.MoveToPreset(pos, rot, eMoveType.Position, false, (isSuccess) => 
             { 
                 IMove.SetPivot(Vector3.Zero());

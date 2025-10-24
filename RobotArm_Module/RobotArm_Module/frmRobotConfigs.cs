@@ -736,7 +736,17 @@ namespace RobotArm_Module
         private void Import_Button_Click(object sender, EventArgs e)
         {
             RobotArmController.ImportJson(JsonName_textBox.Text);
-            ListUpdate();
+            PresetData data = DataContainer.Instance.WorkPreset.WorkList[0];
+
+            SetPosX_TextBox.Text = data.position.X.ToString("F5");
+            SetPosY_TextBox.Text = data.position.Y.ToString("F5");
+            SetPosZ_TextBox.Text = data.position.Z.ToString("F5");
+
+            SetRotX_TextBox.Text = data.rotation.X.ToString("F5");
+            SetRotY_TextBox.Text = data.rotation.Y.ToString("F5");
+            SetRotZ_TextBox.Text = data.rotation.Z.ToString("F5");
+
+
         }
 
         private void UnlockProtectiveStop(object sender, EventArgs e)

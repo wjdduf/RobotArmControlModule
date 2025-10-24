@@ -160,6 +160,9 @@ namespace RobotArm_Module
             this.MoveLoop_CheckBox = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.ArrowGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -441,7 +444,7 @@ namespace RobotArm_Module
             // ZPositive_Button
             // 
             this.ZPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ZPositive_Button.Location = new System.Drawing.Point(745, 163);
+            this.ZPositive_Button.Location = new System.Drawing.Point(802, 177);
             this.ZPositive_Button.Name = "ZPositive_Button";
             this.ZPositive_Button.Size = new System.Drawing.Size(50, 30);
             this.ZPositive_Button.TabIndex = 34;
@@ -453,7 +456,7 @@ namespace RobotArm_Module
             // ZNegative_Button
             // 
             this.ZNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.ZNegative_Button.Location = new System.Drawing.Point(745, 223);
+            this.ZNegative_Button.Location = new System.Drawing.Point(801, 219);
             this.ZNegative_Button.Name = "ZNegative_Button";
             this.ZNegative_Button.Size = new System.Drawing.Size(50, 30);
             this.ZNegative_Button.TabIndex = 35;
@@ -465,11 +468,11 @@ namespace RobotArm_Module
             // XNegative_Button
             // 
             this.XNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.XNegative_Button.Location = new System.Drawing.Point(689, 189);
+            this.XNegative_Button.Location = new System.Drawing.Point(685, 219);
             this.XNegative_Button.Name = "XNegative_Button";
             this.XNegative_Button.Size = new System.Drawing.Size(50, 30);
             this.XNegative_Button.TabIndex = 36;
-            this.XNegative_Button.Text = "◀";
+            this.XNegative_Button.Text = "▼";
             this.XNegative_Button.UseVisualStyleBackColor = false;
             this.XNegative_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
             this.XNegative_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
@@ -477,11 +480,11 @@ namespace RobotArm_Module
             // XPositive_Button
             // 
             this.XPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.XPositive_Button.Location = new System.Drawing.Point(801, 189);
+            this.XPositive_Button.Location = new System.Drawing.Point(685, 177);
             this.XPositive_Button.Name = "XPositive_Button";
             this.XPositive_Button.Size = new System.Drawing.Size(50, 30);
             this.XPositive_Button.TabIndex = 37;
-            this.XPositive_Button.Text = "▶";
+            this.XPositive_Button.Text = "▲";
             this.XPositive_Button.UseVisualStyleBackColor = false;
             this.XPositive_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
             this.XPositive_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
@@ -489,7 +492,7 @@ namespace RobotArm_Module
             // YPositive_Button
             // 
             this.YPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.YPositive_Button.Location = new System.Drawing.Point(689, 147);
+            this.YPositive_Button.Location = new System.Drawing.Point(744, 177);
             this.YPositive_Button.Name = "YPositive_Button";
             this.YPositive_Button.Size = new System.Drawing.Size(50, 30);
             this.YPositive_Button.TabIndex = 38;
@@ -501,7 +504,7 @@ namespace RobotArm_Module
             // YNegative_Button
             // 
             this.YNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.YNegative_Button.Location = new System.Drawing.Point(801, 147);
+            this.YNegative_Button.Location = new System.Drawing.Point(744, 219);
             this.YNegative_Button.Name = "YNegative_Button";
             this.YNegative_Button.Size = new System.Drawing.Size(50, 30);
             this.YNegative_Button.TabIndex = 39;
@@ -1421,12 +1424,42 @@ namespace RobotArm_Module
             this.label20.TabIndex = 133;
             this.label20.Text = "To";
             // 
-            // WarningReset_Button
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(703, 154);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(13, 12);
+            this.label21.TabIndex = 134;
+            this.label21.Text = "X";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(761, 154);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(13, 12);
+            this.label22.TabIndex = 135;
+            this.label22.Text = "Y";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(818, 154);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(13, 12);
+            this.label23.TabIndex = 136;
+            this.label23.Text = "Z";
+            // 
+            // frmRobotConfigs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1345, 729);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.label21);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.MoveLoop_CheckBox);
@@ -1553,7 +1586,7 @@ namespace RobotArm_Module
             this.Controls.Add(this.button1);
             this.Controls.Add(this.PowerOff);
             this.Controls.Add(this.PowerOn);
-            this.Name = "WarningReset_Button";
+            this.Name = "frmRobotConfigs";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1697,6 +1730,9 @@ namespace RobotArm_Module
         private System.Windows.Forms.TextBox LoopFromPosX_TextBox;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
     }
 }
 
