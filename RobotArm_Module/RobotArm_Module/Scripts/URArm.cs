@@ -866,7 +866,7 @@ namespace RobotArm_Module
 
             if (isLoop)
             {
-                st.Append("while (True):\n");
+                st.Append("   while (True):\n");
             }
 
             if(isLoop)
@@ -876,20 +876,19 @@ namespace RobotArm_Module
 
             for (int i = 0; i < loopTime; i++)
             {
-                st.Append(GetScript(fromPos, fromRot));
+                st.Append("      " + GetScript(fromPos, fromRot));
                 st.Append("\n");
-                st.Append(GetScript(toPos, toRot));
+                st.Append("      " + GetScript(toPos, toRot));
                 st.Append("\n");
 
             }
 
-            st.Append("end\n");
+            st.Append("   end\n");
 
 
             if (isLoop)
             {
                 st.Append("end\n");
-                st.Append("\nmy_sequence()");
             }
 
 
