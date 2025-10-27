@@ -2,6 +2,10 @@
   "WorkName": "조립 작업 A",
   "WorkList": [
     {
+      "PresetName": "PhoneBack",
+      "Type": "PlayPreset"
+    },
+    {
       "PresetName": "PhoneFront",
       "Type": "PlayPreset"
     }

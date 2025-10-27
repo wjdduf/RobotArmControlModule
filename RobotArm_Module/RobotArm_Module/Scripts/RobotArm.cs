@@ -66,9 +66,13 @@ namespace RobotArm_Module
             }
         }
 
+        private Action<bool> workComplete;
+
         public void PlayRobotWork(string name, Action<bool> onComplete = null)
         {
             RobotWorkList data = JsonManager.ImportFromJsonFile<RobotWorkList>(name, DataContainer.Instance.JsonPath);
+
+            workComplete = onComplete;
 
             foreach (var step in data.WorkList)
             {
@@ -99,7 +103,7 @@ namespace RobotArm_Module
             if (actionQueue.Count == 0)
             {
                 Console.WriteLine("✅ 모든 작업 완료");
-                onComplete?.Invoke(true);
+                workComplete?.Invoke(true);
                 return;
             }
 
@@ -122,7 +126,7 @@ namespace RobotArm_Module
         public abstract void MoveToPosition(float speed, eDirection direction);
         public abstract void MoveToRotation(float speed, eRotationAxis axis);
         public abstract void MoveToJoint(float speed, bool isUp, eJointType type = eJointType.None);
-        public abstract void JointRotation(float angle, eJointType type = eJointType.None);
+        public abstract void JointRotation(float angle, eJointType type = eJointType.None, Action<bool> onComplete = null);
         public abstract void SetPivot(Vector3 pivot, Action<bool> onComplete = null);
         public abstract void PlayPreset(WorkPreset preset ,Action<bool> onComplete = null);
         public abstract void AddWorkQueue(Vector3 pos, Vector3 rot, eMoveType moveType = eMoveType.Position);

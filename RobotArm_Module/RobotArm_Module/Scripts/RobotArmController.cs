@@ -80,9 +80,9 @@ namespace RobotArm_Module
             IMove.MoveToJoint(speed, isUp, type);
         }
 
-        public void JointRotation(float angle, eJointType type)
+        public void JointRotation(float angle, eJointType type, Action<bool> onComplete = null)
         {
-            IMove.JointRotation(angle, type);
+            IMove.JointRotation(angle, type, onComplete);
         }
 
         public void SetPivot(Vector3 pivot, Action<bool> onComplete = null)

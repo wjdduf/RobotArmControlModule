@@ -24,7 +24,7 @@ namespace RobotArm_Module
 
         public RTDE_Outputs UrOutputs = new RTDE_Outputs();
 
-        string url = "http://192.168.1.40:31000/RPC2";
+        //string url = "http://192.168.1.40:31000/RPC2";
 
 
         public bool ConnectCheck = false;

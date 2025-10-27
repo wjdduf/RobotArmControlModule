@@ -402,7 +402,7 @@ namespace RobotArm_Module
             
         }
 
-        public override void JointRotation(float angle, eJointType type = eJointType.None)
+        public override void JointRotation(float angle, eJointType type = eJointType.None, Action<bool> onComplete = null)
         {
             JointData joint = new JointData();
 
@@ -450,7 +450,8 @@ namespace RobotArm_Module
             //UR.PrimaryInterface.Script.Send(st.ToString());
             TCPClient.SendPacket(st.ToString());
 
-            
+            MoveWaitAsync(onComplete);
+
         }
 
         private void SetCurrentJoinData(double[] angle)
@@ -540,7 +541,7 @@ namespace RobotArm_Module
 
         private async void MoveWaitAsync(Action<bool> action)
         {
-            bool isPositionMatched = false;
+            bool isPositionMatched = true;
 
             Thread.Sleep(1000);
 
@@ -862,6 +863,7 @@ namespace RobotArm_Module
 
             st.Append("def my_sequence():\n");
 
+
             if (isLoop)
             {
                 st.Append("while (True):\n");
@@ -881,12 +883,15 @@ namespace RobotArm_Module
 
             }
 
+            st.Append("end\n");
+
+
             if (isLoop)
             {
                 st.Append("end\n");
+                st.Append("\nmy_sequence()");
             }
 
-            st.Append("end");
 
             Debug.Log(st.ToString());
 

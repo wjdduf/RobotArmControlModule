@@ -49,7 +49,7 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
-        public override void JointRotation(float angle, eJointType type = eJointType.None)
+        public override void JointRotation(float angle, eJointType type = eJointType.None, Action<bool> onComplete = null)
         {
             throw new NotImplementedException();
         }

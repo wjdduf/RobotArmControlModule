@@ -106,7 +106,8 @@ namespace RobotArm_Module
 
     public class RobotArmConfig
     {
-        public string IP = "192.168.1.40";
+        //public string IP = "192.168.1.40";
+        public string IP = "172.18.0.10";
     }
 
     public class URConfig : RobotArmConfig

@@ -10,6 +10,7 @@ namespace RobotArm_Module
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+
         /// <summary>
         /// 사용 중인 모든 리소스를 정리합니다.
         /// </summary>
@@ -163,6 +164,27 @@ namespace RobotArm_Module
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.Close_Button = new System.Windows.Forms.Button();
+            this.ReadCurrentPos_Button = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.LoopToRotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.LoopToRotY_TextBox = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.LoopToRotX_TextBox = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.LoopFromRotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.LoopFromRotY_TextBox = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.LoopFromRotX_TextBox = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.ArrowGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -433,7 +455,7 @@ namespace RobotArm_Module
             // 
             this.button2f.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.button2f.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button2f.Location = new System.Drawing.Point(15, 401);
+            this.button2f.Location = new System.Drawing.Point(15, 411);
             this.button2f.Name = "button2f";
             this.button2f.Size = new System.Drawing.Size(95, 25);
             this.button2f.TabIndex = 33;
@@ -831,19 +853,19 @@ namespace RobotArm_Module
             // LoopPlay_Button
             // 
             this.LoopPlay_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
-            this.LoopPlay_Button.Location = new System.Drawing.Point(352, 228);
+            this.LoopPlay_Button.Location = new System.Drawing.Point(373, 276);
             this.LoopPlay_Button.Name = "LoopPlay_Button";
             this.LoopPlay_Button.Size = new System.Drawing.Size(60, 25);
             this.LoopPlay_Button.TabIndex = 74;
             this.LoopPlay_Button.Text = "Play";
             this.LoopPlay_Button.UseVisualStyleBackColor = false;
-            this.LoopPlay_Button.Click += new System.EventHandler(this.ListPlay_Button_Click);
+            this.LoopPlay_Button.Click += new System.EventHandler(this.LoopPlay_Button_Click);
             // 
             // ListAdd_Button
             // 
             this.ListAdd_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.ListAdd_Button.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.ListAdd_Button.Location = new System.Drawing.Point(116, 401);
+            this.ListAdd_Button.Location = new System.Drawing.Point(116, 411);
             this.ListAdd_Button.Name = "ListAdd_Button";
             this.ListAdd_Button.Size = new System.Drawing.Size(95, 25);
             this.ListAdd_Button.TabIndex = 75;
@@ -877,7 +899,7 @@ namespace RobotArm_Module
             // 
             this.JointListAdd_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.JointListAdd_Button.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.JointListAdd_Button.Location = new System.Drawing.Point(219, 401);
+            this.JointListAdd_Button.Location = new System.Drawing.Point(219, 411);
             this.JointListAdd_Button.Name = "JointListAdd_Button";
             this.JointListAdd_Button.Size = new System.Drawing.Size(90, 25);
             this.JointListAdd_Button.TabIndex = 79;
@@ -1388,7 +1410,7 @@ namespace RobotArm_Module
             // 
             // MoveLoopTime_TextBox
             // 
-            this.MoveLoopTime_TextBox.Location = new System.Drawing.Point(352, 194);
+            this.MoveLoopTime_TextBox.Location = new System.Drawing.Point(439, 279);
             this.MoveLoopTime_TextBox.Name = "MoveLoopTime_TextBox";
             this.MoveLoopTime_TextBox.Size = new System.Drawing.Size(75, 21);
             this.MoveLoopTime_TextBox.TabIndex = 130;
@@ -1399,7 +1421,7 @@ namespace RobotArm_Module
             // MoveLoop_CheckBox
             // 
             this.MoveLoop_CheckBox.AutoSize = true;
-            this.MoveLoop_CheckBox.Location = new System.Drawing.Point(435, 198);
+            this.MoveLoop_CheckBox.Location = new System.Drawing.Point(522, 283);
             this.MoveLoop_CheckBox.Name = "MoveLoop_CheckBox";
             this.MoveLoop_CheckBox.Size = new System.Drawing.Size(52, 16);
             this.MoveLoop_CheckBox.TabIndex = 131;
@@ -1451,12 +1473,223 @@ namespace RobotArm_Module
             this.label23.TabIndex = 136;
             this.label23.Text = "Z";
             // 
+            // Close_Button
+            // 
+            this.Close_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Close_Button.Location = new System.Drawing.Point(641, 667);
+            this.Close_Button.Name = "Close_Button";
+            this.Close_Button.Size = new System.Drawing.Size(120, 50);
+            this.Close_Button.TabIndex = 137;
+            this.Close_Button.Text = "CLOSE";
+            this.Close_Button.UseVisualStyleBackColor = false;
+            this.Close_Button.Click += new System.EventHandler(this.Close_Button_Click);
+            // 
+            // ReadCurrentPos_Button
+            // 
+            this.ReadCurrentPos_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ReadCurrentPos_Button.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ReadCurrentPos_Button.Location = new System.Drawing.Point(172, 287);
+            this.ReadCurrentPos_Button.Name = "ReadCurrentPos_Button";
+            this.ReadCurrentPos_Button.Size = new System.Drawing.Size(128, 25);
+            this.ReadCurrentPos_Button.TabIndex = 138;
+            this.ReadCurrentPos_Button.Text = "Read Current Pos";
+            this.ReadCurrentPos_Button.UseVisualStyleBackColor = false;
+            this.ReadCurrentPos_Button.Click += new System.EventHandler(this.ReadCurrentPos_Button_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("굴림", 18F);
+            this.label24.Location = new System.Drawing.Point(446, 210);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(34, 24);
+            this.label24.TabIndex = 151;
+            this.label24.Text = "▶";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(495, 245);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(35, 12);
+            this.label25.TabIndex = 150;
+            this.label25.Text = "Rot Z";
+            // 
+            // LoopToRotZ_TextBox
+            // 
+            this.LoopToRotZ_TextBox.Location = new System.Drawing.Point(540, 240);
+            this.LoopToRotZ_TextBox.Name = "LoopToRotZ_TextBox";
+            this.LoopToRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToRotZ_TextBox.TabIndex = 149;
+            this.LoopToRotZ_TextBox.Text = "0.000";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(495, 218);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(35, 12);
+            this.label26.TabIndex = 148;
+            this.label26.Text = "Rot Y";
+            // 
+            // LoopToRotY_TextBox
+            // 
+            this.LoopToRotY_TextBox.Location = new System.Drawing.Point(540, 213);
+            this.LoopToRotY_TextBox.Name = "LoopToRotY_TextBox";
+            this.LoopToRotY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToRotY_TextBox.TabIndex = 147;
+            this.LoopToRotY_TextBox.Text = "0.000";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(495, 191);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(35, 12);
+            this.label27.TabIndex = 146;
+            this.label27.Text = "Rot X";
+            // 
+            // LoopToRotX_TextBox
+            // 
+            this.LoopToRotX_TextBox.Location = new System.Drawing.Point(540, 186);
+            this.LoopToRotX_TextBox.Name = "LoopToRotX_TextBox";
+            this.LoopToRotX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToRotX_TextBox.TabIndex = 145;
+            this.LoopToRotX_TextBox.Text = "0.000";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(308, 242);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(35, 12);
+            this.label28.TabIndex = 144;
+            this.label28.Text = "Rot Z";
+            // 
+            // LoopFromRotZ_TextBox
+            // 
+            this.LoopFromRotZ_TextBox.Location = new System.Drawing.Point(353, 238);
+            this.LoopFromRotZ_TextBox.Name = "LoopFromRotZ_TextBox";
+            this.LoopFromRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromRotZ_TextBox.TabIndex = 143;
+            this.LoopFromRotZ_TextBox.Text = "0.000";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(308, 215);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(35, 12);
+            this.label29.TabIndex = 142;
+            this.label29.Text = "Rot Y";
+            // 
+            // LoopFromRotY_TextBox
+            // 
+            this.LoopFromRotY_TextBox.Location = new System.Drawing.Point(353, 211);
+            this.LoopFromRotY_TextBox.Name = "LoopFromRotY_TextBox";
+            this.LoopFromRotY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromRotY_TextBox.TabIndex = 141;
+            this.LoopFromRotY_TextBox.Text = "0.000";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(308, 188);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(35, 12);
+            this.label30.TabIndex = 140;
+            this.label30.Text = "Rot X";
+            // 
+            // LoopFromRotX_TextBox
+            // 
+            this.LoopFromRotX_TextBox.Location = new System.Drawing.Point(353, 184);
+            this.LoopFromRotX_TextBox.Name = "LoopFromRotX_TextBox";
+            this.LoopFromRotX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromRotX_TextBox.TabIndex = 139;
+            this.LoopFromRotX_TextBox.Text = "0.000";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(576, 268);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(44, 12);
+            this.label31.TabIndex = 152;
+            this.label31.Text = "Radian";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(256, 394);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(44, 12);
+            this.label32.TabIndex = 153;
+            this.label32.Text = "Radian";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(473, 444);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(45, 12);
+            this.label33.TabIndex = 154;
+            this.label33.Text = "Degree";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(729, 333);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(45, 12);
+            this.label34.TabIndex = 155;
+            this.label34.Text = "Degree";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(255, 174);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(44, 12);
+            this.label35.TabIndex = 156;
+            this.label35.Text = "Radian";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(255, 276);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(45, 12);
+            this.label36.TabIndex = 157;
+            this.label36.Text = "Degree";
+            // 
             // frmRobotConfigs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1345, 729);
+            this.ControlBox = false;
+            this.Controls.Add(this.label36);
+            this.Controls.Add(this.label35);
+            this.Controls.Add(this.label34);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.label32);
+            this.Controls.Add(this.label31);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.LoopToRotZ_TextBox);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.LoopToRotY_TextBox);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.LoopToRotX_TextBox);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.LoopFromRotZ_TextBox);
+            this.Controls.Add(this.label29);
+            this.Controls.Add(this.LoopFromRotY_TextBox);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.LoopFromRotX_TextBox);
+            this.Controls.Add(this.ReadCurrentPos_Button);
+            this.Controls.Add(this.Close_Button);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.label21);
@@ -1587,7 +1820,7 @@ namespace RobotArm_Module
             this.Controls.Add(this.PowerOff);
             this.Controls.Add(this.PowerOn);
             this.Name = "frmRobotConfigs";
-            this.Text = "Form1";
+            this.Text = "Rot X";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
@@ -1733,6 +1966,27 @@ namespace RobotArm_Module
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button Close_Button;
+        private System.Windows.Forms.Button ReadCurrentPos_Button;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox LoopToRotZ_TextBox;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox LoopToRotY_TextBox;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox LoopToRotX_TextBox;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox LoopFromRotZ_TextBox;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox LoopFromRotY_TextBox;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox LoopFromRotX_TextBox;
     }
 }
 

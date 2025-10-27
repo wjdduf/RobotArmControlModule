@@ -35,6 +35,9 @@ namespace RobotArm_Module
         private float speed = 0.3f;
         private float acceleration = 1.2f;
 
+        public double m_dCurPosRobotX = 0, m_dCurPosRobotY = 0, m_dCurPosRobotZ = 0, m_dCurPosRobotRotX = 0, m_dCurPosRobotRotY = 0, m_dCurPosRobotRotZ = 0;
+        public double m_dCurDegreeBase = 0, m_dCurDegreeShoulder = 0, m_dCurDegreeElbow = 0, m_dCurDegreeWrist1 = 0, m_dCurDegreeWrist2 = 0, m_dCurDegreeWrist3 = 0;
+
         public frmRobotConfigs()
         {
             Start();
@@ -100,68 +103,68 @@ namespace RobotArm_Module
             {
                 CurPosX_TextBox.Invoke(new Action(() =>
                 {
-                    CurPosX_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.X.ToString("F3");
+                    CurPosX_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.X.ToString("F4");                    
                 }));
             }
             else
             {
-                CurPosX_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.X.ToString("F3");
+                CurPosX_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.X.ToString("F4");
             }
             if (CurPosY_TextBox.InvokeRequired)
             {
                 CurPosY_TextBox.Invoke(new Action(() =>
                 {
-                    CurPosY_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.Y.ToString("F3");
+                    CurPosY_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.Y.ToString("F4");
                 }));
             }
             else
             {
-                CurPosY_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.Y.ToString("F3");
+                CurPosY_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.Y.ToString("F4");
             }
             if (CurPosZ_TextBox.InvokeRequired)
             {
                 CurPosZ_TextBox.Invoke(new Action(() =>
                 {
-                    CurPosZ_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.Z.ToString("F3");
+                    CurPosZ_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.Z.ToString("F4");
                 }));
             }
             else
             {
-                CurPosZ_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.Z.ToString("F3");
+                CurPosZ_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentPosition.Z.ToString("F4");
             }
 
             if (CurRotX_TextBox.InvokeRequired)
             {
                 CurRotX_TextBox.Invoke(new Action(() =>
                 {
-                    CurRotX_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.X.ToString("F3");
+                    CurRotX_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.X.ToString("F4");
                 }));
             }
             else
             {
-                CurRotX_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.X.ToString("F3");
+                CurRotX_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.X.ToString("F4");
             }
             if (CurRotY_TextBox.InvokeRequired)
             {
                 CurRotY_TextBox.Invoke(new Action(() =>
                 {
-                    CurRotY_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.Y.ToString("F3");
+                    CurRotY_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.Y.ToString("F4");
                 }));
             }
             else
             {
-                CurRotY_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.Y.ToString("F3");
+                CurRotY_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.Y.ToString("F4");
             }
             if (CurRotZ_TextBox.InvokeRequired)
             {
                 CurRotZ_TextBox.Invoke(new Action(() =>
                 {
-                    CurRotZ_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.Z.ToString("F3");
+                    CurRotZ_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.Z.ToString("F4");
                 }));
             }
             else
             {
-                CurRotZ_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.Z.ToString("F3");
+                CurRotZ_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentRotation.Z.ToString("F4");
             }
 
             //////////////////////////////////////////////////
@@ -170,69 +173,83 @@ namespace RobotArm_Module
             {
                 CurBase_Textbox.Invoke(new Action(() =>
                 {
-                    CurBase_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.BASE].Angle.ToString("F3");
+                    CurBase_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.BASE].Angle.ToString("F4");
                 }));
             }
             else
             {
-                CurBase_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.BASE].Angle.ToString("F3");
+                CurBase_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.BASE].Angle.ToString("F4");
             }
             if (CurShoulder_TextBox.InvokeRequired)
             {
                 CurShoulder_TextBox.Invoke(new Action(() =>
                 {
-                    CurShoulder_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.SHOULDER].Angle.ToString("F3");
+                    CurShoulder_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.SHOULDER].Angle.ToString("F4");
                 }));
             }
             else
             {
-                CurShoulder_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.SHOULDER].Angle.ToString("F3");
+                CurShoulder_TextBox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.SHOULDER].Angle.ToString("F4");
             }
             if (CurElbow_Textbox.InvokeRequired)
             {
                 CurElbow_Textbox.Invoke(new Action(() =>
                 {
-                    CurElbow_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.ELBOW].Angle.ToString("F3");
+                    CurElbow_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.ELBOW].Angle.ToString("F4");
                 }));
             }
             else
             {
-                CurElbow_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.ELBOW].Angle.ToString("F3");
+                CurElbow_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.ELBOW].Angle.ToString("F4");
             }
             if (CurWrist1_Textbox.InvokeRequired)
             {
                 CurWrist1_Textbox.Invoke(new Action(() =>
                 {
-                    CurWrist1_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST1].Angle.ToString("F3");
+                    CurWrist1_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST1].Angle.ToString("F4");
                 }));
             }
             else
             {
-                CurWrist1_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST1].Angle.ToString("F3");
+                CurWrist1_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST1].Angle.ToString("F4");
             }
             if (CurWrist2_Textbox.InvokeRequired)
             {
                 CurWrist2_Textbox.Invoke(new Action(() =>
                 {
-                    CurWrist2_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST2].Angle.ToString("F3");
+                    CurWrist2_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST2].Angle.ToString("F4");
                 }));
             }
             else
             {
-                CurWrist2_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST2].Angle.ToString("F3");
+                CurWrist2_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST2].Angle.ToString("F4");
             }
             if (CurWrist3_Textbox.InvokeRequired)
             {
                 CurWrist3_Textbox.Invoke(new Action(() =>
                 {
-                    CurWrist3_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST3].Angle.ToString("F3");
+                    CurWrist3_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST3].Angle.ToString("F4");
                 }));
             }
             else
             {
-                CurWrist3_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST3].Angle.ToString("F3");
+                CurWrist3_Textbox.Text = DataContainer.Instance.RobotArmCurrentData.currentJoinData.Joints[eJointType.WRIST3].Angle.ToString("F4");
             }
 
+            //현재위치 정보 공유
+            m_dCurPosRobotX = Convert.ToDouble(CurPosX_TextBox.Text);
+            m_dCurPosRobotY = Convert.ToDouble(CurPosY_TextBox.Text);
+            m_dCurPosRobotZ = Convert.ToDouble(CurPosZ_TextBox.Text);
+            m_dCurPosRobotRotX = Convert.ToDouble(CurRotX_TextBox.Text);
+            m_dCurPosRobotRotY = Convert.ToDouble(CurRotY_TextBox.Text);
+            m_dCurPosRobotRotZ = Convert.ToDouble(CurRotZ_TextBox.Text);
+
+            m_dCurDegreeBase = Convert.ToDouble(CurBase_Textbox.Text);
+            m_dCurDegreeShoulder = Convert.ToDouble(CurShoulder_TextBox.Text);
+            m_dCurDegreeElbow = Convert.ToDouble(CurElbow_Textbox.Text);
+            m_dCurDegreeWrist1 = Convert.ToDouble(CurWrist1_Textbox.Text);
+            m_dCurDegreeWrist2 = Convert.ToDouble(CurWrist2_Textbox.Text);
+            m_dCurDegreeWrist3 = Convert.ToDouble(CurWrist3_Textbox.Text);
         }
 
         public void PowerOn_Click(object sender, EventArgs e)
@@ -243,7 +260,7 @@ namespace RobotArm_Module
         public void PowerOn_Click(Action<bool> onComplete = null)
         {
 
-            RobotArmController.Connect(DataContainer.Instance.URConfig.IP);
+            RobotArmController.Connect(DataContainer.Instance.URConfig.IP,onComplete);
 
         }
 
@@ -254,7 +271,7 @@ namespace RobotArm_Module
 
         public void PowerOff_Click(Action<bool> onComplete = null)
         {
-            RobotArmController.DisConnect();
+            RobotArmController.DisConnect(onComplete);
         }
 
 
@@ -331,7 +348,7 @@ namespace RobotArm_Module
                 DataContainer.Instance.RobotArmCurrentData.SetPosition = new Vector3(float.Parse(SetPosX_TextBox.Text), float.Parse(SetPosY_TextBox.Text), float.Parse(SetPosZ_TextBox.Text));
                 DataContainer.Instance.RobotArmCurrentData.SetRotation = new Vector3(float.Parse(SetRotX_TextBox.Text), float.Parse(SetRotY_TextBox.Text), float.Parse(SetRotZ_TextBox.Text));
 
-                RobotArmController.SetPositionJ();
+                RobotArmController.SetPositionJ(onComplete);
 
             }
             catch (Exception exception)
@@ -585,7 +602,7 @@ namespace RobotArm_Module
             float angle;
             float.TryParse(JointAngle_TextBox.Text, out angle);
             
-            RobotArmController.JointRotation(angle, selectJoint);
+            RobotArmController.JointRotation(angle, selectJoint, onComplete);
         }
 
         private void SetPivot_Button_Click(object sender, EventArgs e)
@@ -600,7 +617,7 @@ namespace RobotArm_Module
             pivot.Y = float.Parse(SetPivotY_TextBox.Text);
             pivot.Z = float.Parse(SetPivotZ_TextBox.Text);
             //
-            RobotArmController.SetPivot(pivot);
+            RobotArmController.SetPivot(pivot, onComplete);
         }
 
         private void PivotReset_Button_Click(object sender, EventArgs e)
@@ -621,7 +638,7 @@ namespace RobotArm_Module
         public void ListStop_Button_Click(Action<bool> onComplete = null)
         {
             RobotArmController.WorkQueueClear();
-            RobotArmController.Stop();
+            RobotArmController.Stop(onComplete);
         }
 
         private void ListDelete_Button_Click(object sender, EventArgs e)
@@ -641,38 +658,47 @@ namespace RobotArm_Module
             //}
         }
 
-        private void ListPlay_Button_Click(object sender, EventArgs e)
+        private void LoopPlay_Button_Click(object sender, EventArgs e)
         {
             //RobotArmController.ListPlay(JsonName_textBox.Text);
 
-            ListPlay_Button_Click();
-
+            LoopPlay_Button_Click();
         }
 
-        public void ListPlay_Button_Click(Action<bool> onComplete = null)
+        public void LoopPlay_Button_Click(Action<bool> onComplete = null)
         {
             Vector3 fromPos = new Vector3();
+            Vector3 fromRot = new Vector3();
+
 
             fromPos.X = float.Parse(LoopFromPosX_TextBox.Text);
             fromPos.Y = float.Parse(LoopFromPosY_TextBox.Text);
             fromPos.Z = float.Parse(LoopFromPosZ_TextBox.Text);
 
+            fromRot.X = float.Parse(LoopFromRotX_TextBox.Text);
+            fromRot.Y = float.Parse(LoopFromRotY_TextBox.Text);
+            fromRot.Z = float.Parse(LoopFromRotZ_TextBox.Text);
+
+
             Vector3 toPos = new Vector3();
+            Vector3 toRot = new Vector3();
 
             toPos.X = float.Parse(LoopToPosX_TextBox.Text);
             toPos.Y = float.Parse(LoopToPosY_TextBox.Text);
             toPos.Z = float.Parse(LoopToPosZ_TextBox.Text);
 
+            toRot.X = float.Parse(LoopToRotX_TextBox.Text);
+            toRot.Y = float.Parse(LoopToRotY_TextBox.Text);
+            toRot.Z = float.Parse(LoopToRotZ_TextBox.Text);
+
+
+
             bool isLoop = MoveLoop_CheckBox.Checked;
 
             float loopTime = float.Parse(MoveLoopTime_TextBox.Text);
 
-            RobotArmController.PlayLoop(fromPos, toPos, isLoop, loopTime, onComplete);
+            RobotArmController.PlayLoop(fromPos,fromRot, toPos,toRot, isLoop, loopTime, onComplete);
         }
-
-        
-
-        
 
         private void ListUpdate()
         {
@@ -714,8 +740,6 @@ namespace RobotArm_Module
             RobotArmController.SetHoming(onComplete);
         }
 
-        
-
         private void IPCTest_Button_Click(object sender, EventArgs e)
         {
             float angle;
@@ -745,8 +769,55 @@ namespace RobotArm_Module
             SetRotX_TextBox.Text = data.rotation.X.ToString("F5");
             SetRotY_TextBox.Text = data.rotation.Y.ToString("F5");
             SetRotZ_TextBox.Text = data.rotation.Z.ToString("F5");
+        }
 
+        public void SetTargetPos(double dPosX, double dPosY, double dPosZ, double dPosRotX, double dPosRotY, double dPosRotZ)
+        {
+            SetPosX_TextBox.Text = dPosX.ToString("F5");
+            SetPosY_TextBox.Text = dPosY.ToString("F5");
+            SetPosZ_TextBox.Text = dPosZ.ToString("F5");
 
+            SetRotX_TextBox.Text = dPosRotX.ToString("F5");
+            SetRotY_TextBox.Text = dPosRotY.ToString("F5");
+            SetRotZ_TextBox.Text = dPosRotZ.ToString("F5");
+        }
+
+        public void SetAlignPosXYZ(double dPosX, double dPosY, double dPosZ)
+        {
+            SetAlignX_TextBox.Text = dPosX.ToString("F5");
+            SetAlignY_TextBox.Text = dPosY.ToString("F5");
+            SetAlignZ_TextBox.Text = dPosZ.ToString("F5");
+        }
+
+        public void SetAlignPosRotXYZ(double dPosRotX, double dPosRotY, double dPosRotZ, double dPivotX, double dPivotY, double dPivotZ)
+        {
+            SetAlignX_TextBox.Text = dPosRotX.ToString("F5");
+            SetAlignY_TextBox.Text = dPosRotY.ToString("F5");
+            SetAlignZ_TextBox.Text = dPosRotZ.ToString("F5");
+
+            SetPivotX_TextBox.Text = dPivotX.ToString("F5");
+            SetPivotY_TextBox.Text = dPivotY.ToString("F5");
+            SetPivotZ_TextBox.Text = dPivotZ.ToString("F5");
+        }
+
+        public void SetSimpleMove(double dPosFromX, double dPosFromY, double dPosFromZ, double dPosToX, double dPosToY, double dPosToZ, int iRepeat, bool bLoop, bool bInfinit)
+        {
+            LoopFromPosX_TextBox.Text = dPosFromX.ToString("F5");
+            LoopFromPosY_TextBox.Text = dPosFromY.ToString("F5");
+            LoopFromPosZ_TextBox.Text = dPosFromZ.ToString("F5");
+            LoopToPosX_TextBox.Text = dPosToX.ToString("F5");
+            LoopToPosY_TextBox.Text = dPosToY.ToString("F5");
+            LoopToPosZ_TextBox.Text = dPosToZ.ToString("F5");
+            MoveLoopTime_TextBox.Text = iRepeat.ToString();
+
+            if (bLoop == true)
+            {
+                MoveLoop_CheckBox.Checked = true;
+            }
+            else
+            {
+                MoveLoop_CheckBox.Checked = false;
+            }
         }
 
         private void UnlockProtectiveStop(object sender, EventArgs e)
@@ -918,6 +989,22 @@ namespace RobotArm_Module
             StickGrip01_Button_Click();
         }
 
+        private void ReadCurrentPos_Button_Click(object sender, EventArgs e)
+        {
+            ApplyCurrentPosToSetPos();
+        }
+
+        private void ApplyCurrentPosToSetPos()
+        {
+            SetPosX_TextBox.Text = CurPosX_TextBox.Text;
+            SetPosY_TextBox.Text = CurPosY_TextBox.Text;
+            SetPosZ_TextBox.Text = CurPosZ_TextBox.Text;
+
+            SetRotX_TextBox.Text = CurRotX_TextBox.Text;
+            SetRotY_TextBox.Text = CurRotY_TextBox.Text;
+            SetRotZ_TextBox.Text = CurRotZ_TextBox.Text;
+        }
+
         public void StickGrip01_Button_Click(Action<bool> onComplete = null)
         {
             RobotArmController.PlayWork("Work_StickGrip", onComplete);
@@ -974,6 +1061,11 @@ namespace RobotArm_Module
 
             //
             RobotArmController.SetDeviceAlignment(pivot, rot, onComplete);
+        }
+
+        private void Close_Button_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
         }
     }
 }
