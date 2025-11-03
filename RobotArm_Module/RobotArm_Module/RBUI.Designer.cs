@@ -1,0 +1,1750 @@
+﻿
+namespace RobotArm_Module
+{
+    partial class RBUI
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form 디자이너에서 생성한 코드
+
+        /// <summary>
+        /// 디자이너 지원에 필요한 메서드입니다. 
+        /// 이 메서드의 내용을 코드 편집기로 수정하지 마세요.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.PowerOn = new System.Windows.Forms.Button();
+            this.PowerOff = new System.Windows.Forms.Button();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.button1 = new System.Windows.Forms.Button();
+            this.CurPosX_TextBox = new System.Windows.Forms.TextBox();
+            this.CurrentPosTitle = new System.Windows.Forms.Label();
+            this.CurPosX_Text = new System.Windows.Forms.Label();
+            this.CurPosY_Text = new System.Windows.Forms.Label();
+            this.CurPosY_TextBox = new System.Windows.Forms.TextBox();
+            this.CurPosZ_Text = new System.Windows.Forms.Label();
+            this.CurPosZ_TextBox = new System.Windows.Forms.TextBox();
+            this.CurRotX_Text = new System.Windows.Forms.Label();
+            this.CurRotX_TextBox = new System.Windows.Forms.TextBox();
+            this.CurRotY_Text = new System.Windows.Forms.Label();
+            this.CurRotY_TextBox = new System.Windows.Forms.TextBox();
+            this.CurRotZ_Text = new System.Windows.Forms.Label();
+            this.CurRotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.SetRotZ_Text = new System.Windows.Forms.Label();
+            this.SetRotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.SetRotY_Text = new System.Windows.Forms.Label();
+            this.SetRotY_TextBox = new System.Windows.Forms.TextBox();
+            this.SetRotX_Text = new System.Windows.Forms.Label();
+            this.SetRotX_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPosZ_Text = new System.Windows.Forms.Label();
+            this.SetPosZ_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPosY_Text = new System.Windows.Forms.Label();
+            this.SetPosY_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPosX_Text = new System.Windows.Forms.Label();
+            this.SetPosTitle = new System.Windows.Forms.Label();
+            this.SetPosX_TextBox = new System.Windows.Forms.TextBox();
+            this.button2f = new System.Windows.Forms.Button();
+            this.ZPositive_Button = new System.Windows.Forms.Button();
+            this.ZNegative_Button = new System.Windows.Forms.Button();
+            this.XNegative_Button = new System.Windows.Forms.Button();
+            this.XPositive_Button = new System.Windows.Forms.Button();
+            this.YPositive_Button = new System.Windows.Forms.Button();
+            this.YNegative_Button = new System.Windows.Forms.Button();
+            this.Position_Radio_Button = new System.Windows.Forms.RadioButton();
+            this.Rotation_Radio_Button = new System.Windows.Forms.RadioButton();
+            this.ArrowGroupBox = new System.Windows.Forms.GroupBox();
+            this.Speed_Textbox = new System.Windows.Forms.TextBox();
+            this.SpeedLabel = new System.Windows.Forms.Label();
+            this.Joint_ComboBox = new System.Windows.Forms.ComboBox();
+            this.RotationJoint_Button = new System.Windows.Forms.Button();
+            this.JointAngleDown_Button = new System.Windows.Forms.Button();
+            this.JointAngleUp_Button = new System.Windows.Forms.Button();
+            this.JointAngle_TextBox = new System.Windows.Forms.TextBox();
+            this.Wrist3Joint_Label = new System.Windows.Forms.Label();
+            this.CurWrist3_Textbox = new System.Windows.Forms.TextBox();
+            this.Wrist2Joint_Label = new System.Windows.Forms.Label();
+            this.CurWrist2_Textbox = new System.Windows.Forms.TextBox();
+            this.Wrist1Joint_Label = new System.Windows.Forms.Label();
+            this.CurWrist1_Textbox = new System.Windows.Forms.TextBox();
+            this.ElbowJoint_Label = new System.Windows.Forms.Label();
+            this.CurElbow_Textbox = new System.Windows.Forms.TextBox();
+            this.ShoulderJoint_Label = new System.Windows.Forms.Label();
+            this.CurShoulder_TextBox = new System.Windows.Forms.TextBox();
+            this.BaseJoint_Label = new System.Windows.Forms.Label();
+            this.CurrentJoint_Label = new System.Windows.Forms.Label();
+            this.CurBase_Textbox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.SetPivot_Button = new System.Windows.Forms.Button();
+            this.SetPivotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPivotY_TextBox = new System.Windows.Forms.TextBox();
+            this.SetPivotX_TextBox = new System.Windows.Forms.TextBox();
+            this.PivotReset_Button = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.LoopPlay_Button = new System.Windows.Forms.Button();
+            this.ListAdd_Button = new System.Windows.Forms.Button();
+            this.Stop_Button = new System.Windows.Forms.Button();
+            this.Homming_Button = new System.Windows.Forms.Button();
+            this.JointListAdd_Button = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.Acceleration_TextBox = new System.Windows.Forms.TextBox();
+            this.UnityPanel = new System.Windows.Forms.Panel();
+            this.IPCTest_Button = new System.Windows.Forms.Button();
+            this.Export_Button = new System.Windows.Forms.Button();
+            this.Import_Button = new System.Windows.Forms.Button();
+            this.JsonName_textBox = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.CSVButton = new System.Windows.Forms.Button();
+            this.GripButton = new System.Windows.Forms.Button();
+            this.Release_Button = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.SetAlignX_TextBox = new System.Windows.Forms.TextBox();
+            this.SetAlignY_TextBox = new System.Windows.Forms.TextBox();
+            this.SetAlignZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.Alignment_Button = new System.Windows.Forms.Button();
+            this.ConnectCheck_Text = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.LoopFromPosZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.LoopFromPosY_TextBox = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.LoopFromPosX_TextBox = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.LoopToPosZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.LoopToPosY_TextBox = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.LoopToPosX_TextBox = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.MoveLoopTime_TextBox = new System.Windows.Forms.TextBox();
+            this.MoveLoop_CheckBox = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.Close_Button = new System.Windows.Forms.Button();
+            this.ReadCurrentPos_Button = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.LoopToRotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.LoopToRotY_TextBox = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.LoopToRotX_TextBox = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.LoopFromRotZ_TextBox = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.LoopFromRotY_TextBox = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.LoopFromRotX_TextBox = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            this.ArrowGroupBox.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // PowerOn
+            // 
+            this.PowerOn.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PowerOn.Location = new System.Drawing.Point(12, 15);
+            this.PowerOn.Name = "PowerOn";
+            this.PowerOn.Size = new System.Drawing.Size(100, 50);
+            this.PowerOn.TabIndex = 2;
+            this.PowerOn.Text = "연결";
+            this.PowerOn.UseVisualStyleBackColor = false;
+            this.PowerOn.Click += new System.EventHandler(this.PowerOn_Click);
+            // 
+            // PowerOff
+            // 
+            this.PowerOff.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PowerOff.Location = new System.Drawing.Point(116, 15);
+            this.PowerOff.Name = "PowerOff";
+            this.PowerOff.Size = new System.Drawing.Size(100, 50);
+            this.PowerOff.TabIndex = 3;
+            this.PowerOff.Text = "종료";
+            this.PowerOff.UseVisualStyleBackColor = false;
+            this.PowerOff.Click += new System.EventHandler(this.PowerOff_Click);
+            // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.button1.Location = new System.Drawing.Point(767, 665);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // CurPosX_TextBox
+            // 
+            this.CurPosX_TextBox.Location = new System.Drawing.Point(86, 98);
+            this.CurPosX_TextBox.Name = "CurPosX_TextBox";
+            this.CurPosX_TextBox.ReadOnly = true;
+            this.CurPosX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurPosX_TextBox.TabIndex = 7;
+            // 
+            // CurrentPosTitle
+            // 
+            this.CurrentPosTitle.AutoSize = true;
+            this.CurrentPosTitle.Location = new System.Drawing.Point(26, 83);
+            this.CurrentPosTitle.Name = "CurrentPosTitle";
+            this.CurrentPosTitle.Size = new System.Drawing.Size(131, 12);
+            this.CurrentPosTitle.TabIndex = 8;
+            this.CurrentPosTitle.Text = "Current Robot Position";
+            // 
+            // CurPosX_Text
+            // 
+            this.CurPosX_Text.AutoSize = true;
+            this.CurPosX_Text.BackColor = System.Drawing.SystemColors.Window;
+            this.CurPosX_Text.Location = new System.Drawing.Point(25, 106);
+            this.CurPosX_Text.Name = "CurPosX_Text";
+            this.CurPosX_Text.Size = new System.Drawing.Size(39, 12);
+            this.CurPosX_Text.TabIndex = 9;
+            this.CurPosX_Text.Text = "Pos X";
+            // 
+            // CurPosY_Text
+            // 
+            this.CurPosY_Text.AutoSize = true;
+            this.CurPosY_Text.Location = new System.Drawing.Point(25, 133);
+            this.CurPosY_Text.Name = "CurPosY_Text";
+            this.CurPosY_Text.Size = new System.Drawing.Size(39, 12);
+            this.CurPosY_Text.TabIndex = 11;
+            this.CurPosY_Text.Text = "Pos Y";
+            // 
+            // CurPosY_TextBox
+            // 
+            this.CurPosY_TextBox.Location = new System.Drawing.Point(86, 125);
+            this.CurPosY_TextBox.Name = "CurPosY_TextBox";
+            this.CurPosY_TextBox.ReadOnly = true;
+            this.CurPosY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurPosY_TextBox.TabIndex = 10;
+            // 
+            // CurPosZ_Text
+            // 
+            this.CurPosZ_Text.AutoSize = true;
+            this.CurPosZ_Text.Location = new System.Drawing.Point(25, 160);
+            this.CurPosZ_Text.Name = "CurPosZ_Text";
+            this.CurPosZ_Text.Size = new System.Drawing.Size(39, 12);
+            this.CurPosZ_Text.TabIndex = 13;
+            this.CurPosZ_Text.Text = "Pos Z";
+            // 
+            // CurPosZ_TextBox
+            // 
+            this.CurPosZ_TextBox.Location = new System.Drawing.Point(86, 152);
+            this.CurPosZ_TextBox.Name = "CurPosZ_TextBox";
+            this.CurPosZ_TextBox.ReadOnly = true;
+            this.CurPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurPosZ_TextBox.TabIndex = 12;
+            // 
+            // CurRotX_Text
+            // 
+            this.CurRotX_Text.AutoSize = true;
+            this.CurRotX_Text.Location = new System.Drawing.Point(179, 108);
+            this.CurRotX_Text.Name = "CurRotX_Text";
+            this.CurRotX_Text.Size = new System.Drawing.Size(35, 12);
+            this.CurRotX_Text.TabIndex = 15;
+            this.CurRotX_Text.Text = "Rot X";
+            // 
+            // CurRotX_TextBox
+            // 
+            this.CurRotX_TextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.CurRotX_TextBox.Location = new System.Drawing.Point(220, 97);
+            this.CurRotX_TextBox.Name = "CurRotX_TextBox";
+            this.CurRotX_TextBox.ReadOnly = true;
+            this.CurRotX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurRotX_TextBox.TabIndex = 14;
+            // 
+            // CurRotY_Text
+            // 
+            this.CurRotY_Text.AutoSize = true;
+            this.CurRotY_Text.Location = new System.Drawing.Point(179, 135);
+            this.CurRotY_Text.Name = "CurRotY_Text";
+            this.CurRotY_Text.Size = new System.Drawing.Size(35, 12);
+            this.CurRotY_Text.TabIndex = 17;
+            this.CurRotY_Text.Text = "Rot Y";
+            // 
+            // CurRotY_TextBox
+            // 
+            this.CurRotY_TextBox.Location = new System.Drawing.Point(220, 124);
+            this.CurRotY_TextBox.Name = "CurRotY_TextBox";
+            this.CurRotY_TextBox.ReadOnly = true;
+            this.CurRotY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurRotY_TextBox.TabIndex = 16;
+            // 
+            // CurRotZ_Text
+            // 
+            this.CurRotZ_Text.AutoSize = true;
+            this.CurRotZ_Text.Location = new System.Drawing.Point(179, 161);
+            this.CurRotZ_Text.Name = "CurRotZ_Text";
+            this.CurRotZ_Text.Size = new System.Drawing.Size(35, 12);
+            this.CurRotZ_Text.TabIndex = 19;
+            this.CurRotZ_Text.Text = "Rot Z";
+            // 
+            // CurRotZ_TextBox
+            // 
+            this.CurRotZ_TextBox.Location = new System.Drawing.Point(220, 150);
+            this.CurRotZ_TextBox.Name = "CurRotZ_TextBox";
+            this.CurRotZ_TextBox.ReadOnly = true;
+            this.CurRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurRotZ_TextBox.TabIndex = 18;
+            // 
+            // SetRotZ_Text
+            // 
+            this.SetRotZ_Text.AutoSize = true;
+            this.SetRotZ_Text.Location = new System.Drawing.Point(179, 382);
+            this.SetRotZ_Text.Name = "SetRotZ_Text";
+            this.SetRotZ_Text.Size = new System.Drawing.Size(35, 12);
+            this.SetRotZ_Text.TabIndex = 32;
+            this.SetRotZ_Text.Text = "Rot Z";
+            // 
+            // SetRotZ_TextBox
+            // 
+            this.SetRotZ_TextBox.Location = new System.Drawing.Point(220, 371);
+            this.SetRotZ_TextBox.Name = "SetRotZ_TextBox";
+            this.SetRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetRotZ_TextBox.TabIndex = 31;
+            this.SetRotZ_TextBox.Text = "0.000";
+            // 
+            // SetRotY_Text
+            // 
+            this.SetRotY_Text.AutoSize = true;
+            this.SetRotY_Text.Location = new System.Drawing.Point(179, 356);
+            this.SetRotY_Text.Name = "SetRotY_Text";
+            this.SetRotY_Text.Size = new System.Drawing.Size(35, 12);
+            this.SetRotY_Text.TabIndex = 30;
+            this.SetRotY_Text.Text = "Rot Y";
+            // 
+            // SetRotY_TextBox
+            // 
+            this.SetRotY_TextBox.Location = new System.Drawing.Point(220, 345);
+            this.SetRotY_TextBox.Name = "SetRotY_TextBox";
+            this.SetRotY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetRotY_TextBox.TabIndex = 29;
+            this.SetRotY_TextBox.Text = "0.000";
+            // 
+            // SetRotX_Text
+            // 
+            this.SetRotX_Text.AutoSize = true;
+            this.SetRotX_Text.Location = new System.Drawing.Point(179, 329);
+            this.SetRotX_Text.Name = "SetRotX_Text";
+            this.SetRotX_Text.Size = new System.Drawing.Size(35, 12);
+            this.SetRotX_Text.TabIndex = 28;
+            this.SetRotX_Text.Text = "Rot X";
+            // 
+            // SetRotX_TextBox
+            // 
+            this.SetRotX_TextBox.Location = new System.Drawing.Point(220, 318);
+            this.SetRotX_TextBox.Name = "SetRotX_TextBox";
+            this.SetRotX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetRotX_TextBox.TabIndex = 27;
+            this.SetRotX_TextBox.Text = "0.000";
+            // 
+            // SetPosZ_Text
+            // 
+            this.SetPosZ_Text.AutoSize = true;
+            this.SetPosZ_Text.Location = new System.Drawing.Point(25, 381);
+            this.SetPosZ_Text.Name = "SetPosZ_Text";
+            this.SetPosZ_Text.Size = new System.Drawing.Size(39, 12);
+            this.SetPosZ_Text.TabIndex = 26;
+            this.SetPosZ_Text.Text = "Pos Z";
+            // 
+            // SetPosZ_TextBox
+            // 
+            this.SetPosZ_TextBox.Location = new System.Drawing.Point(85, 374);
+            this.SetPosZ_TextBox.Name = "SetPosZ_TextBox";
+            this.SetPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetPosZ_TextBox.TabIndex = 25;
+            this.SetPosZ_TextBox.Text = "0.000";
+            // 
+            // SetPosY_Text
+            // 
+            this.SetPosY_Text.AutoSize = true;
+            this.SetPosY_Text.Location = new System.Drawing.Point(25, 354);
+            this.SetPosY_Text.Name = "SetPosY_Text";
+            this.SetPosY_Text.Size = new System.Drawing.Size(39, 12);
+            this.SetPosY_Text.TabIndex = 24;
+            this.SetPosY_Text.Text = "Pos Y";
+            // 
+            // SetPosY_TextBox
+            // 
+            this.SetPosY_TextBox.Location = new System.Drawing.Point(85, 347);
+            this.SetPosY_TextBox.Name = "SetPosY_TextBox";
+            this.SetPosY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetPosY_TextBox.TabIndex = 23;
+            this.SetPosY_TextBox.Text = "0.000";
+            // 
+            // SetPosX_Text
+            // 
+            this.SetPosX_Text.AutoSize = true;
+            this.SetPosX_Text.Location = new System.Drawing.Point(25, 327);
+            this.SetPosX_Text.Name = "SetPosX_Text";
+            this.SetPosX_Text.Size = new System.Drawing.Size(39, 12);
+            this.SetPosX_Text.TabIndex = 22;
+            this.SetPosX_Text.Text = "Pos X";
+            // 
+            // SetPosTitle
+            // 
+            this.SetPosTitle.AutoSize = true;
+            this.SetPosTitle.Location = new System.Drawing.Point(26, 304);
+            this.SetPosTitle.Name = "SetPosTitle";
+            this.SetPosTitle.Size = new System.Drawing.Size(108, 12);
+            this.SetPosTitle.TabIndex = 21;
+            this.SetPosTitle.Text = "Set Robot Position";
+            // 
+            // SetPosX_TextBox
+            // 
+            this.SetPosX_TextBox.Location = new System.Drawing.Point(85, 320);
+            this.SetPosX_TextBox.Name = "SetPosX_TextBox";
+            this.SetPosX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.SetPosX_TextBox.TabIndex = 20;
+            this.SetPosX_TextBox.Text = "0.000";
+            // 
+            // button2f
+            // 
+            this.button2f.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.button2f.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button2f.Location = new System.Drawing.Point(15, 411);
+            this.button2f.Name = "button2f";
+            this.button2f.Size = new System.Drawing.Size(95, 25);
+            this.button2f.TabIndex = 33;
+            this.button2f.Text = "SetPosition(J)";
+            this.button2f.UseVisualStyleBackColor = false;
+            this.button2f.Click += new System.EventHandler(this.SetPositionButton);
+            // 
+            // ZPositive_Button
+            // 
+            this.ZPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ZPositive_Button.Location = new System.Drawing.Point(802, 177);
+            this.ZPositive_Button.Name = "ZPositive_Button";
+            this.ZPositive_Button.Size = new System.Drawing.Size(50, 30);
+            this.ZPositive_Button.TabIndex = 34;
+            this.ZPositive_Button.Text = "▲";
+            this.ZPositive_Button.UseVisualStyleBackColor = false;
+            this.ZPositive_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.ZPositive_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // ZNegative_Button
+            // 
+            this.ZNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ZNegative_Button.Location = new System.Drawing.Point(801, 219);
+            this.ZNegative_Button.Name = "ZNegative_Button";
+            this.ZNegative_Button.Size = new System.Drawing.Size(50, 30);
+            this.ZNegative_Button.TabIndex = 35;
+            this.ZNegative_Button.Text = "▼";
+            this.ZNegative_Button.UseVisualStyleBackColor = false;
+            this.ZNegative_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.ZNegative_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // XNegative_Button
+            // 
+            this.XNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.XNegative_Button.Location = new System.Drawing.Point(685, 219);
+            this.XNegative_Button.Name = "XNegative_Button";
+            this.XNegative_Button.Size = new System.Drawing.Size(50, 30);
+            this.XNegative_Button.TabIndex = 36;
+            this.XNegative_Button.Text = "▼";
+            this.XNegative_Button.UseVisualStyleBackColor = false;
+            this.XNegative_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.XNegative_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // XPositive_Button
+            // 
+            this.XPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.XPositive_Button.Location = new System.Drawing.Point(685, 177);
+            this.XPositive_Button.Name = "XPositive_Button";
+            this.XPositive_Button.Size = new System.Drawing.Size(50, 30);
+            this.XPositive_Button.TabIndex = 37;
+            this.XPositive_Button.Text = "▲";
+            this.XPositive_Button.UseVisualStyleBackColor = false;
+            this.XPositive_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.XPositive_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // YPositive_Button
+            // 
+            this.YPositive_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.YPositive_Button.Location = new System.Drawing.Point(744, 177);
+            this.YPositive_Button.Name = "YPositive_Button";
+            this.YPositive_Button.Size = new System.Drawing.Size(50, 30);
+            this.YPositive_Button.TabIndex = 38;
+            this.YPositive_Button.Text = "▲";
+            this.YPositive_Button.UseVisualStyleBackColor = false;
+            this.YPositive_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.YPositive_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // YNegative_Button
+            // 
+            this.YNegative_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.YNegative_Button.Location = new System.Drawing.Point(744, 219);
+            this.YNegative_Button.Name = "YNegative_Button";
+            this.YNegative_Button.Size = new System.Drawing.Size(50, 30);
+            this.YNegative_Button.TabIndex = 39;
+            this.YNegative_Button.Text = "▼";
+            this.YNegative_Button.UseVisualStyleBackColor = false;
+            this.YNegative_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveButtonDown);
+            this.YNegative_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MoveButtonUp);
+            // 
+            // Position_Radio_Button
+            // 
+            this.Position_Radio_Button.AutoSize = true;
+            this.Position_Radio_Button.Checked = true;
+            this.Position_Radio_Button.Location = new System.Drawing.Point(17, 20);
+            this.Position_Radio_Button.Name = "Position_Radio_Button";
+            this.Position_Radio_Button.Size = new System.Drawing.Size(68, 16);
+            this.Position_Radio_Button.TabIndex = 40;
+            this.Position_Radio_Button.TabStop = true;
+            this.Position_Radio_Button.Text = "Position";
+            this.Position_Radio_Button.UseVisualStyleBackColor = true;
+            this.Position_Radio_Button.CheckedChanged += new System.EventHandler(this.Arrow_Radio_Button_CheckedChanged);
+            // 
+            // Rotation_Radio_Button
+            // 
+            this.Rotation_Radio_Button.AutoSize = true;
+            this.Rotation_Radio_Button.Location = new System.Drawing.Point(111, 20);
+            this.Rotation_Radio_Button.Name = "Rotation_Radio_Button";
+            this.Rotation_Radio_Button.Size = new System.Drawing.Size(68, 16);
+            this.Rotation_Radio_Button.TabIndex = 41;
+            this.Rotation_Radio_Button.Text = "Rotation";
+            this.Rotation_Radio_Button.UseVisualStyleBackColor = true;
+            this.Rotation_Radio_Button.CheckedChanged += new System.EventHandler(this.Arrow_Radio_Button_CheckedChanged);
+            // 
+            // ArrowGroupBox
+            // 
+            this.ArrowGroupBox.Controls.Add(this.Position_Radio_Button);
+            this.ArrowGroupBox.Controls.Add(this.Rotation_Radio_Button);
+            this.ArrowGroupBox.Location = new System.Drawing.Point(672, 93);
+            this.ArrowGroupBox.Name = "ArrowGroupBox";
+            this.ArrowGroupBox.Size = new System.Drawing.Size(190, 49);
+            this.ArrowGroupBox.TabIndex = 42;
+            this.ArrowGroupBox.TabStop = false;
+            // 
+            // Speed_Textbox
+            // 
+            this.Speed_Textbox.Location = new System.Drawing.Point(741, 23);
+            this.Speed_Textbox.Name = "Speed_Textbox";
+            this.Speed_Textbox.Size = new System.Drawing.Size(100, 21);
+            this.Speed_Textbox.TabIndex = 43;
+            this.Speed_Textbox.Text = "0.3";
+            this.Speed_Textbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.Speed_Textbox.TextChanged += new System.EventHandler(this.Speed_Textbox_TextChanged);
+            this.Speed_Textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // SpeedLabel
+            // 
+            this.SpeedLabel.AutoSize = true;
+            this.SpeedLabel.Location = new System.Drawing.Point(688, 26);
+            this.SpeedLabel.Name = "SpeedLabel";
+            this.SpeedLabel.Size = new System.Drawing.Size(41, 12);
+            this.SpeedLabel.TabIndex = 44;
+            this.SpeedLabel.Text = "Speed";
+            // 
+            // Joint_ComboBox
+            // 
+            this.Joint_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Joint_ComboBox.FormattingEnabled = true;
+            this.Joint_ComboBox.Location = new System.Drawing.Point(700, 273);
+            this.Joint_ComboBox.Name = "Joint_ComboBox";
+            this.Joint_ComboBox.Size = new System.Drawing.Size(142, 20);
+            this.Joint_ComboBox.TabIndex = 45;
+            this.Joint_ComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // RotationJoint_Button
+            // 
+            this.RotationJoint_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.RotationJoint_Button.Location = new System.Drawing.Point(699, 346);
+            this.RotationJoint_Button.Name = "RotationJoint_Button";
+            this.RotationJoint_Button.Size = new System.Drawing.Size(75, 23);
+            this.RotationJoint_Button.TabIndex = 46;
+            this.RotationJoint_Button.Text = "SetAngle";
+            this.RotationJoint_Button.UseVisualStyleBackColor = false;
+            this.RotationJoint_Button.Click += new System.EventHandler(this.RotationJoint_Button_Click);
+            // 
+            // JointAngleDown_Button
+            // 
+            this.JointAngleDown_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.JointAngleDown_Button.Location = new System.Drawing.Point(792, 342);
+            this.JointAngleDown_Button.Name = "JointAngleDown_Button";
+            this.JointAngleDown_Button.Size = new System.Drawing.Size(50, 30);
+            this.JointAngleDown_Button.TabIndex = 48;
+            this.JointAngleDown_Button.Text = "▼";
+            this.JointAngleDown_Button.UseVisualStyleBackColor = false;
+            this.JointAngleDown_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.JointAngle_Button_Down);
+            this.JointAngleDown_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.JointAngle_Button_Up);
+            // 
+            // JointAngleUp_Button
+            // 
+            this.JointAngleUp_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.JointAngleUp_Button.Location = new System.Drawing.Point(792, 303);
+            this.JointAngleUp_Button.Name = "JointAngleUp_Button";
+            this.JointAngleUp_Button.Size = new System.Drawing.Size(50, 30);
+            this.JointAngleUp_Button.TabIndex = 47;
+            this.JointAngleUp_Button.Text = "▲";
+            this.JointAngleUp_Button.UseVisualStyleBackColor = false;
+            this.JointAngleUp_Button.MouseDown += new System.Windows.Forms.MouseEventHandler(this.JointAngle_Button_Down);
+            this.JointAngleUp_Button.MouseUp += new System.Windows.Forms.MouseEventHandler(this.JointAngle_Button_Up);
+            // 
+            // JointAngle_TextBox
+            // 
+            this.JointAngle_TextBox.Location = new System.Drawing.Point(699, 309);
+            this.JointAngle_TextBox.Name = "JointAngle_TextBox";
+            this.JointAngle_TextBox.Size = new System.Drawing.Size(75, 21);
+            this.JointAngle_TextBox.TabIndex = 49;
+            this.JointAngle_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.JointAngle_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // Wrist3Joint_Label
+            // 
+            this.Wrist3Joint_Label.AutoSize = true;
+            this.Wrist3Joint_Label.Location = new System.Drawing.Point(178, 265);
+            this.Wrist3Joint_Label.Name = "Wrist3Joint_Label";
+            this.Wrist3Joint_Label.Size = new System.Drawing.Size(38, 12);
+            this.Wrist3Joint_Label.TabIndex = 62;
+            this.Wrist3Joint_Label.Text = "Wrist3";
+            // 
+            // CurWrist3_Textbox
+            // 
+            this.CurWrist3_Textbox.Location = new System.Drawing.Point(219, 254);
+            this.CurWrist3_Textbox.Name = "CurWrist3_Textbox";
+            this.CurWrist3_Textbox.ReadOnly = true;
+            this.CurWrist3_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurWrist3_Textbox.TabIndex = 61;
+            // 
+            // Wrist2Joint_Label
+            // 
+            this.Wrist2Joint_Label.AutoSize = true;
+            this.Wrist2Joint_Label.Location = new System.Drawing.Point(178, 239);
+            this.Wrist2Joint_Label.Name = "Wrist2Joint_Label";
+            this.Wrist2Joint_Label.Size = new System.Drawing.Size(38, 12);
+            this.Wrist2Joint_Label.TabIndex = 60;
+            this.Wrist2Joint_Label.Text = "Wrist2";
+            // 
+            // CurWrist2_Textbox
+            // 
+            this.CurWrist2_Textbox.Location = new System.Drawing.Point(219, 228);
+            this.CurWrist2_Textbox.Name = "CurWrist2_Textbox";
+            this.CurWrist2_Textbox.ReadOnly = true;
+            this.CurWrist2_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurWrist2_Textbox.TabIndex = 59;
+            // 
+            // Wrist1Joint_Label
+            // 
+            this.Wrist1Joint_Label.AutoSize = true;
+            this.Wrist1Joint_Label.Location = new System.Drawing.Point(178, 212);
+            this.Wrist1Joint_Label.Name = "Wrist1Joint_Label";
+            this.Wrist1Joint_Label.Size = new System.Drawing.Size(38, 12);
+            this.Wrist1Joint_Label.TabIndex = 58;
+            this.Wrist1Joint_Label.Text = "Wrist1";
+            // 
+            // CurWrist1_Textbox
+            // 
+            this.CurWrist1_Textbox.BackColor = System.Drawing.SystemColors.Control;
+            this.CurWrist1_Textbox.Location = new System.Drawing.Point(219, 201);
+            this.CurWrist1_Textbox.Name = "CurWrist1_Textbox";
+            this.CurWrist1_Textbox.ReadOnly = true;
+            this.CurWrist1_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurWrist1_Textbox.TabIndex = 57;
+            // 
+            // ElbowJoint_Label
+            // 
+            this.ElbowJoint_Label.AutoSize = true;
+            this.ElbowJoint_Label.Location = new System.Drawing.Point(24, 264);
+            this.ElbowJoint_Label.Name = "ElbowJoint_Label";
+            this.ElbowJoint_Label.Size = new System.Drawing.Size(40, 12);
+            this.ElbowJoint_Label.TabIndex = 56;
+            this.ElbowJoint_Label.Text = "Elbow";
+            // 
+            // CurElbow_Textbox
+            // 
+            this.CurElbow_Textbox.Location = new System.Drawing.Point(85, 256);
+            this.CurElbow_Textbox.Name = "CurElbow_Textbox";
+            this.CurElbow_Textbox.ReadOnly = true;
+            this.CurElbow_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurElbow_Textbox.TabIndex = 55;
+            // 
+            // ShoulderJoint_Label
+            // 
+            this.ShoulderJoint_Label.AutoSize = true;
+            this.ShoulderJoint_Label.Location = new System.Drawing.Point(24, 237);
+            this.ShoulderJoint_Label.Name = "ShoulderJoint_Label";
+            this.ShoulderJoint_Label.Size = new System.Drawing.Size(55, 12);
+            this.ShoulderJoint_Label.TabIndex = 54;
+            this.ShoulderJoint_Label.Text = "Shoulder";
+            // 
+            // CurShoulder_TextBox
+            // 
+            this.CurShoulder_TextBox.Location = new System.Drawing.Point(85, 229);
+            this.CurShoulder_TextBox.Name = "CurShoulder_TextBox";
+            this.CurShoulder_TextBox.ReadOnly = true;
+            this.CurShoulder_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.CurShoulder_TextBox.TabIndex = 53;
+            // 
+            // BaseJoint_Label
+            // 
+            this.BaseJoint_Label.AutoSize = true;
+            this.BaseJoint_Label.BackColor = System.Drawing.SystemColors.Window;
+            this.BaseJoint_Label.Location = new System.Drawing.Point(24, 210);
+            this.BaseJoint_Label.Name = "BaseJoint_Label";
+            this.BaseJoint_Label.Size = new System.Drawing.Size(34, 12);
+            this.BaseJoint_Label.TabIndex = 52;
+            this.BaseJoint_Label.Text = "Base";
+            // 
+            // CurrentJoint_Label
+            // 
+            this.CurrentJoint_Label.AutoSize = true;
+            this.CurrentJoint_Label.Location = new System.Drawing.Point(25, 187);
+            this.CurrentJoint_Label.Name = "CurrentJoint_Label";
+            this.CurrentJoint_Label.Size = new System.Drawing.Size(120, 12);
+            this.CurrentJoint_Label.TabIndex = 51;
+            this.CurrentJoint_Label.Text = "Current Joint Degree";
+            // 
+            // CurBase_Textbox
+            // 
+            this.CurBase_Textbox.Location = new System.Drawing.Point(85, 202);
+            this.CurBase_Textbox.Name = "CurBase_Textbox";
+            this.CurBase_Textbox.ReadOnly = true;
+            this.CurBase_Textbox.Size = new System.Drawing.Size(80, 21);
+            this.CurBase_Textbox.TabIndex = 50;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(652, 279);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(31, 12);
+            this.label1.TabIndex = 63;
+            this.label1.Text = "Joint";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(652, 312);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 12);
+            this.label2.TabIndex = 64;
+            this.label2.Text = "Angle";
+            // 
+            // SetPivot_Button
+            // 
+            this.SetPivot_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.SetPivot_Button.Location = new System.Drawing.Point(523, 420);
+            this.SetPivot_Button.Name = "SetPivot_Button";
+            this.SetPivot_Button.Size = new System.Drawing.Size(84, 23);
+            this.SetPivot_Button.TabIndex = 65;
+            this.SetPivot_Button.Text = "Set Pivot";
+            this.SetPivot_Button.UseVisualStyleBackColor = false;
+            // 
+            // SetPivotZ_TextBox
+            // 
+            this.SetPivotZ_TextBox.Location = new System.Drawing.Point(439, 420);
+            this.SetPivotZ_TextBox.Name = "SetPivotZ_TextBox";
+            this.SetPivotZ_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetPivotZ_TextBox.TabIndex = 66;
+            this.SetPivotZ_TextBox.Text = "0.000";
+            this.SetPivotZ_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // SetPivotY_TextBox
+            // 
+            this.SetPivotY_TextBox.Location = new System.Drawing.Point(439, 391);
+            this.SetPivotY_TextBox.Name = "SetPivotY_TextBox";
+            this.SetPivotY_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetPivotY_TextBox.TabIndex = 67;
+            this.SetPivotY_TextBox.Text = "0.000";
+            this.SetPivotY_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // SetPivotX_TextBox
+            // 
+            this.SetPivotX_TextBox.Location = new System.Drawing.Point(439, 359);
+            this.SetPivotX_TextBox.Name = "SetPivotX_TextBox";
+            this.SetPivotX_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetPivotX_TextBox.TabIndex = 68;
+            this.SetPivotX_TextBox.Text = "0.000";
+            this.SetPivotX_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // PivotReset_Button
+            // 
+            this.PivotReset_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.PivotReset_Button.Location = new System.Drawing.Point(523, 389);
+            this.PivotReset_Button.Name = "PivotReset_Button";
+            this.PivotReset_Button.Size = new System.Drawing.Size(84, 23);
+            this.PivotReset_Button.TabIndex = 69;
+            this.PivotReset_Button.Text = "Pivot Reset";
+            this.PivotReset_Button.UseVisualStyleBackColor = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(420, 362);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(13, 12);
+            this.label3.TabIndex = 70;
+            this.label3.Text = "X";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(420, 394);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 12);
+            this.label4.TabIndex = 71;
+            this.label4.Text = "Y";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(420, 423);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 12);
+            this.label5.TabIndex = 72;
+            this.label5.Text = "Z";
+            // 
+            // LoopPlay_Button
+            // 
+            this.LoopPlay_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.LoopPlay_Button.Location = new System.Drawing.Point(373, 276);
+            this.LoopPlay_Button.Name = "LoopPlay_Button";
+            this.LoopPlay_Button.Size = new System.Drawing.Size(60, 25);
+            this.LoopPlay_Button.TabIndex = 74;
+            this.LoopPlay_Button.Text = "Play";
+            this.LoopPlay_Button.UseVisualStyleBackColor = false;
+            // 
+            // ListAdd_Button
+            // 
+            this.ListAdd_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ListAdd_Button.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ListAdd_Button.Location = new System.Drawing.Point(116, 411);
+            this.ListAdd_Button.Name = "ListAdd_Button";
+            this.ListAdd_Button.Size = new System.Drawing.Size(95, 25);
+            this.ListAdd_Button.TabIndex = 75;
+            this.ListAdd_Button.Text = "SetPosition(L)";
+            this.ListAdd_Button.UseVisualStyleBackColor = false;
+            this.ListAdd_Button.Click += new System.EventHandler(this.SetPositionLButton);
+            // 
+            // Stop_Button
+            // 
+            this.Stop_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Stop_Button.Location = new System.Drawing.Point(641, 391);
+            this.Stop_Button.Name = "Stop_Button";
+            this.Stop_Button.Size = new System.Drawing.Size(70, 50);
+            this.Stop_Button.TabIndex = 76;
+            this.Stop_Button.Text = "Stop";
+            this.Stop_Button.UseVisualStyleBackColor = false;
+            this.Stop_Button.Click += new System.EventHandler(this.Stop_Button_Click);
+            // 
+            // Homming_Button
+            // 
+            this.Homming_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Homming_Button.Location = new System.Drawing.Point(219, 15);
+            this.Homming_Button.Name = "Homming_Button";
+            this.Homming_Button.Size = new System.Drawing.Size(100, 50);
+            this.Homming_Button.TabIndex = 78;
+            this.Homming_Button.Text = "초기화";
+            this.Homming_Button.UseVisualStyleBackColor = false;
+            // 
+            // JointListAdd_Button
+            // 
+            this.JointListAdd_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.JointListAdd_Button.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.JointListAdd_Button.Location = new System.Drawing.Point(219, 411);
+            this.JointListAdd_Button.Name = "JointListAdd_Button";
+            this.JointListAdd_Button.Size = new System.Drawing.Size(90, 25);
+            this.JointListAdd_Button.TabIndex = 79;
+            this.JointListAdd_Button.Text = "SetJoint";
+            this.JointListAdd_Button.UseVisualStyleBackColor = false;
+            this.JointListAdd_Button.Click += new System.EventHandler(this.SetJoint_Button_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(652, 58);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(75, 12);
+            this.label6.TabIndex = 81;
+            this.label6.Text = "Acceleration";
+            // 
+            // Acceleration_TextBox
+            // 
+            this.Acceleration_TextBox.Location = new System.Drawing.Point(741, 55);
+            this.Acceleration_TextBox.Name = "Acceleration_TextBox";
+            this.Acceleration_TextBox.Size = new System.Drawing.Size(100, 21);
+            this.Acceleration_TextBox.TabIndex = 80;
+            this.Acceleration_TextBox.Text = "1.2";
+            this.Acceleration_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.Acceleration_TextBox.TextChanged += new System.EventHandler(this.Acceleration_TextBox_TextChanged);
+            this.Acceleration_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // UnityPanel
+            // 
+            this.UnityPanel.BackColor = System.Drawing.SystemColors.Desktop;
+            this.UnityPanel.Location = new System.Drawing.Point(892, 502);
+            this.UnityPanel.Name = "UnityPanel";
+            this.UnityPanel.Size = new System.Drawing.Size(403, 215);
+            this.UnityPanel.TabIndex = 82;
+            this.UnityPanel.Visible = false;
+            // 
+            // IPCTest_Button
+            // 
+            this.IPCTest_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.IPCTest_Button.Location = new System.Drawing.Point(767, 694);
+            this.IPCTest_Button.Name = "IPCTest_Button";
+            this.IPCTest_Button.Size = new System.Drawing.Size(75, 23);
+            this.IPCTest_Button.TabIndex = 83;
+            this.IPCTest_Button.Text = "ICP Test";
+            this.IPCTest_Button.UseVisualStyleBackColor = false;
+            this.IPCTest_Button.Visible = false;
+            // 
+            // Export_Button
+            // 
+            this.Export_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Export_Button.Location = new System.Drawing.Point(116, 445);
+            this.Export_Button.Name = "Export_Button";
+            this.Export_Button.Size = new System.Drawing.Size(75, 23);
+            this.Export_Button.TabIndex = 84;
+            this.Export_Button.Text = "Export";
+            this.Export_Button.UseVisualStyleBackColor = false;
+            // 
+            // Import_Button
+            // 
+            this.Import_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Import_Button.Location = new System.Drawing.Point(116, 474);
+            this.Import_Button.Name = "Import_Button";
+            this.Import_Button.Size = new System.Drawing.Size(75, 23);
+            this.Import_Button.TabIndex = 85;
+            this.Import_Button.Text = "Import";
+            this.Import_Button.UseVisualStyleBackColor = false;
+            // 
+            // JsonName_textBox
+            // 
+            this.JsonName_textBox.Location = new System.Drawing.Point(26, 447);
+            this.JsonName_textBox.Name = "JsonName_textBox";
+            this.JsonName_textBox.Size = new System.Drawing.Size(80, 21);
+            this.JsonName_textBox.TabIndex = 86;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.button2.Location = new System.Drawing.Point(15, 474);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(97, 52);
+            this.button2.TabIndex = 87;
+            this.button2.Text = "WarningReset";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // CSVButton
+            // 
+            this.CSVButton.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.CSVButton.Location = new System.Drawing.Point(116, 503);
+            this.CSVButton.Name = "CSVButton";
+            this.CSVButton.Size = new System.Drawing.Size(75, 23);
+            this.CSVButton.TabIndex = 88;
+            this.CSVButton.Text = "CSV";
+            this.CSVButton.UseVisualStyleBackColor = false;
+            // 
+            // GripButton
+            // 
+            this.GripButton.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.GripButton.Location = new System.Drawing.Point(717, 391);
+            this.GripButton.Name = "GripButton";
+            this.GripButton.Size = new System.Drawing.Size(70, 50);
+            this.GripButton.TabIndex = 89;
+            this.GripButton.Text = "Grip";
+            this.GripButton.UseVisualStyleBackColor = false;
+            // 
+            // Release_Button
+            // 
+            this.Release_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Release_Button.Location = new System.Drawing.Point(792, 391);
+            this.Release_Button.Name = "Release_Button";
+            this.Release_Button.Size = new System.Drawing.Size(70, 50);
+            this.Release_Button.TabIndex = 90;
+            this.Release_Button.Text = "Release";
+            this.Release_Button.UseVisualStyleBackColor = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(320, 423);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(13, 12);
+            this.label7.TabIndex = 112;
+            this.label7.Text = "Z";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(320, 394);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(13, 12);
+            this.label8.TabIndex = 111;
+            this.label8.Text = "Y";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(320, 362);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(13, 12);
+            this.label9.TabIndex = 110;
+            this.label9.Text = "X";
+            // 
+            // SetAlignX_TextBox
+            // 
+            this.SetAlignX_TextBox.Location = new System.Drawing.Point(339, 359);
+            this.SetAlignX_TextBox.Name = "SetAlignX_TextBox";
+            this.SetAlignX_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetAlignX_TextBox.TabIndex = 109;
+            this.SetAlignX_TextBox.Text = "0.000";
+            this.SetAlignX_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // SetAlignY_TextBox
+            // 
+            this.SetAlignY_TextBox.Location = new System.Drawing.Point(339, 391);
+            this.SetAlignY_TextBox.Name = "SetAlignY_TextBox";
+            this.SetAlignY_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetAlignY_TextBox.TabIndex = 108;
+            this.SetAlignY_TextBox.Text = "0.000";
+            this.SetAlignY_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // SetAlignZ_TextBox
+            // 
+            this.SetAlignZ_TextBox.Location = new System.Drawing.Point(339, 420);
+            this.SetAlignZ_TextBox.Name = "SetAlignZ_TextBox";
+            this.SetAlignZ_TextBox.Size = new System.Drawing.Size(78, 21);
+            this.SetAlignZ_TextBox.TabIndex = 107;
+            this.SetAlignZ_TextBox.Text = "0.000";
+            this.SetAlignZ_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(337, 340);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(61, 12);
+            this.label10.TabIndex = 113;
+            this.label10.Text = "Alignment";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(437, 340);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 12);
+            this.label11.TabIndex = 114;
+            this.label11.Text = "Pivot";
+            // 
+            // Alignment_Button
+            // 
+            this.Alignment_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Alignment_Button.Location = new System.Drawing.Point(523, 360);
+            this.Alignment_Button.Name = "Alignment_Button";
+            this.Alignment_Button.Size = new System.Drawing.Size(84, 23);
+            this.Alignment_Button.TabIndex = 115;
+            this.Alignment_Button.Text = "Set Align";
+            this.Alignment_Button.UseVisualStyleBackColor = false;
+            // 
+            // ConnectCheck_Text
+            // 
+            this.ConnectCheck_Text.AutoSize = true;
+            this.ConnectCheck_Text.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ConnectCheck_Text.Location = new System.Drawing.Point(335, 23);
+            this.ConnectCheck_Text.Name = "ConnectCheck_Text";
+            this.ConnectCheck_Text.Size = new System.Drawing.Size(127, 24);
+            this.ConnectCheck_Text.TabIndex = 116;
+            this.ConnectCheck_Text.Text = "DisConnect";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(308, 153);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(39, 12);
+            this.label12.TabIndex = 122;
+            this.label12.Text = "Pos Z";
+            // 
+            // LoopFromPosZ_TextBox
+            // 
+            this.LoopFromPosZ_TextBox.Location = new System.Drawing.Point(353, 149);
+            this.LoopFromPosZ_TextBox.Name = "LoopFromPosZ_TextBox";
+            this.LoopFromPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromPosZ_TextBox.TabIndex = 121;
+            this.LoopFromPosZ_TextBox.Text = "0.000";
+            this.LoopFromPosZ_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(308, 126);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(39, 12);
+            this.label13.TabIndex = 120;
+            this.label13.Text = "Pos Y";
+            // 
+            // LoopFromPosY_TextBox
+            // 
+            this.LoopFromPosY_TextBox.Location = new System.Drawing.Point(353, 122);
+            this.LoopFromPosY_TextBox.Name = "LoopFromPosY_TextBox";
+            this.LoopFromPosY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromPosY_TextBox.TabIndex = 119;
+            this.LoopFromPosY_TextBox.Text = "0.000";
+            this.LoopFromPosY_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(308, 99);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(39, 12);
+            this.label14.TabIndex = 118;
+            this.label14.Text = "Pos X";
+            // 
+            // LoopFromPosX_TextBox
+            // 
+            this.LoopFromPosX_TextBox.Location = new System.Drawing.Point(353, 95);
+            this.LoopFromPosX_TextBox.Name = "LoopFromPosX_TextBox";
+            this.LoopFromPosX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromPosX_TextBox.TabIndex = 117;
+            this.LoopFromPosX_TextBox.Text = "0.000";
+            this.LoopFromPosX_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(495, 156);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(39, 12);
+            this.label15.TabIndex = 128;
+            this.label15.Text = "Pos Z";
+            // 
+            // LoopToPosZ_TextBox
+            // 
+            this.LoopToPosZ_TextBox.Location = new System.Drawing.Point(540, 151);
+            this.LoopToPosZ_TextBox.Name = "LoopToPosZ_TextBox";
+            this.LoopToPosZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToPosZ_TextBox.TabIndex = 127;
+            this.LoopToPosZ_TextBox.Text = "0.000";
+            this.LoopToPosZ_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(495, 129);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(39, 12);
+            this.label16.TabIndex = 126;
+            this.label16.Text = "Pos Y";
+            // 
+            // LoopToPosY_TextBox
+            // 
+            this.LoopToPosY_TextBox.Location = new System.Drawing.Point(540, 124);
+            this.LoopToPosY_TextBox.Name = "LoopToPosY_TextBox";
+            this.LoopToPosY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToPosY_TextBox.TabIndex = 125;
+            this.LoopToPosY_TextBox.Text = "0.000";
+            this.LoopToPosY_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(495, 102);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(39, 12);
+            this.label17.TabIndex = 124;
+            this.label17.Text = "Pos X";
+            // 
+            // LoopToPosX_TextBox
+            // 
+            this.LoopToPosX_TextBox.Location = new System.Drawing.Point(540, 97);
+            this.LoopToPosX_TextBox.Name = "LoopToPosX_TextBox";
+            this.LoopToPosX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToPosX_TextBox.TabIndex = 123;
+            this.LoopToPosX_TextBox.Text = "0.000";
+            this.LoopToPosX_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("굴림", 18F);
+            this.label18.Location = new System.Drawing.Point(446, 121);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(34, 24);
+            this.label18.TabIndex = 129;
+            this.label18.Text = "▶";
+            // 
+            // MoveLoopTime_TextBox
+            // 
+            this.MoveLoopTime_TextBox.Location = new System.Drawing.Point(439, 279);
+            this.MoveLoopTime_TextBox.Name = "MoveLoopTime_TextBox";
+            this.MoveLoopTime_TextBox.Size = new System.Drawing.Size(75, 21);
+            this.MoveLoopTime_TextBox.TabIndex = 130;
+            this.MoveLoopTime_TextBox.Text = "1";
+            this.MoveLoopTime_TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.MoveLoopTime_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.myTextBox_KeyPress);
+            // 
+            // MoveLoop_CheckBox
+            // 
+            this.MoveLoop_CheckBox.AutoSize = true;
+            this.MoveLoop_CheckBox.Location = new System.Drawing.Point(522, 283);
+            this.MoveLoop_CheckBox.Name = "MoveLoop_CheckBox";
+            this.MoveLoop_CheckBox.Size = new System.Drawing.Size(52, 16);
+            this.MoveLoop_CheckBox.TabIndex = 131;
+            this.MoveLoop_CheckBox.Text = "Loop";
+            this.MoveLoop_CheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(356, 72);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(34, 12);
+            this.label19.TabIndex = 132;
+            this.label19.Text = "From";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(543, 72);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(20, 12);
+            this.label20.TabIndex = 133;
+            this.label20.Text = "To";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(703, 154);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(13, 12);
+            this.label21.TabIndex = 134;
+            this.label21.Text = "X";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(761, 154);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(13, 12);
+            this.label22.TabIndex = 135;
+            this.label22.Text = "Y";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(818, 154);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(13, 12);
+            this.label23.TabIndex = 136;
+            this.label23.Text = "Z";
+            // 
+            // Close_Button
+            // 
+            this.Close_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.Close_Button.Location = new System.Drawing.Point(641, 667);
+            this.Close_Button.Name = "Close_Button";
+            this.Close_Button.Size = new System.Drawing.Size(120, 50);
+            this.Close_Button.TabIndex = 137;
+            this.Close_Button.Text = "CLOSE";
+            this.Close_Button.UseVisualStyleBackColor = false;
+            // 
+            // ReadCurrentPos_Button
+            // 
+            this.ReadCurrentPos_Button.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.ReadCurrentPos_Button.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.ReadCurrentPos_Button.Location = new System.Drawing.Point(172, 287);
+            this.ReadCurrentPos_Button.Name = "ReadCurrentPos_Button";
+            this.ReadCurrentPos_Button.Size = new System.Drawing.Size(128, 25);
+            this.ReadCurrentPos_Button.TabIndex = 138;
+            this.ReadCurrentPos_Button.Text = "Read Current Pos";
+            this.ReadCurrentPos_Button.UseVisualStyleBackColor = false;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("굴림", 18F);
+            this.label24.Location = new System.Drawing.Point(446, 210);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(34, 24);
+            this.label24.TabIndex = 151;
+            this.label24.Text = "▶";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(495, 245);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(35, 12);
+            this.label25.TabIndex = 150;
+            this.label25.Text = "Rot Z";
+            // 
+            // LoopToRotZ_TextBox
+            // 
+            this.LoopToRotZ_TextBox.Location = new System.Drawing.Point(540, 240);
+            this.LoopToRotZ_TextBox.Name = "LoopToRotZ_TextBox";
+            this.LoopToRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToRotZ_TextBox.TabIndex = 149;
+            this.LoopToRotZ_TextBox.Text = "0.000";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(495, 218);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(35, 12);
+            this.label26.TabIndex = 148;
+            this.label26.Text = "Rot Y";
+            // 
+            // LoopToRotY_TextBox
+            // 
+            this.LoopToRotY_TextBox.Location = new System.Drawing.Point(540, 213);
+            this.LoopToRotY_TextBox.Name = "LoopToRotY_TextBox";
+            this.LoopToRotY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToRotY_TextBox.TabIndex = 147;
+            this.LoopToRotY_TextBox.Text = "0.000";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(495, 191);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(35, 12);
+            this.label27.TabIndex = 146;
+            this.label27.Text = "Rot X";
+            // 
+            // LoopToRotX_TextBox
+            // 
+            this.LoopToRotX_TextBox.Location = new System.Drawing.Point(540, 186);
+            this.LoopToRotX_TextBox.Name = "LoopToRotX_TextBox";
+            this.LoopToRotX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopToRotX_TextBox.TabIndex = 145;
+            this.LoopToRotX_TextBox.Text = "0.000";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(308, 242);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(35, 12);
+            this.label28.TabIndex = 144;
+            this.label28.Text = "Rot Z";
+            // 
+            // LoopFromRotZ_TextBox
+            // 
+            this.LoopFromRotZ_TextBox.Location = new System.Drawing.Point(353, 238);
+            this.LoopFromRotZ_TextBox.Name = "LoopFromRotZ_TextBox";
+            this.LoopFromRotZ_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromRotZ_TextBox.TabIndex = 143;
+            this.LoopFromRotZ_TextBox.Text = "0.000";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(308, 215);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(35, 12);
+            this.label29.TabIndex = 142;
+            this.label29.Text = "Rot Y";
+            // 
+            // LoopFromRotY_TextBox
+            // 
+            this.LoopFromRotY_TextBox.Location = new System.Drawing.Point(353, 211);
+            this.LoopFromRotY_TextBox.Name = "LoopFromRotY_TextBox";
+            this.LoopFromRotY_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromRotY_TextBox.TabIndex = 141;
+            this.LoopFromRotY_TextBox.Text = "0.000";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(308, 188);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(35, 12);
+            this.label30.TabIndex = 140;
+            this.label30.Text = "Rot X";
+            // 
+            // LoopFromRotX_TextBox
+            // 
+            this.LoopFromRotX_TextBox.Location = new System.Drawing.Point(353, 184);
+            this.LoopFromRotX_TextBox.Name = "LoopFromRotX_TextBox";
+            this.LoopFromRotX_TextBox.Size = new System.Drawing.Size(80, 21);
+            this.LoopFromRotX_TextBox.TabIndex = 139;
+            this.LoopFromRotX_TextBox.Text = "0.000";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(576, 268);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(44, 12);
+            this.label31.TabIndex = 152;
+            this.label31.Text = "Radian";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(256, 394);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(44, 12);
+            this.label32.TabIndex = 153;
+            this.label32.Text = "Radian";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(473, 444);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(45, 12);
+            this.label33.TabIndex = 154;
+            this.label33.Text = "Degree";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(729, 333);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(45, 12);
+            this.label34.TabIndex = 155;
+            this.label34.Text = "Degree";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(255, 174);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(44, 12);
+            this.label35.TabIndex = 156;
+            this.label35.Text = "Radian";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(255, 276);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(45, 12);
+            this.label36.TabIndex = 157;
+            this.label36.Text = "Degree";
+            // 
+            // RBUI
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.ClientSize = new System.Drawing.Size(1345, 729);
+            this.ControlBox = false;
+            this.Controls.Add(this.label36);
+            this.Controls.Add(this.label35);
+            this.Controls.Add(this.label34);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.label32);
+            this.Controls.Add(this.label31);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.LoopToRotZ_TextBox);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.LoopToRotY_TextBox);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.LoopToRotX_TextBox);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.LoopFromRotZ_TextBox);
+            this.Controls.Add(this.label29);
+            this.Controls.Add(this.LoopFromRotY_TextBox);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.LoopFromRotX_TextBox);
+            this.Controls.Add(this.ReadCurrentPos_Button);
+            this.Controls.Add(this.Close_Button);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.MoveLoop_CheckBox);
+            this.Controls.Add(this.MoveLoopTime_TextBox);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.LoopToPosZ_TextBox);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.LoopToPosY_TextBox);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.LoopToPosX_TextBox);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.LoopFromPosZ_TextBox);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.LoopFromPosY_TextBox);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.LoopFromPosX_TextBox);
+            this.Controls.Add(this.ConnectCheck_Text);
+            this.Controls.Add(this.Alignment_Button);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.SetAlignX_TextBox);
+            this.Controls.Add(this.SetAlignY_TextBox);
+            this.Controls.Add(this.SetAlignZ_TextBox);
+            this.Controls.Add(this.Release_Button);
+            this.Controls.Add(this.GripButton);
+            this.Controls.Add(this.CSVButton);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.JsonName_textBox);
+            this.Controls.Add(this.Import_Button);
+            this.Controls.Add(this.Export_Button);
+            this.Controls.Add(this.IPCTest_Button);
+            this.Controls.Add(this.UnityPanel);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.Acceleration_TextBox);
+            this.Controls.Add(this.JointListAdd_Button);
+            this.Controls.Add(this.Homming_Button);
+            this.Controls.Add(this.Stop_Button);
+            this.Controls.Add(this.ListAdd_Button);
+            this.Controls.Add(this.LoopPlay_Button);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.PivotReset_Button);
+            this.Controls.Add(this.SetPivotX_TextBox);
+            this.Controls.Add(this.SetPivotY_TextBox);
+            this.Controls.Add(this.SetPivotZ_TextBox);
+            this.Controls.Add(this.SetPivot_Button);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.Wrist3Joint_Label);
+            this.Controls.Add(this.CurWrist3_Textbox);
+            this.Controls.Add(this.Wrist2Joint_Label);
+            this.Controls.Add(this.CurWrist2_Textbox);
+            this.Controls.Add(this.Wrist1Joint_Label);
+            this.Controls.Add(this.CurWrist1_Textbox);
+            this.Controls.Add(this.ElbowJoint_Label);
+            this.Controls.Add(this.CurElbow_Textbox);
+            this.Controls.Add(this.ShoulderJoint_Label);
+            this.Controls.Add(this.CurShoulder_TextBox);
+            this.Controls.Add(this.BaseJoint_Label);
+            this.Controls.Add(this.CurrentJoint_Label);
+            this.Controls.Add(this.CurBase_Textbox);
+            this.Controls.Add(this.JointAngle_TextBox);
+            this.Controls.Add(this.JointAngleDown_Button);
+            this.Controls.Add(this.JointAngleUp_Button);
+            this.Controls.Add(this.RotationJoint_Button);
+            this.Controls.Add(this.Joint_ComboBox);
+            this.Controls.Add(this.SpeedLabel);
+            this.Controls.Add(this.Speed_Textbox);
+            this.Controls.Add(this.ArrowGroupBox);
+            this.Controls.Add(this.YNegative_Button);
+            this.Controls.Add(this.YPositive_Button);
+            this.Controls.Add(this.XPositive_Button);
+            this.Controls.Add(this.XNegative_Button);
+            this.Controls.Add(this.ZNegative_Button);
+            this.Controls.Add(this.ZPositive_Button);
+            this.Controls.Add(this.button2f);
+            this.Controls.Add(this.SetRotZ_Text);
+            this.Controls.Add(this.SetRotZ_TextBox);
+            this.Controls.Add(this.SetRotY_Text);
+            this.Controls.Add(this.SetRotY_TextBox);
+            this.Controls.Add(this.SetRotX_Text);
+            this.Controls.Add(this.SetRotX_TextBox);
+            this.Controls.Add(this.SetPosZ_Text);
+            this.Controls.Add(this.SetPosZ_TextBox);
+            this.Controls.Add(this.SetPosY_Text);
+            this.Controls.Add(this.SetPosY_TextBox);
+            this.Controls.Add(this.SetPosX_Text);
+            this.Controls.Add(this.SetPosTitle);
+            this.Controls.Add(this.SetPosX_TextBox);
+            this.Controls.Add(this.CurRotZ_Text);
+            this.Controls.Add(this.CurRotZ_TextBox);
+            this.Controls.Add(this.CurRotY_Text);
+            this.Controls.Add(this.CurRotY_TextBox);
+            this.Controls.Add(this.CurRotX_Text);
+            this.Controls.Add(this.CurRotX_TextBox);
+            this.Controls.Add(this.CurPosZ_Text);
+            this.Controls.Add(this.CurPosZ_TextBox);
+            this.Controls.Add(this.CurPosY_Text);
+            this.Controls.Add(this.CurPosY_TextBox);
+            this.Controls.Add(this.CurPosX_Text);
+            this.Controls.Add(this.CurrentPosTitle);
+            this.Controls.Add(this.CurPosX_TextBox);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.PowerOff);
+            this.Controls.Add(this.PowerOn);
+            this.Name = "RBUI";
+            this.Text = "Rot X";
+            this.Load += new System.EventHandler(this.Form_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            this.ArrowGroupBox.ResumeLayout(false);
+            this.ArrowGroupBox.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+
+
+        #endregion
+
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox LoopToRotZ_TextBox;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox LoopToRotY_TextBox;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox LoopToRotX_TextBox;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox LoopFromRotZ_TextBox;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox LoopFromRotY_TextBox;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox LoopFromRotX_TextBox;
+        private System.Windows.Forms.Button ReadCurrentPos_Button;
+        private System.Windows.Forms.Button Close_Button;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.CheckBox MoveLoop_CheckBox;
+        private System.Windows.Forms.TextBox MoveLoopTime_TextBox;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox LoopToPosZ_TextBox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox LoopToPosY_TextBox;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox LoopToPosX_TextBox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox LoopFromPosZ_TextBox;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox LoopFromPosY_TextBox;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox LoopFromPosX_TextBox;
+        private System.Windows.Forms.Label ConnectCheck_Text;
+        private System.Windows.Forms.Button Alignment_Button;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox SetAlignX_TextBox;
+        private System.Windows.Forms.TextBox SetAlignY_TextBox;
+        private System.Windows.Forms.TextBox SetAlignZ_TextBox;
+        private System.Windows.Forms.Button Release_Button;
+        private System.Windows.Forms.Button GripButton;
+        private System.Windows.Forms.Button CSVButton;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox JsonName_textBox;
+        private System.Windows.Forms.Button Import_Button;
+        private System.Windows.Forms.Button Export_Button;
+        private System.Windows.Forms.Button IPCTest_Button;
+        private System.Windows.Forms.Panel UnityPanel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox Acceleration_TextBox;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.Button JointListAdd_Button;
+        private System.Windows.Forms.Button Homming_Button;
+        private System.Windows.Forms.Button Stop_Button;
+        private System.Windows.Forms.Button ListAdd_Button;
+        private System.Windows.Forms.Button LoopPlay_Button;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button PivotReset_Button;
+        private System.Windows.Forms.TextBox SetPivotX_TextBox;
+        private System.Windows.Forms.TextBox SetPivotY_TextBox;
+        private System.Windows.Forms.TextBox SetPivotZ_TextBox;
+        private System.Windows.Forms.Button SetPivot_Button;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label Wrist3Joint_Label;
+        private System.Windows.Forms.TextBox CurWrist3_Textbox;
+        private System.Windows.Forms.Label Wrist2Joint_Label;
+        private System.Windows.Forms.TextBox CurWrist2_Textbox;
+        private System.Windows.Forms.Label Wrist1Joint_Label;
+        private System.Windows.Forms.TextBox CurWrist1_Textbox;
+        private System.Windows.Forms.Label ElbowJoint_Label;
+        private System.Windows.Forms.TextBox CurElbow_Textbox;
+        private System.Windows.Forms.Label ShoulderJoint_Label;
+        private System.Windows.Forms.TextBox CurShoulder_TextBox;
+        private System.Windows.Forms.Label BaseJoint_Label;
+        private System.Windows.Forms.Label CurrentJoint_Label;
+        private System.Windows.Forms.TextBox CurBase_Textbox;
+        private System.Windows.Forms.TextBox JointAngle_TextBox;
+        private System.Windows.Forms.Button JointAngleDown_Button;
+        private System.Windows.Forms.Button JointAngleUp_Button;
+        private System.Windows.Forms.Button RotationJoint_Button;
+        private System.Windows.Forms.ComboBox Joint_ComboBox;
+        private System.Windows.Forms.Label SpeedLabel;
+        private System.Windows.Forms.TextBox Speed_Textbox;
+        private System.Windows.Forms.GroupBox ArrowGroupBox;
+        private System.Windows.Forms.RadioButton Position_Radio_Button;
+        private System.Windows.Forms.RadioButton Rotation_Radio_Button;
+        private System.Windows.Forms.Button YNegative_Button;
+        private System.Windows.Forms.Button YPositive_Button;
+        private System.Windows.Forms.Button XPositive_Button;
+        private System.Windows.Forms.Button XNegative_Button;
+        private System.Windows.Forms.Button ZNegative_Button;
+        private System.Windows.Forms.Button ZPositive_Button;
+        private System.Windows.Forms.Button button2f;
+        private System.Windows.Forms.Label SetRotZ_Text;
+        private System.Windows.Forms.TextBox SetRotZ_TextBox;
+        private System.Windows.Forms.Label SetRotY_Text;
+        private System.Windows.Forms.TextBox SetRotY_TextBox;
+        private System.Windows.Forms.Label SetRotX_Text;
+        private System.Windows.Forms.TextBox SetRotX_TextBox;
+        private System.Windows.Forms.Label SetPosZ_Text;
+        private System.Windows.Forms.TextBox SetPosZ_TextBox;
+        private System.Windows.Forms.Label SetPosY_Text;
+        private System.Windows.Forms.TextBox SetPosY_TextBox;
+        private System.Windows.Forms.Label SetPosX_Text;
+        private System.Windows.Forms.Label SetPosTitle;
+        private System.Windows.Forms.TextBox SetPosX_TextBox;
+        private System.Windows.Forms.Label CurRotZ_Text;
+        private System.Windows.Forms.TextBox CurRotZ_TextBox;
+        private System.Windows.Forms.Label CurRotY_Text;
+        private System.Windows.Forms.TextBox CurRotY_TextBox;
+        private System.Windows.Forms.Label CurRotX_Text;
+        private System.Windows.Forms.TextBox CurRotX_TextBox;
+        private System.Windows.Forms.Label CurPosZ_Text;
+        private System.Windows.Forms.TextBox CurPosZ_TextBox;
+        private System.Windows.Forms.Label CurPosY_Text;
+        private System.Windows.Forms.TextBox CurPosY_TextBox;
+        private System.Windows.Forms.Label CurPosX_Text;
+        private System.Windows.Forms.Label CurrentPosTitle;
+        private System.Windows.Forms.TextBox CurPosX_TextBox;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button PowerOff;
+        private System.Windows.Forms.Button PowerOn;
+    }
+}

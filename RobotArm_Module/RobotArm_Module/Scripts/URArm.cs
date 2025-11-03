@@ -178,7 +178,7 @@ namespace RobotArm_Module
                     break;
                 }
             }
-            this.isMove = isMove;
+            DataContainer.Instance.RobotArmCurrentData.isMove = isMove;
         }
 
         public override void Stop(Action<bool> onComplete = null)
@@ -193,7 +193,7 @@ namespace RobotArm_Module
             //UR.PrimaryInterface.Script.Send("stopj(1)");
             TCPClient.SendPacket("stopj(1)");
 
-            isMove = false;
+            DataContainer.Instance.RobotArmCurrentData.isMove = false;
             isUsingPreset = false;
 
             onComplete?.Invoke(true);
@@ -545,7 +545,7 @@ namespace RobotArm_Module
 
             Thread.Sleep(1000);
 
-            while (isMove)
+            while (DataContainer.Instance.RobotArmCurrentData.isMove)
             {
                 await Task.Delay(100);
             }

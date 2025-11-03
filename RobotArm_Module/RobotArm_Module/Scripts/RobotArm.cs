@@ -18,17 +18,6 @@ namespace RobotArm_Module
 
     public abstract class RobotArm : IMove, IConnect, ISafety, IData, IGripper
     {
-        protected byte[] responseBuffer;
-
-        protected TcpClient dashBoardClient = null;
-        protected NetworkStream dashBoardCstream = null;
-
-        protected TcpClient client = null;
-        protected NetworkStream stream = null;
-
-        public Vector3 currentPosition = new Vector3();
-        public Vector3 currentRotation = new Vector3();
-
         public abstract bool Connect(string ip, Action<bool> onComplete = null);
         public abstract bool DisConnect(Action<bool> onComplete = null);
         public abstract void MoveToPreset(Vector3 position, Vector3 rotation, eMoveType moveType = eMoveType.Position, bool isLinear = false, Action<bool> onComplete = null);
@@ -44,7 +33,7 @@ namespace RobotArm_Module
 
         protected Action onPresetComplete = null;
 
-        protected bool isMove = false;
+        //protected bool isMove = false;
 
 
         public Queue<Action<Action<bool>>> actionQueue = new Queue<Action<Action<bool>>>();
@@ -55,14 +44,13 @@ namespace RobotArm_Module
             
         }
 
-        private async void WorkThread()
+        protected async void WorkThread()
         {
             while (true)
             {
                 await Task.Delay(100);
 
                 DataContainer.Instance.RobotArmCurrentData.isConnect = MonitorConnection();
-
             }
         }
 

@@ -8,7 +8,7 @@ namespace RobotArm_Module
 {
     public enum ePortType
     {
-        Primary,
+        Control, // UR Primary, RB Socket
         Dashboard
     }
     public abstract class TCPClient
@@ -17,8 +17,8 @@ namespace RobotArm_Module
 
         public abstract bool Connect(string ip);
         public abstract bool DisConnect();
-        public abstract void SendPacket(string message, ePortType portType = ePortType.Primary, bool useLog = true);
-        public abstract string Receive(ePortType portType = ePortType.Primary, bool useLog = true);
+        public abstract void SendPacket(string message, ePortType portType = ePortType.Control, bool useLog = true);
+        public abstract string Receive(ePortType portType = ePortType.Control, bool useLog = true);
 
         public abstract void SendPacketWait(string send, string waitText);
     }

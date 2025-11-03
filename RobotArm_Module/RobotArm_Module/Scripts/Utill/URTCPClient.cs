@@ -1,10 +1,12 @@
-﻿using System;
+﻿using com.rainbow.external;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RobotArm_Module
@@ -23,8 +25,6 @@ namespace RobotArm_Module
         public EventHandler OnRTDEDataReceive;
 
         public RTDE_Outputs UrOutputs = new RTDE_Outputs();
-
-        //string url = "http://192.168.1.40:31000/RPC2";
 
 
         public bool ConnectCheck = false;
@@ -116,7 +116,7 @@ namespace RobotArm_Module
             }
         }
 
-        public override void SendPacket(string message, ePortType portType = ePortType.Primary, bool useLog = true)
+        public override void SendPacket(string message, ePortType portType = ePortType.Control, bool useLog = true)
         {
 
             if (portType == ePortType.Dashboard)
@@ -175,7 +175,7 @@ namespace RobotArm_Module
             }
         }
 
-        public override string Receive(ePortType portType = ePortType.Primary, bool useLog = true)
+        public override string Receive(ePortType portType = ePortType.Control, bool useLog = true)
         {
             string responseMessage = string.Empty;
             byte[] responseBuffer = new byte[1024];
@@ -257,6 +257,9 @@ namespace RobotArm_Module
                 System.Threading.Thread.Sleep(100);
             }
         }
+
+
+        
 
     }
 }

@@ -13,7 +13,7 @@ namespace RobotArm_Module
     public enum eRobotArmType
     {
         UR,
-        Rainbow,
+        RB,
     }
 
     public enum eJointType
@@ -73,6 +73,7 @@ namespace RobotArm_Module
         public int power;
 
         public bool isConnect = false;
+        public bool isMove = false;
 
     }
 
@@ -106,8 +107,8 @@ namespace RobotArm_Module
 
     public class RobotArmConfig
     {
-        //public string IP = "192.168.1.40";
-        public string IP = "172.18.0.10";
+        public string IP = "192.168.1.40";
+        //public string IP = "172.18.0.10";
     }
 
     public class URConfig : RobotArmConfig
@@ -119,6 +120,12 @@ namespace RobotArm_Module
         public int INTERPRETER_PORT = 30020;
         public int REALTIMEINTERFACE_PORT = 30003;
         public int RTDE = 30004;
+    }
+
+    public class RBConfig : RobotArmConfig
+    {
+        public int RBTCP_PORT = 5000;
+        public int DATA_PORT = 5001;
     }
 
     [Serializable]

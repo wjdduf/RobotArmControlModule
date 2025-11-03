@@ -19,8 +19,8 @@ namespace RobotArm_Module
                 case eRobotArmType.UR:
                     CurrentRobotArm = new URArm();
                     break;
-                case eRobotArmType.Rainbow:
-                    CurrentRobotArm = new RainbowRoboticsArm();
+                case eRobotArmType.RB:
+                    CurrentRobotArm = new RBArm();
                     break;
             }
         }
