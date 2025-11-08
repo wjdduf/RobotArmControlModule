@@ -74,7 +74,7 @@ namespace RobotArm_Module
 
         public bool isConnect = false;
         public bool isMove = false;
-
+        public bool ControlBoxPowerOn = false;
     }
 
     [Serializable]

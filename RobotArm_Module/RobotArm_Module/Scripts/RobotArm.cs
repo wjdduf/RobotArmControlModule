@@ -99,6 +99,7 @@ namespace RobotArm_Module
             nextAction(isSuccess => RunNext()); // 현재 작업 실행, 완료되면 RunNext 호출
         }
 
+        
 
         public static double RadiansToDegrees(double radians)
         {

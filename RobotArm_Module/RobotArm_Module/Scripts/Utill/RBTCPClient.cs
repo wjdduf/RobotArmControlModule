@@ -28,7 +28,6 @@ namespace RobotArm_Module
         public RBTCPClient(string ip)
         {
             Connect(ip);
-            //WorkThread();
         }
 
         public async void WorkThread()
