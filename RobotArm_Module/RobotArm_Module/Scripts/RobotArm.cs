@@ -131,5 +131,16 @@ namespace RobotArm_Module
         public abstract void Grip(Action<bool> onComplete = null);
         public abstract void Release(Action<bool> onComplete = null);
         public abstract void MoveLoop(Vector3 fromPos, Vector3 fromRot, Vector3 toPos, Vector3 toRot, bool isLoop, float loopTime, Action<bool> onComplete = null, eMoveType moveType = eMoveType.Position);
+
+        public async Task<bool> AutoConnect(string ip, Action<bool> onComplete = null)
+        {
+            while (!DataContainer.Instance.RobotArmCurrentData.ControlBoxPowerOn)
+            {
+                await Task.Delay(1000);
+            }
+
+            return Connect(ip, onComplete);
+        }
+
     }
 }

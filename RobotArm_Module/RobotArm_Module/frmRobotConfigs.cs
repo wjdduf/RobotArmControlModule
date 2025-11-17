@@ -840,7 +840,7 @@ namespace RobotArm_Module
 
         public void CSVButton_Click(Action<bool> onComplete = null)
         {
-            var data = RobotArmController.LoadCSV(DataContainer.Instance.JsonPath);
+            var data = RobotArmController.LoadCSV(JsonName_textBox.Text, DataContainer.Instance.JsonPath);
             RobotArmController.PlayCSV(data, onComplete);
         }
 

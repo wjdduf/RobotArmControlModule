@@ -243,7 +243,8 @@ namespace RobotArm_Module
         public void PowerOn_Click(Action<bool> onComplete = null)
         {
 
-            RobotArmController.Connect(DataContainer.Instance.URConfig.IP, onComplete);
+            //RobotArmController.Connect(DataContainer.Instance.URConfig.IP, onComplete);
+            RobotArmController.AutoConnect(DataContainer.Instance.URConfig.IP, onComplete);
 
         }
 

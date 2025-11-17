@@ -34,16 +34,16 @@ namespace RobotArm_Module
 
                     string[] parts = line.Split(',');
 
-                    if (parts.Length == 6)
+                    if (parts.Length == 3)
                     {
                         CSVData data = new CSVData();
                         data.radianX = double.Parse(parts[0]);
                         data.radianY = double.Parse(parts[1]);
                         data.radianZ = double.Parse(parts[2]);
 
-                        data.velocity = double.Parse(parts[3]);
-                        data.acceleration = double.Parse(parts[4]);
-                        data.timeStamp = int.Parse(parts[5]);
+                        //data.velocity = double.Parse(parts[3]);
+                        //data.acceleration = double.Parse(parts[4]);
+                        //data.timeStamp = int.Parse(parts[5]);
                         //data.timeStamp = int.Parse(parts[3]);
 
                         dataList.Add(data);

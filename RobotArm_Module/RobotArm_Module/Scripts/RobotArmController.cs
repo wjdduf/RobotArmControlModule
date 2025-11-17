@@ -41,6 +41,11 @@ namespace RobotArm_Module
             return IConnect.Connect(ip, onComplete);
         }
 
+        public Task<bool> AutoConnect(string ip, Action<bool> onComplete = null)
+        {
+            return IConnect.AutoConnect(ip, onComplete);
+        }
+
         public bool DisConnect(Action<bool> onComplete = null)
         {
             return IConnect.DisConnect(onComplete);
@@ -146,11 +151,11 @@ namespace RobotArm_Module
             ISafety.UnlockProtectiveStop(onComplete);
         }
 
-        public List<CSVData> LoadCSV(string path)
+        public List<CSVData> LoadCSV(string fileName,string path)
         {
             CSVManager manager = new CSVManager();
 
-            List<CSVData> data = manager.LoadDataFromCsv("VDIS_GYRO_Radian_120ms", path);
+            List<CSVData> data = manager.LoadDataFromCsv(fileName, path);
 
             //RobotArmBuilder.CurrentRobotArm.PlayCSV(data);
 

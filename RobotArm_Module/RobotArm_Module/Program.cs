@@ -16,8 +16,8 @@ namespace RobotArm_Module
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new frmRobotConfigs());
-            Application.Run(new RBUI());
+            Application.Run(new frmRobotConfigs());
+            //Application.Run(new RBUI());
 
 
         }

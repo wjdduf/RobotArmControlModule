@@ -22,6 +22,8 @@ namespace RobotArm_Module
             throw new NotImplementedException();
         }
 
+        
+
         public override bool Connect(string ip, Action<bool> onComplete = null)
         {
             bool isSucces = false;
@@ -543,5 +545,7 @@ namespace RobotArm_Module
             Debug.Log("Move Check Complete");
             action?.Invoke(isPositionMatched);
         }
+
+        
     }
 }
